@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="WebPortal.Application/WebPortal.Application.csproj" Id="e15ac27f-da42-474d-844e-0aa06318e579" />
+  <Project Path="WebPortal.ASP/WebPortal.ASP.csproj" Id="88f873ba-5117-4f7f-b187-7666d8b720bf" />
+  <Project Path="WebPortal.Domain/WebPortal.Domain.csproj" Id="7488025e-cc38-4b56-bc28-d3ace7eda35a" />
+  <Project Path="WebPortal.Infrastructure/WebPortal.Infrastructure.csproj" Id="f4078a12-6670-446d-a445-f8c1203b0d45" />
+</Solution>

@@ -1,0 +1,7 @@
+ 
+# Ignore Visual Studio temporary cache folder at the root
+.vs/
+
+# Ignore bin and obj folders anywhere in the project (including subfolders)
+**/bin/
+**/obj/
