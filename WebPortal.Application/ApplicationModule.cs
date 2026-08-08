@@ -10,6 +10,12 @@ namespace WebPortal.Infrastructure
             builder.RegisterType<UserService>()
                 .As<IUserService>()
                 .InstancePerDependency();
+            builder.RegisterType<ServiceManager>()
+                .As<IServiceManager>()
+                .InstancePerDependency();
+            builder.RegisterType<BranchService>()
+                .As<IBranchService>()
+                .InstancePerDependency();
         }
     }
 }

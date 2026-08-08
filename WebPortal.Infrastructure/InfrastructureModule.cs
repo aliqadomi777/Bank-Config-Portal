@@ -19,7 +19,25 @@ namespace WebPortal.Infrastructure
             builder.RegisterType<UserRepository>()
                    .WithParameter("connectionString", _connectionString)
                    .AsSelf()
-                   .As<IFetchableRepository<UserModel>>()
+                   .As<IFetchableByBankUserRepository<UserModel>>()
+                   .InstancePerDependency();
+            builder.RegisterType<BranchRepository>()
+                   .WithParameter("connectionString", _connectionString)
+                   .AsSelf()
+                   .As<IFetchableRepository<BranchModel>>()
+                   .As<IListableRepository<BranchModel>>()
+                   .As<IAddableRepository<BranchModel>>()
+                   .As<IUpdateableRepository<BranchModel>>()
+                   .As<IDeleteableRepository<BranchModel>>()
+                   .InstancePerDependency();
+            builder.RegisterType<ServiceRepository>()
+                   .WithParameter("connectionString", _connectionString)
+                   .AsSelf()
+                   .As<IFetchableRepository<ServiceModel>>()
+                   .As<IListableRepository<ServiceModel>>()
+                   .As<IAddableRepository<ServiceModel>>()
+                   .As<IUpdateableRepository<ServiceModel>>()
+                   .As<IDeleteableRepository<ServiceModel>>()
                    .InstancePerDependency();
         }
     }

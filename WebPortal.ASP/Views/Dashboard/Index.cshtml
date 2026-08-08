@@ -1,1 +1,119 @@
-﻿<h1>Bank ID: @ViewBag.BankId</h1>
+﻿@model WebPortal.ASP.Models.DashboardViewModel
+
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Dashboard</h3>
+
+<br />
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <strong>Branches</strong>
+
+        @*<span class="pull-right">
+            
+        </span>*@
+
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="panel-body">
+
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th class="text-nowrap">English Name</th>
+                    <th class="text-nowrap">Arabic Name</th>
+                    <th class="text-nowrap" style="width: 80px;">Active</th>
+                    <th style="width: 200px; padding: 5px;">
+                        @Html.ActionLink("Add Branch", "Create", "Branch", null, new { @class = "btn btn-primary btn-xs", @style = "display: block; width: 100%; text-align: center;" })
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (var branch in Model.Branches)
+                {
+                    <tr>
+                        <td>@branch.BranchNameEN</td>
+                        <td>@branch.BranchNameAR</td>
+                        <td>
+                            @(branch.BranchStatus ? "Yes" : "No")
+                        </td>
+
+                        <td style="padding: 5px;">
+                            <div style="display: flex; gap: 4px;">
+                                @Html.ActionLink("Edit", "Edit", "Branch", new { id = branch.BranchId }, new { @class = "btn btn-warning btn-xs", @style = "flex: 1; text-align: center;" })
+                                @Html.ActionLink("Delete", "Delete", "Branch", new { id = branch.BranchId }, new { @class = "btn btn-danger btn-xs", @style = "flex: 1; text-align: center;" })
+                            </div>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<br />
+<br />
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <strong>Services</strong>
+
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="panel-body">
+
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th class="text-nowrap">English Name</th>
+                    <th class="text-nowrap">Arabic Name</th>
+                    <th class="text-nowrap" style="width: 160px;">Max Tickets / Day</th>
+                    <th class="text-nowrap" style="width: 80px;">Active</th>
+                    <th style="width: 200px; padding: 5px;">
+                        @Html.ActionLink("Add Service", "Create", "Service", null, new { @class = "btn btn-primary btn-xs", @style = "display: block; width: 100%; text-align: center;" })
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (var service in Model.Services)
+                {
+                    <tr>
+                        <td class="text-nowrap">@service.ServiceNameEN</td>
+                        <td class="text-nowrap">@service.ServiceNameAR</td>
+
+
+
+                        <td class="text-nowrap">
+                            @service.MaxTicketsPerDay
+                        </td>
+                        <td class="text-nowrap">
+                            @(service.ServiceStatus ? "Yes" : "No")
+                        </td>
+
+                        <td style="padding: 5px;">
+                            <div style="display: flex; gap: 4px;">
+                                @Html.ActionLink("Edit", "Edit", "Service", new { id = service.ServiceId }, new { @class = "btn btn-warning btn-xs", @style = "flex: 1; text-align: center;" })
+                                @Html.ActionLink("Delete", "Delete", "Service", new { id = service.ServiceId }, new { @class = "btn btn-danger btn-xs", @style = "flex: 1; text-align: center;" })
+                            </div>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+
+    </div>
+</div>

@@ -9,9 +9,9 @@ namespace WebPortal.Application.Services
 {
     public class UserService : IUserService
     {
-        private readonly IFetchableRepository<UserModel> _fetchRepository;
+        private readonly IFetchableByBankUserRepository<UserModel> _fetchRepository;
         //private readonly ILogger<UserModel> _logger;
-        public UserService(IFetchableRepository<UserModel> fetchRepository)
+        public UserService(IFetchableByBankUserRepository<UserModel> fetchRepository)
         {
             _fetchRepository = fetchRepository;
             //_logger = logger;

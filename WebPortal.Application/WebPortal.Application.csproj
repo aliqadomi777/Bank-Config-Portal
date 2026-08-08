@@ -69,10 +69,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationModule.cs" />
+    <Compile Include="DTO\Branch\BranchBaseRequestDto.cs" />
+    <Compile Include="DTO\Branch\BranchCreateRequestDto.cs" />
+    <Compile Include="DTO\Branch\BranchResponseDto.cs" />
+    <Compile Include="DTO\Branch\BranchUpdateRequestDto.cs" />
+    <Compile Include="DTO\Service\ServiceBaseRequestDto.cs" />
+    <Compile Include="DTO\Service\ServiceCreateRequestDto.cs" />
+    <Compile Include="DTO\Service\ServiceResponseDto.cs" />
+    <Compile Include="DTO\Service\ServiceUpdateRequestDto.cs" />
     <Compile Include="DTO\User\UserRequestDto.cs" />
     <Compile Include="DTO\User\UserResponseDto.cs" />
+    <Compile Include="Interfaces\IBranchService.cs" />
+    <Compile Include="Interfaces\IServiceManager.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\BranchService.cs" />
+    <Compile Include="Services\ServiceManager.cs" />
     <Compile Include="Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup>

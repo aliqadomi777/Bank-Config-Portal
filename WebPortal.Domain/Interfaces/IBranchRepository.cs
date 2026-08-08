@@ -1,0 +1,6 @@
+﻿namespace WebPortal.Domain.Interfaces
+{
+
+
+
+}

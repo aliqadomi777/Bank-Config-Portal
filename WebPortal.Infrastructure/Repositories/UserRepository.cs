@@ -4,7 +4,7 @@ using WebPortal.Domain.Interfaces;
 using WebPortal.Domain.Model;
 namespace WebPortal.Infrastructure.Repositories
 {
-    public class UserRepository : BaseRepository, IFetchableRepository<UserModel>
+    public class UserRepository : BaseRepository, IFetchableByBankUserRepository<UserModel>
     {
         public UserRepository(string connectionString) : base(connectionString) { }
         public UserModel GetByName(string bankName, string userName)
