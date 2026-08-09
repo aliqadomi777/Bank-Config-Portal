@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
-using System.Web.Razor.Parser.SyntaxTree;
 using WebPortal.Application.Interfaces;
 using WebPortal.ASP.Models;
 
@@ -9,15 +8,12 @@ namespace WebPortal.ASP.Controllers
 {
     public class DashboardController : BaseController
     {
-        private readonly IUserService _userService;
         private readonly IServiceManager _serviceManager;
         private readonly IBranchService _branchService;
 
-        public DashboardController(IUserService userService,
-                                   IBranchService branchService,
+        public DashboardController(IBranchService branchService,
                                    IServiceManager serviceManager)
         {
-            _userService = userService;
             _serviceManager = serviceManager;
             _branchService = branchService;
         }

@@ -1,9 +1,18 @@
-﻿<!DOCTYPE html>
-<html>
+﻿@{
+    string currentLanguage = "en";
+
+    if (Request.Cookies["Culture"] != null)
+    {
+        currentLanguage = Request.Cookies["Culture"].Value;
+    }
+
+}
+<!DOCTYPE html>
+<html lang="@currentLanguage" dir="@(currentLanguage == "ar" ? "rtl" : "ltr")">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Log In</title>
+    <title>Bank Portal</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <style>
@@ -35,11 +44,64 @@
             .btn-custom-login:hover {
                 background-color: #0056b3;
             }
+
+        .language-container {
+            direction: ltr;
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 15px;
+        }
+
+        .language-option {
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            background: #fff;
+            color: #555;
+            text-decoration: none;
+            font-size: 12px;
+        }
+
+            .language-option:first-child {
+                border-radius: 4px 0 0 4px;
+            }
+
+            .language-option:last-child {
+                border-radius: 0 4px 4px 0;
+                margin-left: -1px;
+            }
+
+            .language-option:hover {
+                background: #f5f5f5;
+                text-decoration: none;
+                color: #333;
+            }
+
+            .language-option.active {
+                background: #337ab7;
+                border-color: #337ab7;
+                color: #fff;
+            }
     </style>
 </head>
 <body>
+    <div class="language-container">
+
+        <a href="@Url.Action("ChangeLanguage", "Language", new { language = "en", returnUrl = Request.RawUrl })"
+           class="language-option @(currentLanguage == "en" ? "active" : "")"
+           onclick="window.location.replace(this.href); return false;">
+            EN
+        </a>
+
+        <a href="@Url.Action("ChangeLanguage", "Language", new { language = "ar", returnUrl = Request.RawUrl })"
+           class="language-option @(currentLanguage == "ar" ? "active" : "")"
+           onclick="window.location.replace(this.href); return false;">
+            AR
+        </a>
+
+    </div>
+
     <div class="container body-content">
-        @RenderBody() 
+        @RenderBody()
     </div>
 
     @Scripts.Render("~/bundles/jquery")
@@ -50,7 +112,7 @@
 
 
 <script>
-    window.addEventListener('pageshow', function (event) {
+    window.addEventListener("pageshow", function (event) {
         if (event.persisted) {
             window.location.reload();
         }
