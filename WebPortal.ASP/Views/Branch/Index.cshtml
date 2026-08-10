@@ -1,0 +1,195 @@
+﻿@model WebPortal.ASP.Models.BranchViewModel
+@using WebPortal.ASP.Resources
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-info">
+        @TempData["Error"]
+    </div>
+
+}
+@{
+    ViewBag.Title = Model.BranchId == 0
+        ? Resources.AddBranch
+        : Resources.EditBranch;
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .branch-form-panel {
+        max-width: 700px;
+        margin: 30px auto;
+    }
+
+        .branch-form-panel .panel-heading {
+            padding: 12px 15px;
+        }
+
+        .branch-form-panel .panel-title {
+            font-size: 18px;
+        }
+
+        .branch-form-panel .panel-body {
+            padding: 25px;
+        }
+
+    .branch-form-buttons {
+        margin-top: 20px;
+        text-align: right;
+    }
+
+        .branch-form-buttons .btn {
+            min-width: 90px;
+            margin-left: 5px;
+        }
+
+    .branch-arabic-input {
+        direction: rtl;
+        text-align: right;
+    }
+
+    .text-danger {
+        display: block;
+        margin-top: 5px;
+    }
+</style>
+
+<div class="panel panel-default branch-form-panel">
+
+    <div class="panel-heading">
+
+        <h3 class="panel-title">
+            @(Model.BranchId == 0
+                ? Resources.AddBranch
+                : Resources.EditBranch)
+        </h3>
+
+    </div>
+
+    <div class="panel-body">
+
+        @using (Html.BeginForm(
+            "Save",
+            "Branch",
+            FormMethod.Post,
+            new { @class = "form-horizontal" }))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.HiddenFor(m => m.BranchId)
+
+            <div class="form-group">
+
+                @Html.LabelFor(
+                    m => m.BranchNameEN,
+                    Resources.EnglishName,
+                    new
+                    {
+                        @class = "col-sm-4 control-label"
+                    })
+
+                <div class="col-sm-8">
+
+                    @Html.TextBoxFor(
+                        m => m.BranchNameEN,
+                        new
+                        {
+                            @class = "form-control"
+                        })
+
+                    @Html.ValidationMessageFor(
+                        m => m.BranchNameEN,
+                        "",
+                        new
+                        {
+                            @class = "text-danger"
+                        })
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                @Html.LabelFor(
+                    m => m.BranchNameAR,
+                    Resources.ArabicName,
+                    new
+                    {
+                        @class = "col-sm-4 control-label"
+                    })
+
+                <div class="col-sm-8">
+
+                    @Html.TextBoxFor(
+                        m => m.BranchNameAR,
+                        new
+                        {
+                            @class = "form-control branch-arabic-input"
+                        })
+
+                    @Html.ValidationMessageFor(
+                        m => m.BranchNameAR,
+                        "",
+                        new
+                        {
+                            @class = "text-danger"
+                        })
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                @Html.LabelFor(
+                    m => m.BranchStatus,
+                    Resources.Active,
+                    new
+                    {
+                        @class = "col-sm-4 control-label"
+                    })
+
+                <div class="col-sm-8">
+
+                    <div class="checkbox">
+
+                        @Html.CheckBoxFor(
+                            m => m.BranchStatus)
+
+                    </div>
+
+                    @Html.ValidationMessageFor(
+                        m => m.BranchStatus,
+                        "",
+                        new
+                        {
+                            @class = "text-danger"
+                        })
+
+                </div>
+
+            </div>
+
+            <div class="branch-form-buttons">
+
+                <a href="@Url.Action("Index", "Dashboard")"
+                   class="btn btn-default">
+                    @Resources.Cancel
+                </a>
+
+                <button type="submit"
+                        class="btn btn-primary">
+                    @Resources.Save
+                </button>
+
+            </div>
+        }
+
+    </div>
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

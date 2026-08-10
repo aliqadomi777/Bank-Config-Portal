@@ -1,13 +1,15 @@
-﻿using System;
+﻿using App.Shared;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data.SqlClient;
 using System.Linq;
 using WebPortal.Application.DTO.Branch;
+using WebPortal.Application.Exceptions;
 using WebPortal.Application.Interfaces;
 using WebPortal.Domain.Interfaces;
 using WebPortal.Domain.Model;
-
-
 namespace WebPortal.Application.Services
 {
     public class BranchService : IBranchService
@@ -17,19 +19,20 @@ namespace WebPortal.Application.Services
         private readonly IAddableRepository<BranchModel> _addRepository;
         private readonly IUpdateableRepository<BranchModel> _updateRepository;
         private readonly IDeleteableRepository<BranchModel> _deleteRepository;
-        //private readonly ILogger<BranchModel> _logger;
+        private readonly ILogger<BranchModel> _logger;
         public BranchService(IFetchableRepository<BranchModel> fetchRepository,
                              IListableRepository<BranchModel> listRepository,
                              IAddableRepository<BranchModel> addRepository,
                              IUpdateableRepository<BranchModel> updateRepository,
-                             IDeleteableRepository<BranchModel> deleteRepository)
+                             IDeleteableRepository<BranchModel> deleteRepository,
+                             ILogger<BranchModel> logger)
         {
             _fetchRepository = fetchRepository;
             _listRepository = listRepository;
             _addRepository = addRepository;
             _updateRepository = updateRepository;
             _deleteRepository = deleteRepository;
-            //_logger = logger;
+            _logger = logger;
         }
 
         public BranchResponseDto GetBranchById(int branchId)
@@ -54,19 +57,19 @@ namespace WebPortal.Application.Services
             }
             catch (SqlException ex)
             {
-                //_logger.LogError(ex,
-                //          ex.Message,
-                //          ex.Number,
-                //          branchId);
+                _logger.LogError(ex,
+                          ex.Message,
+                          ex.Number,
+                          branchId);
                 throw;
             }
 
 
             catch (Exception ex)
             {
-                //_logger.LogError(ex,
-                //    ex.Message,
-                //    branchId);
+                _logger.LogError(ex,
+                    ex.Message,
+                    branchId);
                 throw;
 
             }
@@ -93,10 +96,10 @@ namespace WebPortal.Application.Services
             }
             catch (SqlException ex)
             {
-                //_logger.LogError(ex,
-                //          ex.Message,
-                //          ex.Number,
-                //          bankId);
+                _logger.LogError(ex,
+                          ex.Message,
+                          ex.Number,
+                          bankId);
                 throw;
 
             }
@@ -104,9 +107,9 @@ namespace WebPortal.Application.Services
 
             catch (Exception ex)
             {
-                //_logger.LogError(ex,
-                //    ex.Message,
-                //    bankId);
+                _logger.LogError(ex,
+                    ex.Message,
+                    bankId);
                 throw;
 
             }
@@ -115,6 +118,7 @@ namespace WebPortal.Application.Services
         {
             try
             {
+                ValidationExtensions.ValidateModel(request);
                 var branchModel = new BranchModel
                 {
                     BranchNameEN = request.BranchNameEN,
@@ -126,22 +130,38 @@ namespace WebPortal.Application.Services
                 int newBranchId = _addRepository.Add(branchModel);
                 return newBranchId;
             }
+            catch (ValidationException)
+            {
+                return 0;
+            }
+            catch (SqlException ex) when (ex.Number == (int)SqlErrorTypes.UniqueConstraintViolation)
+            {
+                throw new DuplicateRecordException(
+                    $"A Branch with the same English/Arabic name already exists",
+                    ex);
+            }
+            catch (SqlException ex) when (ex.Number == (int)SqlErrorTypes.ForeignKeyViolation)
+            {
+                throw new ParentDeletedWithChildConflictException(
+                    $"The bank you are adding the branch to, has been deleted.",
+                    ex);
+            }
 
             catch (SqlException ex)
             {
-                //_logger.LogError(ex,
-                //          ex.Message,
-                //          ex.Number,
-                //          request.BranchNameEN);
+                _logger.LogError(ex,
+                          ex.Message,
+                          ex.Number,
+                          request.BranchNameEN);
 
                 throw;
 
             }
             catch (Exception ex)
             {
-                //_logger.LogError(ex,
-                //    ex.Message,
-                //    request.BranchNameEN);
+                _logger.LogError(ex,
+                    ex.Message,
+                    request.BranchNameEN);
 
                 throw;
 
@@ -153,6 +173,7 @@ namespace WebPortal.Application.Services
         {
             try
             {
+                ValidationExtensions.ValidateModel(request);
                 var branchModel = new BranchModel
                 {
                     BranchId = request.BranchId,
@@ -163,21 +184,38 @@ namespace WebPortal.Application.Services
                 bool isUpdated = _updateRepository.Update(branchModel);
                 return isUpdated;
             }
+            catch (ValidationException)
+            {
+                return false;
+            }
+            catch (SqlException ex) when (ex.Number == (int)SqlErrorTypes.UniqueConstraintViolation)
+            {
+                throw new DuplicateRecordException(
+                    $"A branch with the same English/Arabic name already exists",
+                    ex);
+            }
+            catch (SqlException ex) when (ex.Number == (int)SqlErrorTypes.ForeignKeyViolation)
+            {
+                throw new ParentDeletedWithChildConflictException(
+                    $"The bank you are adding the branch to, has been deleted.",
+                    ex);
+            }
+
             catch (SqlException ex)
             {
-                //_logger.LogError(ex,
-                //          ex.Message,
-                //          ex.Number,
-                //          request.BranchNameEN);
+                _logger.LogError(ex,
+                          ex.Message,
+                          ex.Number,
+                          request.BranchNameEN);
 
                 throw;
 
             }
             catch (Exception ex)
             {
-                //_logger.LogError(ex,
-                //    ex.Message,
-                //    request.BranchNameEN);
+                _logger.LogError(ex,
+                    ex.Message,
+                    request.BranchNameEN);
 
                 throw;
 
@@ -192,19 +230,19 @@ namespace WebPortal.Application.Services
             }
             catch (SqlException ex)
             {
-                //_logger.LogError(ex,
-                //          ex.Message,
-                //          ex.Number,
-                //          branchId);
+                _logger.LogError(ex,
+                          ex.Message,
+                          ex.Number,
+                          branchId);
 
                 throw;
 
             }
             catch (Exception ex)
             {
-                //_logger.LogError(ex,
-                //    ex.Message,
-                //    branchId);
+                _logger.LogError(ex,
+                    ex.Message,
+                    branchId);
 
                 throw;
 

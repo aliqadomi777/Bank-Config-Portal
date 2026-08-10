@@ -135,6 +135,9 @@
   <data name="Branches" xml:space="preserve">
     <value>الفروع</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>الغاء</value>
+  </data>
   <data name="ConfirmDelete" xml:space="preserve">
     <value>هل أنت متأكد أنك تريد حذف هذا؟</value>
   </data>
@@ -144,8 +147,14 @@
   <data name="Edit" xml:space="preserve">
     <value>تعديل</value>
   </data>
+  <data name="EditService" xml:space="preserve">
+    <value>تعديل الخدمة</value>
+  </data>
   <data name="EnglishName" xml:space="preserve">
     <value>الاسم بالانجليزية</value>
+  </data>
+  <data name="ItemDeleted" xml:space="preserve">
+    <value>تم حذف هذا العنصر</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>تسجيل دخول</value>
@@ -156,6 +165,12 @@
   <data name="MaxTicketsPerDay" xml:space="preserve">
     <value>أقصى عدد تذاكر في اليوم</value>
   </data>
+  <data name="MaxTicketsPerDayInvalid" xml:space="preserve">
+    <value> يجب أن يكون الحد الأقصى للتذاكر اليومية بين ال 1 و 100</value>
+  </data>
+  <data name="MaxTicketsPerDayRequired" xml:space="preserve">
+    <value> الحد الأقصى للتذاكر اليومية مطلوب</value>
+  </data>
   <data name="No" xml:space="preserve">
     <value>لا</value>
   </data>
@@ -165,6 +180,15 @@
   <data name="RequiredError" xml:space="preserve">
     <value> {0} مطلوب</value>
   </data>
+  <data name="Save" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="ServiceNameARRequired" xml:space="preserve">
+    <value>اسم الخدمة بالعربية مطلوب</value>
+  </data>
+  <data name="ServiceNameENRequired" xml:space="preserve">
+    <value>اسم الخدمة بالإنجليزية مطلوب</value>
+  </data>
   <data name="Services" xml:space="preserve">
     <value>الخدمات</value>
   </data>
@@ -173,5 +197,62 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>نعم</value>
+  </data>
+  <data name="BranchNameENRequired" xml:space="preserve">
+    <value>اسم الفرع بالإنجليزية مطلوب</value>
+  </data>
+  <data name="BranchNameARRequired" xml:space="preserve">
+    <value>اسم الفرع بالعربية مطلوب</value>
+  </data>
+  <data name="EditBranch" xml:space="preserve">
+    <value>تعديل الفرع</value>
+  </data>
+  <data name="ServiceDuplicateName" xml:space="preserve">
+    <value>هناك خدمة بنفس الاسم باللغة الإنجليزية أو العربية موجودة</value>
+  </data>
+  <data name="ServiceOrphan" xml:space="preserve">
+    <value>البنك الذي تقوم بإضافة الخدمة إليه قد تم حذفه</value>
+  </data>
+  <data name="GeneralError" xml:space="preserve">
+    <value>حدثت مشكلة أثناء إكمال هذا الإجراء</value>
+  </data>
+  <data name="BranchDuplicateName" xml:space="preserve">
+    <value>هناك فرع بنفس الاسم باللغة الإنجليزية أو العربية موجودة</value>
+  </data>
+  <data name="BranchOrphan" xml:space="preserve">
+    <value>البنك الذي تقوم بإضافة  الفرع إليه قد تم حذفه</value>
+  </data>
+  <data name="BranchNameENMaxLength" xml:space="preserve">
+    <value>اسم الفرع بالإنجليزية لا يمكن أن يتجاوز 100 حرف</value>
+  </data>
+  <data name="BranchNameENInvalidCharacters" xml:space="preserve">
+    <value>اسم الفرع بالإنجليزية يحتوي على رموز غير مسموح بها</value>
+  </data>
+  <data name="BranchNameARMaxLength" xml:space="preserve">
+    <value>اسم الفرع بالعربية لا يمكن أن يتجاوز 100 حرف</value>
+  </data>
+  <data name="BranchNameARInvalidCharacters" xml:space="preserve">
+    <value>اسم الفرع بالعربية يحتوي على رموز غير مسموح بها</value>
+  </data>
+  <data name="ServiceNameENMaxLength" xml:space="preserve">
+    <value>اسم الخدمة بالإنجليزية لا يمكن أن يتجاوز 100 حرف</value>
+  </data>
+  <data name="ServiceNameENInvalidCharacters" xml:space="preserve">
+    <value>اسم الخدمة بالإنجليزية يحتوي على رموز غير مسموح بها</value>
+  </data>
+  <data name="ServiceNameARMaxLength" xml:space="preserve">
+    <value>اسم الخدمة بالعربية لا يمكن أن يتجاوز 100 حرف</value>
+  </data>
+  <data name="ServiceNameARInvalidCharacters" xml:space="preserve">
+    <value>اسم الخدمة بالعربية يحتوي على رموز غير مسموح بها</value>
+  </data>
+  <data name="ServiceStatusRequired" xml:space="preserve">
+    <value>حالة الخدمة مطلوبة</value>
+  </data>
+  <data name="BranchStatusRequired" xml:space="preserve">
+    <value>حالة الفرع مطلوبة</value>
+  </data>
+  <data name="Unauthorized" xml:space="preserve">
+    <value>اسم المستخدم أو كلمة المرور غير صالحة</value>
   </data>
 </root>

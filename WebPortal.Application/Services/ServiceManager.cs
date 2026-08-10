@@ -1,12 +1,15 @@
-﻿using System;
+﻿using App.Shared;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data.SqlClient;
 using System.Linq;
 using WebPortal.Application.DTO.Service;
+using WebPortal.Application.Exceptions;
 using WebPortal.Application.Interfaces;
 using WebPortal.Domain.Interfaces;
 using WebPortal.Domain.Model;
-
 namespace WebPortal.Application.Services
 {
     public class ServiceManager : IServiceManager
@@ -16,19 +19,20 @@ namespace WebPortal.Application.Services
         private readonly IAddableRepository<ServiceModel> _addRepository;
         private readonly IUpdateableRepository<ServiceModel> _updateRepository;
         private readonly IDeleteableRepository<ServiceModel> _deleteRepository;
-        //private readonly ILogger<BranchModel> _logger;
+        private readonly ILogger<ServiceModel> _logger;
         public ServiceManager(IFetchableRepository<ServiceModel> fetchRepository,
                              IListableRepository<ServiceModel> listRepository,
                              IAddableRepository<ServiceModel> addRepository,
                              IUpdateableRepository<ServiceModel> updateRepository,
-                             IDeleteableRepository<ServiceModel> deleteRepository)
+                             IDeleteableRepository<ServiceModel> deleteRepository,
+                             ILogger<ServiceModel> logger)
         {
             _fetchRepository = fetchRepository;
             _listRepository = listRepository;
             _addRepository = addRepository;
             _updateRepository = updateRepository;
             _deleteRepository = deleteRepository;
-            //_logger = logger;
+            _logger = logger;
         }
         public ServiceResponseDto GetServiceById(int serviceId)
         {
@@ -53,19 +57,19 @@ namespace WebPortal.Application.Services
             }
             catch (SqlException ex)
             {
-                //_logger.LogError(ex,
-                //          ex.Message,
-                //          ex.Number,
-                //          serviceId);
+                _logger.LogError(ex,
+                          ex.Message,
+                          ex.Number,
+                          serviceId);
                 throw;
             }
 
 
             catch (Exception ex)
             {
-                //_logger.LogError(ex,
-                //    ex.Message,
-                //    serviceId);
+                _logger.LogError(ex,
+                    ex.Message,
+                    serviceId);
                 throw;
 
             }
@@ -92,10 +96,10 @@ namespace WebPortal.Application.Services
             }
             catch (SqlException ex)
             {
-                //_logger.LogError(ex,
-                //          ex.Message,
-                //          ex.Number,
-                //          bankId);
+                _logger.LogError(ex,
+                          ex.Message,
+                          ex.Number,
+                          bankId);
                 throw;
 
             }
@@ -103,9 +107,9 @@ namespace WebPortal.Application.Services
 
             catch (Exception ex)
             {
-                //_logger.LogError(ex,
-                //    ex.Message,
-                //    bankId);
+                _logger.LogError(ex,
+                    ex.Message,
+                    bankId);
                 throw;
 
             }
@@ -115,6 +119,7 @@ namespace WebPortal.Application.Services
         {
             try
             {
+                ValidationExtensions.ValidateModel(request);
                 var serviceModel = new ServiceModel
                 {
                     ServiceNameEN = request.ServiceNameEN,
@@ -127,22 +132,38 @@ namespace WebPortal.Application.Services
                 int newServiceId = _addRepository.Add(serviceModel);
                 return newServiceId;
             }
+            catch (ValidationException)
+            {
+                return 0;
+            }
+            catch (SqlException ex) when (ex.Number == (int)SqlErrorTypes.UniqueConstraintViolation)
+            {
+                throw new DuplicateRecordException(
+                    $"A service with the same English/Arabic name already exists",
+                    ex);
+            }
+            catch (SqlException ex) when (ex.Number == (int)SqlErrorTypes.ForeignKeyViolation)
+            {
+                throw new ParentDeletedWithChildConflictException(
+                    $"The bank you are adding the service to, has been deleted.",
+                    ex);
+            }
 
             catch (SqlException ex)
             {
-                //_logger.LogError(ex,
-                //          ex.Message,
-                //          ex.Number,
-                //          request.ServiceNameEN);
+                _logger.LogError(ex,
+                          ex.Message,
+                          ex.Number,
+                          request.ServiceNameEN);
 
                 throw;
 
             }
             catch (Exception ex)
             {
-                //_logger.LogError(ex,
-                //    ex.Message,
-                //    request.ServiceNameEN);
+                _logger.LogError(ex,
+                    ex.Message,
+                    request.ServiceNameEN);
 
                 throw;
 
@@ -153,6 +174,7 @@ namespace WebPortal.Application.Services
         {
             try
             {
+                ValidationExtensions.ValidateModel(request);
                 var serviceModel = new ServiceModel
                 {
                     ServiceId = request.ServiceId,
@@ -165,21 +187,37 @@ namespace WebPortal.Application.Services
                 bool isUpdated = _updateRepository.Update(serviceModel);
                 return isUpdated;
             }
+            catch (ValidationException)
+            {
+                return false;
+            }
+            catch (SqlException ex) when (ex.Number == (int)SqlErrorTypes.UniqueConstraintViolation)
+            {
+                throw new DuplicateRecordException(
+                    $"A service with the same English/Arabic name already exists",
+                    ex);
+            }
+            catch (SqlException ex) when (ex.Number == (int)SqlErrorTypes.ForeignKeyViolation)
+            {
+                throw new ParentDeletedWithChildConflictException(
+                    $"The bank you are updating the service on, has been deleted.",
+                    ex);
+            }
             catch (SqlException ex)
             {
-                //_logger.LogError(ex,
-                //          ex.Message,
-                //          ex.Number,
-                //          request.ServiceNameEN);
+                _logger.LogError(ex,
+                          ex.Message,
+                          ex.Number,
+                          request.ServiceNameEN);
 
                 throw;
 
             }
             catch (Exception ex)
             {
-                //_logger.LogError(ex,
-                //    ex.Message,
-                //    request.ServiceNameEN);
+                _logger.LogError(ex,
+                    ex.Message,
+                    request.ServiceNameEN);
 
                 throw;
 
@@ -194,19 +232,19 @@ namespace WebPortal.Application.Services
             }
             catch (SqlException ex)
             {
-                //_logger.LogError(ex,
-                //          ex.Message,
-                //          ex.Number,
-                //          serviceId);
+                _logger.LogError(ex,
+                          ex.Message,
+                          ex.Number,
+                          serviceId);
 
                 throw;
 
             }
             catch (Exception ex)
             {
-                //_logger.LogError(ex,
-                //    ex.Message,
-                //    serviceId);
+                _logger.LogError(ex,
+                    ex.Message,
+                    serviceId);
 
                 throw;
 

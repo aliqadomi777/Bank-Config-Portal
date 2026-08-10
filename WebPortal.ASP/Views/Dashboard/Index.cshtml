@@ -1,6 +1,13 @@
 ﻿@using WebPortal.ASP.Resources
 @model WebPortal.ASP.Models.DashboardViewModel
 
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-info">
+        @TempData["Message"]
+    </div>
+}
+
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     string currentLanguage = Session["Culture"]?.ToString() ?? "en";
@@ -10,7 +17,7 @@
     .dashboard-table {
         width: 100%;
         table-layout: fixed;
-        direction: ltr;
+/*        direction: ltr;*/
     }
 
         .dashboard-table th,
@@ -32,7 +39,7 @@
     .action-buttons {
         display: flex;
         flex-direction: row;
-        direction: ltr;
+/*        direction: ltr;*/
         gap: 4px;
     }
 

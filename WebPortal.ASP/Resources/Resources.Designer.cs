@@ -106,11 +106,101 @@ namespace WebPortal.ASP.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A branch with the same EN/AR name already exists.
+        /// </summary>
+        public static string BranchDuplicateName {
+            get {
+                return ResourceManager.GetString("BranchDuplicateName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Branches.
         /// </summary>
         public static string Branches {
             get {
                 return ResourceManager.GetString("Branches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arabic branch name contains invalid characters..
+        /// </summary>
+        public static string BranchNameARInvalidCharacters {
+            get {
+                return ResourceManager.GetString("BranchNameARInvalidCharacters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arabic branch name cannot exceed 100 characters..
+        /// </summary>
+        public static string BranchNameARMaxLength {
+            get {
+                return ResourceManager.GetString("BranchNameARMaxLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arabic branch name is required..
+        /// </summary>
+        public static string BranchNameARRequired {
+            get {
+                return ResourceManager.GetString("BranchNameARRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Branch name contains invalid characters..
+        /// </summary>
+        public static string BranchNameENInvalidCharacters {
+            get {
+                return ResourceManager.GetString("BranchNameENInvalidCharacters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Branch name cannot exceed 100 characters..
+        /// </summary>
+        public static string BranchNameENMaxLength {
+            get {
+                return ResourceManager.GetString("BranchNameENMaxLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to English branch name is required..
+        /// </summary>
+        public static string BranchNameENRequired {
+            get {
+                return ResourceManager.GetString("BranchNameENRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The bank you are adding branch to, has been deleted.
+        /// </summary>
+        public static string BranchOrphan {
+            get {
+                return ResourceManager.GetString("BranchOrphan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Branch status is required..
+        /// </summary>
+        public static string BranchStatusRequired {
+            get {
+                return ResourceManager.GetString("BranchStatusRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
             }
         }
         
@@ -142,11 +232,47 @@ namespace WebPortal.ASP.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit Branch.
+        /// </summary>
+        public static string EditBranch {
+            get {
+                return ResourceManager.GetString("EditBranch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Service.
+        /// </summary>
+        public static string EditService {
+            get {
+                return ResourceManager.GetString("EditService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to English Name.
         /// </summary>
         public static string EnglishName {
             get {
                 return ResourceManager.GetString("EnglishName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A problem has occurred while completing this action.
+        /// </summary>
+        public static string GeneralError {
+            get {
+                return ResourceManager.GetString("GeneralError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This item has been deleted..
+        /// </summary>
+        public static string ItemDeleted {
+            get {
+                return ResourceManager.GetString("ItemDeleted", resourceCulture);
             }
         }
         
@@ -178,6 +304,24 @@ namespace WebPortal.ASP.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Maximum tickets per day must be between 1 and 100.
+        /// </summary>
+        public static string MaxTicketsPerDayInvalid {
+            get {
+                return ResourceManager.GetString("MaxTicketsPerDayInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maximum tickets per day is required..
+        /// </summary>
+        public static string MaxTicketsPerDayRequired {
+            get {
+                return ResourceManager.GetString("MaxTicketsPerDayRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
         public static string No {
@@ -205,11 +349,110 @@ namespace WebPortal.ASP.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A service with the same EN/AR name already exists.
+        /// </summary>
+        public static string ServiceDuplicateName {
+            get {
+                return ResourceManager.GetString("ServiceDuplicateName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arabic service name contains invalid characters..
+        /// </summary>
+        public static string ServiceNameARInvalidCharacters {
+            get {
+                return ResourceManager.GetString("ServiceNameARInvalidCharacters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arabic service name cannot exceed 100 characters..
+        /// </summary>
+        public static string ServiceNameARMaxLength {
+            get {
+                return ResourceManager.GetString("ServiceNameARMaxLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arabic service name is required..
+        /// </summary>
+        public static string ServiceNameARRequired {
+            get {
+                return ResourceManager.GetString("ServiceNameARRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Service name contains invalid characters..
+        /// </summary>
+        public static string ServiceNameENInvalidCharacters {
+            get {
+                return ResourceManager.GetString("ServiceNameENInvalidCharacters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Service name cannot exceed 100 characters..
+        /// </summary>
+        public static string ServiceNameENMaxLength {
+            get {
+                return ResourceManager.GetString("ServiceNameENMaxLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to English service name is required..
+        /// </summary>
+        public static string ServiceNameENRequired {
+            get {
+                return ResourceManager.GetString("ServiceNameENRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The bank you are adding service to, has been deleted.
+        /// </summary>
+        public static string ServiceOrphan {
+            get {
+                return ResourceManager.GetString("ServiceOrphan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Services.
         /// </summary>
         public static string Services {
             get {
                 return ResourceManager.GetString("Services", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Service status is required..
+        /// </summary>
+        public static string ServiceStatusRequired {
+            get {
+                return ResourceManager.GetString("ServiceStatusRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid credentials.
+        /// </summary>
+        public static string Unauthorized {
+            get {
+                return ResourceManager.GetString("Unauthorized", resourceCulture);
             }
         }
         

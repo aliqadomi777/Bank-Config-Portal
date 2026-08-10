@@ -27,10 +27,12 @@ namespace WebPortal.ASP
                 language = cultureCookie.Value;
             }
 
-            CultureInfo culture = new CultureInfo(language);
+            CultureInfo uiCulture = new CultureInfo(language == "ar" ? "ar" : "en");
+            Thread.CurrentThread.CurrentUICulture = uiCulture;
 
-            Thread.CurrentThread.CurrentCulture = culture;
-            Thread.CurrentThread.CurrentUICulture = culture;
+
+            CultureInfo systemCulture = CultureInfo.InvariantCulture;
+            Thread.CurrentThread.CurrentCulture = systemCulture;
         }
 
         public void OnActionExecuted(ActionExecutedContext filterContext)

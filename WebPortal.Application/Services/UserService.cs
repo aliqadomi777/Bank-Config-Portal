@@ -1,4 +1,7 @@
-﻿using System;
+﻿using App.Shared;
+using Microsoft.Extensions.Logging;
+using System;
+using System.ComponentModel.DataAnnotations;
 using System.Data.SqlClient;
 using WebPortal.Application.DTO.User;
 using WebPortal.Application.Interfaces;
@@ -10,11 +13,12 @@ namespace WebPortal.Application.Services
     public class UserService : IUserService
     {
         private readonly IFetchableByBankUserRepository<UserModel> _fetchRepository;
-        //private readonly ILogger<UserModel> _logger;
-        public UserService(IFetchableByBankUserRepository<UserModel> fetchRepository)
+        private readonly ILogger<UserModel> _logger;
+        public UserService(IFetchableByBankUserRepository<UserModel> fetchRepository,
+            ILogger<UserModel> logger)
         {
             _fetchRepository = fetchRepository;
-            //_logger = logger;
+            _logger = logger;
         }
         public UserResponseDto Login(UserRequestDto request)
         {
@@ -24,6 +28,7 @@ namespace WebPortal.Application.Services
             }
             try
             {
+                ValidationExtensions.ValidateModel(request);
                 var details = _fetchRepository.GetByName(request.BankName.Trim(), request.UserName.Trim());
 
                 if (details == null)
@@ -46,14 +51,18 @@ namespace WebPortal.Application.Services
                 };
             }
 
+            catch (ValidationException)
+            {
+                return null;
+            }
             catch (SqlException ex)
             {
-                //_logger.LogError(ex, ex.Message, ex.Number);
+                _logger.LogError(ex, ex.Message);
                 throw;
             }
             catch (Exception ex)
             {
-                //_logger.LogError(ex, ex.Message);
+                _logger.LogError(ex, ex.Message);
                 throw;
             }
 

@@ -135,6 +135,9 @@
   <data name="Branches" xml:space="preserve">
     <value>Branches</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="ConfirmDelete" xml:space="preserve">
     <value>Are you sure you want to delete this?</value>
   </data>
@@ -144,8 +147,14 @@
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
   </data>
+  <data name="EditService" xml:space="preserve">
+    <value>Edit Service</value>
+  </data>
   <data name="EnglishName" xml:space="preserve">
     <value>English Name</value>
+  </data>
+  <data name="ItemDeleted" xml:space="preserve">
+    <value>This item has been deleted.</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>Login</value>
@@ -156,6 +165,12 @@
   <data name="MaxTicketsPerDay" xml:space="preserve">
     <value>Max Tickets / Day</value>
   </data>
+  <data name="MaxTicketsPerDayInvalid" xml:space="preserve">
+    <value>Maximum tickets per day must be between 1 and 100</value>
+  </data>
+  <data name="MaxTicketsPerDayRequired" xml:space="preserve">
+    <value>Maximum tickets per day is required.</value>
+  </data>
   <data name="No" xml:space="preserve">
     <value>No</value>
   </data>
@@ -165,6 +180,15 @@
   <data name="RequiredError" xml:space="preserve">
     <value>The {0} is required.</value>
   </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="ServiceNameARRequired" xml:space="preserve">
+    <value>Arabic service name is required.</value>
+  </data>
+  <data name="ServiceNameENRequired" xml:space="preserve">
+    <value>English service name is required.</value>
+  </data>
   <data name="Services" xml:space="preserve">
     <value>Services</value>
   </data>
@@ -173,5 +197,62 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>
+  </data>
+  <data name="BranchNameENRequired" xml:space="preserve">
+    <value>English branch name is required.</value>
+  </data>
+  <data name="BranchNameARRequired" xml:space="preserve">
+    <value>Arabic branch name is required.</value>
+  </data>
+  <data name="EditBranch" xml:space="preserve">
+    <value>Edit Branch</value>
+  </data>
+  <data name="ServiceDuplicateName" xml:space="preserve">
+    <value>A service with the same EN/AR name already exists</value>
+  </data>
+  <data name="ServiceOrphan" xml:space="preserve">
+    <value>The bank you are adding service to, has been deleted</value>
+  </data>
+  <data name="GeneralError" xml:space="preserve">
+    <value>A problem has occurred while completing this action</value>
+  </data>
+  <data name="BranchDuplicateName" xml:space="preserve">
+    <value>A branch with the same EN/AR name already exists</value>
+  </data>
+  <data name="BranchOrphan" xml:space="preserve">
+    <value>The bank you are adding branch to, has been deleted</value>
+  </data>
+  <data name="BranchNameENMaxLength" xml:space="preserve">
+    <value>Branch name cannot exceed 100 characters.</value>
+  </data>
+  <data name="BranchNameENInvalidCharacters" xml:space="preserve">
+    <value>Branch name contains invalid characters.</value>
+  </data>
+  <data name="BranchNameARMaxLength" xml:space="preserve">
+    <value>Arabic branch name cannot exceed 100 characters.</value>
+  </data>
+  <data name="BranchNameARInvalidCharacters" xml:space="preserve">
+    <value>Arabic branch name contains invalid characters.</value>
+  </data>
+  <data name="ServiceNameENMaxLength" xml:space="preserve">
+    <value>Service name cannot exceed 100 characters.</value>
+  </data>
+  <data name="ServiceNameENInvalidCharacters" xml:space="preserve">
+    <value>Service name contains invalid characters.</value>
+  </data>
+  <data name="ServiceNameARMaxLength" xml:space="preserve">
+    <value>Arabic service name cannot exceed 100 characters.</value>
+  </data>
+  <data name="ServiceNameARInvalidCharacters" xml:space="preserve">
+    <value>Arabic service name contains invalid characters.</value>
+  </data>
+  <data name="ServiceStatusRequired" xml:space="preserve">
+    <value>Service status is required.</value>
+  </data>
+  <data name="BranchStatusRequired" xml:space="preserve">
+    <value>Branch status is required.</value>
+  </data>
+  <data name="Unauthorized" xml:space="preserve">
+    <value>Invalid credentials</value>
   </data>
 </root>

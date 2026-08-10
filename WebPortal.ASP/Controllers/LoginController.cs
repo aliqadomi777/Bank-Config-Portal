@@ -19,6 +19,7 @@ namespace WebPortal.ASP.Controllers
         {
             Session.Clear();
             Session.Abandon();
+            var model = TempData["LoginModel"] as LoginViewModel ?? new LoginViewModel();
             return View();
         }
         [HttpPost]
@@ -38,27 +39,34 @@ namespace WebPortal.ASP.Controllers
             try
             {
                 var response = _userService.Login(requestDto);
+                if (response == null)
+                {
+                    TempData["LoginModel"] = model;
+                    return RedirectToAction("Index");
+                }
 
                 Session["BankId"] = response.BankId;
                 Session["UserName"] = response.UserName;
 
                 return RedirectToAction("Index", "Dashboard");
+
             }
 
-            catch (UnauthorizedAccessException ex)
+            catch (UnauthorizedAccessException)
             {
-                ModelState.AddModelError("", ex.Message);
-                return View("Index", model);
+                TempData["Error"] = Resources.Resources.Unauthorized;
+                TempData["LoginModel"] = model;
+                return RedirectToAction("Index");
             }
             catch (Exception)
             {
-                ModelState.AddModelError("", "An error occurred while processing your request.");
-                return View("Index", model);
+                TempData["Error"] = Resources.Resources.GeneralError;
+                TempData["LoginModel"] = model;
+                return RedirectToAction("Index");
             }
         }
 
 
-        //This will be used for future adding of logout button through the app
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Logout()
