@@ -39,6 +39,33 @@ namespace WebPortal.Infrastructure
                    .As<IUpdateableRepository<ServiceModel>>()
                    .As<IDeleteableRepository<ServiceModel>>()
                    .InstancePerDependency();
+
+            builder.RegisterType<CounterRepository>()
+                   .WithParameter("connectionString", _connectionString)
+                   .AsSelf()
+                   .As<IFetchableRepository<CounterModel>>()
+                   .As<IListableRepository<CounterModel>>()
+                   .As<IAddableRepository<CounterModel>>()
+                   .As<IUpdateableRepository<CounterModel>>()
+                   .As<IDeleteableRepository<CounterModel>>()
+                   .InstancePerDependency();
+
+            builder.RegisterType<AllocationRepository>()
+                   .WithParameter("connectionString", _connectionString)
+                   .AsSelf()
+                   .As<IFetchableRepository<AllocationModel>>()
+                   .As<IListableRepository<AllocationModel>>()
+                   .As<IAddableRepository<AllocationModel>>()
+                   .As<IUpdateableRepository<AllocationModel>>()
+                   .As<IDeleteableRepository<AllocationModel>>()
+                   .As<IAllocationRepository>()
+                   .InstancePerDependency();
+
+            builder.RegisterType<CounterTypeRepository>()
+                   .WithParameter("connectionString", _connectionString)
+                   .AsSelf()
+                   .As<IGetAllRepository<CounterTypeModel>>()
+                   .InstancePerDependency();
         }
     }
 }

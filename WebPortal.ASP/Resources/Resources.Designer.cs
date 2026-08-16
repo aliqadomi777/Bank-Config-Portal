@@ -70,11 +70,38 @@ namespace WebPortal.ASP.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        public static string Add {
+            get {
+                return ResourceManager.GetString("Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Allocation.
+        /// </summary>
+        public static string AddAllocation {
+            get {
+                return ResourceManager.GetString("AddAllocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Branch.
         /// </summary>
         public static string AddBranch {
             get {
                 return ResourceManager.GetString("AddBranch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Counter.
+        /// </summary>
+        public static string AddCounter {
+            get {
+                return ResourceManager.GetString("AddCounter", resourceCulture);
             }
         }
         
@@ -88,11 +115,65 @@ namespace WebPortal.ASP.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This service is already allocated to this counter..
+        /// </summary>
+        public static string AllocationDuplicate {
+            get {
+                return ResourceManager.GetString("AllocationDuplicate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The counter, its branch, or the selected service no longer exists..
+        /// </summary>
+        public static string AllocationOrphan {
+            get {
+                return ResourceManager.GetString("AllocationOrphan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Service Allocations.
+        /// </summary>
+        public static string AllocationsManagement {
+            get {
+                return ResourceManager.GetString("AllocationsManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bank Configuration Portal.
+        /// </summary>
+        public static string ApplicationName {
+            get {
+                return ResourceManager.GetString("ApplicationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Arabic Name.
         /// </summary>
         public static string ArabicName {
             get {
                 return ResourceManager.GetString("ArabicName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Back.
+        /// </summary>
+        public static string Back {
+            get {
+                return ResourceManager.GetString("Back", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Back to Dashboard.
+        /// </summary>
+        public static string BackToDashboard {
+            get {
+                return ResourceManager.GetString("BackToDashboard", resourceCulture);
             }
         }
         
@@ -120,6 +201,15 @@ namespace WebPortal.ASP.Resources {
         public static string Branches {
             get {
                 return ResourceManager.GetString("Branches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Branches Management.
+        /// </summary>
+        public static string BranchesManagement {
+            get {
+                return ResourceManager.GetString("BranchesManagement", resourceCulture);
             }
         }
         
@@ -214,6 +304,132 @@ namespace WebPortal.ASP.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A counter with the same EN/AR name already exists.
+        /// </summary>
+        public static string CounterDuplicateName {
+            get {
+                return ResourceManager.GetString("CounterDuplicateName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arabic counter name contains invalid characters..
+        /// </summary>
+        public static string CounterNameARInvalidCharacters {
+            get {
+                return ResourceManager.GetString("CounterNameARInvalidCharacters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arabic counter name cannot exceed 100 characters..
+        /// </summary>
+        public static string CounterNameARMaxLength {
+            get {
+                return ResourceManager.GetString("CounterNameARMaxLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arabic Counter name is required..
+        /// </summary>
+        public static string CounterNameARRequired {
+            get {
+                return ResourceManager.GetString("CounterNameARRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Counter name contains invalid characters..
+        /// </summary>
+        public static string CounterNameENInvalidCharacters {
+            get {
+                return ResourceManager.GetString("CounterNameENInvalidCharacters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Counter name cannot exceed 100 characters..
+        /// </summary>
+        public static string CounterNameENMaxLength {
+            get {
+                return ResourceManager.GetString("CounterNameENMaxLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to English Counter name is required..
+        /// </summary>
+        public static string CounterNameENRequired {
+            get {
+                return ResourceManager.GetString("CounterNameENRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The branch you are adding counter to, has been deleted.
+        /// </summary>
+        public static string CounterOrphan {
+            get {
+                return ResourceManager.GetString("CounterOrphan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Counters.
+        /// </summary>
+        public static string Counters {
+            get {
+                return ResourceManager.GetString("Counters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Counters Management.
+        /// </summary>
+        public static string CountersManagement {
+            get {
+                return ResourceManager.GetString("CountersManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Counter status is required..
+        /// </summary>
+        public static string CounterStatusRequired {
+            get {
+                return ResourceManager.GetString("CounterStatusRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Counter Type.
+        /// </summary>
+        public static string CounterType {
+            get {
+                return ResourceManager.GetString("CounterType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Counter type required.
+        /// </summary>
+        public static string CounterTypeIdRequired {
+            get {
+                return ResourceManager.GetString("CounterTypeIdRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Admin Dashboard.
+        /// </summary>
+        public static string Dashboard {
+            get {
+                return ResourceManager.GetString("Dashboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string Delete {
@@ -237,6 +453,15 @@ namespace WebPortal.ASP.Resources {
         public static string EditBranch {
             get {
                 return ResourceManager.GetString("EditBranch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Counter.
+        /// </summary>
+        public static string EditCounter {
+            get {
+                return ResourceManager.GetString("EditCounter", resourceCulture);
             }
         }
         
@@ -295,6 +520,51 @@ namespace WebPortal.ASP.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Manage Branches.
+        /// </summary>
+        public static string ManageBranches {
+            get {
+                return ResourceManager.GetString("ManageBranches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage Counters.
+        /// </summary>
+        public static string ManageCounters {
+            get {
+                return ResourceManager.GetString("ManageCounters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Management.
+        /// </summary>
+        public static string Management {
+            get {
+                return ResourceManager.GetString("Management", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage Service Allocations.
+        /// </summary>
+        public static string ManageServiceAllocations {
+            get {
+                return ResourceManager.GetString("ManageServiceAllocations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage Services.
+        /// </summary>
+        public static string ManageServices {
+            get {
+                return ResourceManager.GetString("ManageServices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Max Tickets / Day.
         /// </summary>
         public static string MaxTicketsPerDay {
@@ -322,6 +592,15 @@ namespace WebPortal.ASP.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Next.
+        /// </summary>
+        public static string Next {
+            get {
+                return ResourceManager.GetString("Next", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
         public static string No {
@@ -331,11 +610,38 @@ namespace WebPortal.ASP.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Page Not Found.
+        /// </summary>
+        public static string PageNotFound {
+            get {
+                return ResourceManager.GetString("PageNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The page you are looking for could not be found..
+        /// </summary>
+        public static string PageNotFoundMessage {
+            get {
+                return ResourceManager.GetString("PageNotFoundMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string Password {
             get {
                 return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Previous.
+        /// </summary>
+        public static string Previous {
+            get {
+                return ResourceManager.GetString("Previous", resourceCulture);
             }
         }
         
@@ -354,6 +660,33 @@ namespace WebPortal.ASP.Resources {
         public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Counter Type.
+        /// </summary>
+        public static string SelectCounterType {
+            get {
+                return ResourceManager.GetString("SelectCounterType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Service.
+        /// </summary>
+        public static string SelectService {
+            get {
+                return ResourceManager.GetString("SelectService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Service.
+        /// </summary>
+        public static string Service {
+            get {
+                return ResourceManager.GetString("Service", resourceCulture);
             }
         }
         
@@ -430,11 +763,29 @@ namespace WebPortal.ASP.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please select a service..
+        /// </summary>
+        public static string ServiceRequired {
+            get {
+                return ResourceManager.GetString("ServiceRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Services.
         /// </summary>
         public static string Services {
             get {
                 return ResourceManager.GetString("Services", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Service Management.
+        /// </summary>
+        public static string ServicesManagement {
+            get {
+                return ResourceManager.GetString("ServicesManagement", resourceCulture);
             }
         }
         

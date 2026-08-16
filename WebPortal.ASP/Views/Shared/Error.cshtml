@@ -1,13 +1,41 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Error</title>
-</head>
-<body>
-    <hgroup>
-        <h1>Error.</h1>
-        <h2>An error occurred while processing your request.</h2>
-    </hgroup>
-</body>
-</html>
+﻿@using WebPortal.ASP.Resources
+
+@{
+    ViewBag.Title = Resources.ErrorTitle;
+}
+
+
+<div class="title">
+
+    <h2>
+        @Resources.ErrorTitle
+    </h2>
+
+</div>
+
+
+<div class="panel panel-default form-panel">
+
+    <div class="panel-body text-center">
+
+        <p>
+            @Resources.ErrorMessage
+        </p>
+
+        <div style="margin-top: 20px;">
+
+            @Html.ActionLink(
+                Resources.BackToDashboard,
+                "Index",
+                "Dashboard",
+                null,
+                new
+                {
+                    @class = "btn btn-primary"
+                })
+
+        </div>
+
+    </div>
+
+</div>

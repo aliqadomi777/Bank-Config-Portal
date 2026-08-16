@@ -31,4 +31,9 @@ namespace WebPortal.Domain.Interfaces
     {
         IEnumerable<T> GetAll();
     }
+
+    public interface ICount<T> where T : class
+    {
+        int Count(int id);
+    }
 }

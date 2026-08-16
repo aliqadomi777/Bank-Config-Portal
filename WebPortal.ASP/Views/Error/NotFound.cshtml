@@ -1,0 +1,45 @@
+@using WebPortal.ASP.Resources
+
+@{
+    ViewBag.Title = Resources.PageNotFound;
+}
+
+
+<div class="title">
+
+    <h2>
+        @Resources.PageNotFound
+    </h2>
+
+</div>
+
+
+<div class="panel panel-default form-panel">
+
+    <div class="panel-body text-center">
+
+        <h1>
+            404
+        </h1>
+
+        <p>
+            @Resources.PageNotFoundMessage
+        </p>
+
+        <div style="margin-top: 20px;">
+
+            @Html.ActionLink(
+                Resources.BackToDashboard,
+                "Index",
+                "Dashboard",
+                null,
+                new
+                {
+                    @class = "btn btn-primary"
+                })
+
+        </div>
+
+    </div>
+
+</div>

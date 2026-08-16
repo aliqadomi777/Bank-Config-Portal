@@ -16,6 +16,15 @@ namespace WebPortal.Infrastructure
             builder.RegisterType<BranchService>()
                 .As<IBranchService>()
                 .InstancePerDependency();
+            builder.RegisterType<AllocationService>()
+                .As<IAllocationService>()
+                .InstancePerDependency();
+            builder.RegisterType<CounterService>()
+                .As<ICounterService>()
+                .InstancePerDependency();
+            builder.RegisterType<CounterTypeService>()
+                .As<ICounterTypeService>()
+                .InstancePerDependency();
         }
     }
 }

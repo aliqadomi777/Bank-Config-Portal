@@ -1,0 +1,202 @@
+﻿@model WebPortal.ASP.Models.ServiceViewModel
+@using WebPortal.ASP.Resources
+
+@{
+    ViewBag.Title =
+        Model.ServiceId == 0
+            ? Resources.AddService
+            : Resources.EditService;
+}
+
+
+<div class="title">
+
+    <h2>
+        @(Model.ServiceId == 0
+            ? Resources.AddService
+            : Resources.EditService)
+    </h2>
+
+</div>
+
+
+<div class="panel panel-default form-panel">
+
+    <div class="panel-body">
+
+        @using (Html.BeginForm(
+            "Save",
+            "Service",
+            FormMethod.Post,
+            new
+            {
+                @class = "form-horizontal"
+            }))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.HiddenFor(m => m.ServiceId)
+
+
+            @Html.ValidationSummary(
+                true,
+                "",
+                new
+                {
+                    @class = "text-danger"
+                })
+
+
+            <div class="form-group">
+
+                @Html.LabelFor(
+                    m => m.ServiceNameEN,
+                    Resources.EnglishName,
+                    new
+                    {
+                        @class = "col-sm-4 control-label"
+                    })
+
+                <div class="col-sm-8">
+
+                    @Html.TextBoxFor(
+                        m => m.ServiceNameEN,
+                        new
+                        {
+                            @class = "form-control"
+                        })
+
+                    @Html.ValidationMessageFor(
+                        m => m.ServiceNameEN,
+                        "",
+                        new
+                        {
+                            @class = "text-danger"
+                        })
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                @Html.LabelFor(
+                    m => m.ServiceNameAR,
+                    Resources.ArabicName,
+                    new
+                    {
+                        @class = "col-sm-4 control-label"
+                    })
+
+                <div class="col-sm-8">
+
+                    @Html.TextBoxFor(
+                        m => m.ServiceNameAR,
+                        new
+                        {
+                            @class = "form-control arabic-input"
+                        })
+
+                    @Html.ValidationMessageFor(
+                        m => m.ServiceNameAR,
+                        "",
+                        new
+                        {
+                            @class = "text-danger"
+                        })
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                @Html.LabelFor(
+                    m => m.MaxTicketsPerDay,
+                    Resources.MaxTicketsPerDay,
+                    new
+                    {
+                        @class = "col-sm-4 control-label"
+                    })
+
+                <div class="col-sm-8">
+
+                    @Html.TextBoxFor(
+                        m => m.MaxTicketsPerDay,
+                        new
+                        {
+                            @class = "form-control",
+                            type = "number"
+                        })
+
+                    @Html.ValidationMessageFor(
+                        m => m.MaxTicketsPerDay,
+                        "",
+                        new
+                        {
+                            @class = "text-danger"
+                        })
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                @Html.LabelFor(
+                    m => m.ServiceStatus,
+                    Resources.Active,
+                    new
+                    {
+                        @class = "col-sm-4 control-label"
+                    })
+
+                <div class="col-sm-8">
+
+                    <div class="checkbox">
+
+                        @Html.CheckBoxFor(
+                            m => m.ServiceStatus)
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-buttons">
+
+                @Html.ActionLink(
+                    Resources.Cancel,
+                    "Index",
+                    "Service",
+                    null,
+                    new
+                    {
+                        @class = "btn btn-default"
+                    })
+
+                <button type="submit"
+                        class="btn btn-primary">
+
+                    @Resources.Save
+
+                </button>
+
+            </div>
+        }
+
+    </div>
+
+</div>
+
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+}

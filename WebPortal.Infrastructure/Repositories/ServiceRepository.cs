@@ -1,5 +1,4 @@
-﻿using Autofac.Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -159,5 +158,7 @@ namespace WebPortal.Infrastructure.Repositories
                 return rowsAffected > 0;
             }
         }
+
+
     }
 }

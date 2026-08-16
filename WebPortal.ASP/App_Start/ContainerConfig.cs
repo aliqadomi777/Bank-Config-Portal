@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Serilog;
 using System;
 using System.Configuration;
+using System.Data.SqlClient;
 using System.Web.Mvc;
 using WebPortal.Infrastructure;
 namespace WebPortal.ASP.App_Start
@@ -24,7 +25,6 @@ namespace WebPortal.ASP.App_Start
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
-            Console.WriteLine(connectionString);
 
         }
     }

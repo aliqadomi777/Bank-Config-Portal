@@ -37,5 +37,6 @@ namespace WebPortal.ASP.Models
         public DateTimeOffset ModifiedAt { get; set; }
 
         public int BankId { get; set; }
+
     }
 }

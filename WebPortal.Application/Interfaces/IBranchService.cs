@@ -10,5 +10,6 @@ namespace WebPortal.Application.Interfaces
         int CreateBranch(BranchCreateRequestDto request);
         bool UpdateBranch(BranchUpdateRequestDto request);
         bool DeleteBranch(int branchId);
+
     }
 }

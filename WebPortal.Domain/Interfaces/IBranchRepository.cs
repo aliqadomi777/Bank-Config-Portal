@@ -1,6 +1,0 @@
-﻿namespace WebPortal.Domain.Interfaces
-{
-
-
-
-}

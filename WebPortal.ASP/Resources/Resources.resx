@@ -255,4 +255,121 @@
   <data name="Unauthorized" xml:space="preserve">
     <value>Invalid credentials</value>
   </data>
+  <data name="Counters" xml:space="preserve">
+    <value>Counters</value>
+  </data>
+  <data name="CounterType" xml:space="preserve">
+    <value>Counter Type</value>
+  </data>
+  <data name="AddCounter" xml:space="preserve">
+    <value>Add Counter</value>
+  </data>
+  <data name="ApplicationName" xml:space="preserve">
+    <value>Bank Configuration Portal</value>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Admin Dashboard</value>
+  </data>
+  <data name="ManageServices" xml:space="preserve">
+    <value>Manage Services</value>
+  </data>
+  <data name="ManageBranches" xml:space="preserve">
+    <value>Manage Branches</value>
+  </data>
+  <data name="ManageCounters" xml:space="preserve">
+    <value>Manage Counters</value>
+  </data>
+  <data name="ManageServiceAllocations" xml:space="preserve">
+    <value>Manage Service Allocations</value>
+  </data>
+  <data name="EditCounter" xml:space="preserve">
+    <value>Edit Counter</value>
+  </data>
+  <data name="SelectCounterType" xml:space="preserve">
+    <value>Select Counter Type</value>
+  </data>
+  <data name="CounterNameENRequired" xml:space="preserve">
+    <value>English Counter name is required.</value>
+  </data>
+  <data name="CounterNameARRequired" xml:space="preserve">
+    <value>Arabic Counter name is required.</value>
+  </data>
+  <data name="CounterNameENMaxLength" xml:space="preserve">
+    <value>Counter name cannot exceed 100 characters.</value>
+  </data>
+  <data name="CounterNameENInvalidCharacters" xml:space="preserve">
+    <value>Counter name contains invalid characters.</value>
+  </data>
+  <data name="CounterNameARMaxLength" xml:space="preserve">
+    <value>Arabic counter name cannot exceed 100 characters.</value>
+  </data>
+  <data name="CounterNameARInvalidCharacters" xml:space="preserve">
+    <value>Arabic counter name contains invalid characters.</value>
+  </data>
+  <data name="CounterStatusRequired" xml:space="preserve">
+    <value>Counter status is required.</value>
+  </data>
+  <data name="CounterTypeIdRequired" xml:space="preserve">
+    <value>Counter type required</value>
+  </data>
+  <data name="Management" xml:space="preserve">
+    <value>Management</value>
+  </data>
+  <data name="BranchesManagement" xml:space="preserve">
+    <value>Branches Management</value>
+  </data>
+  <data name="CountersManagement" xml:space="preserve">
+    <value>Counters Management</value>
+  </data>
+  <data name="ServicesManagement" xml:space="preserve">
+    <value>Service Management</value>
+  </data>
+  <data name="CounterOrphan" xml:space="preserve">
+    <value>The branch you are adding counter to, has been deleted</value>
+  </data>
+  <data name="CounterDuplicateName" xml:space="preserve">
+    <value>A counter with the same EN/AR name already exists</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="AllocationsManagement" xml:space="preserve">
+    <value>Service Allocations</value>
+  </data>
+  <data name="AddAllocation" xml:space="preserve">
+    <value>Add Allocation</value>
+  </data>
+  <data name="AllocationDuplicate" xml:space="preserve">
+    <value>This service is already allocated to this counter.</value>
+  </data>
+  <data name="AllocationOrphan" xml:space="preserve">
+    <value>The counter, its branch, or the selected service no longer exists.</value>
+  </data>
+  <data name="Service" xml:space="preserve">
+    <value>Service</value>
+  </data>
+  <data name="SelectService" xml:space="preserve">
+    <value>Select Service</value>
+  </data>
+  <data name="ServiceRequired" xml:space="preserve">
+    <value>Please select a service.</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="PageNotFound" xml:space="preserve">
+    <value>Page Not Found</value>
+  </data>
+  <data name="PageNotFoundMessage" xml:space="preserve">
+    <value>The page you are looking for could not be found.</value>
+  </data>
+  <data name="BackToDashboard" xml:space="preserve">
+    <value>Back to Dashboard</value>
+  </data>
 </root>

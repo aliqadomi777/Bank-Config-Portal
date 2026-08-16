@@ -1,137 +1,246 @@
 ﻿using App.Shared;
 using System;
+using System.Linq;
 using System.Web.Mvc;
 using WebPortal.Application.DTO.Service;
 using WebPortal.Application.Interfaces;
 using WebPortal.ASP.Models;
+
 namespace WebPortal.ASP.Controllers
 {
     public class ServiceController : BaseController
     {
         private readonly IServiceManager _serviceManager;
-        private ServiceResponseDto _service;
 
-        public ServiceController(IServiceManager serviceManager)
+
+        public ServiceController(
+            IServiceManager serviceManager)
         {
             _serviceManager = serviceManager;
         }
+
+
+        [HttpGet]
+        public ActionResult Index(int page = 1)
+        {
+            const int pageSize = 10;
+
+            try
+            {
+                var serviceDTOs = _serviceManager.GetAllServices(CurrentBankId).ToList();
+
+                int totalItems = serviceDTOs.Count;
+
+                int totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+
+                if (page < 1)
+                {
+                    page = 1;
+                }
+
+                if (totalPages > 0 &&
+                    page > totalPages)
+                {
+                    page = totalPages;
+                }
+
+                var model = serviceDTOs.Skip((page - 1) * pageSize).Take(pageSize).Select(dto =>
+                            new ServiceViewModel
+                            {
+                                BankId = dto.BankId,
+                                ServiceId = dto.ServiceId,
+                                ServiceNameEN = dto.ServiceNameEN,
+                                ServiceNameAR = dto.ServiceNameAR,
+                                MaxTicketsPerDay = dto.MaxTicketsPerDay,
+                                ServiceStatus = dto.ServiceStatus,
+                                ModifiedAt = dto.ModifiedAt
+                            })
+                        .ToList();
+
+                ViewBag.CurrentPage = page;
+                ViewBag.TotalPages = totalPages;
+
+                return View("Index", model);
+            }
+            catch (Exception)
+            {
+                TempData["Message"] =
+                    Resources.Resources.GeneralError;
+
+                return View(
+                    "Index",
+                    Enumerable.Empty<ServiceViewModel>());
+            }
+        }
+
 
         [HttpGet]
         public ActionResult Create()
         {
             var model = new ServiceViewModel
             {
-                ServiceStatus = true
+                ServiceStatus = true,
+                MaxTicketsPerDay = 1
             };
 
-            return View("Index", model);
+            ViewBag.LanguageReturnUrl =
+                Url.Action(
+                    "Create",
+                    "Service");
+
+            return View("Form", model);
         }
+
 
         [HttpGet]
         public ActionResult Edit(int id)
         {
             try
             {
-                _service = _serviceManager.GetServiceById(id);
-            }
+                var service = _serviceManager.GetServiceById(id);
 
+                if (service == null)
+                {
+                    TempData["Message"] = Resources.Resources.ItemDeleted;
+
+                    return RedirectToAction(
+                        "Index",
+                        "Service");
+                }
+
+                var model =
+                    new ServiceViewModel
+                    {
+                        ServiceId = service.ServiceId,
+                        ServiceNameEN = service.ServiceNameEN,
+                        ServiceNameAR = service.ServiceNameAR,
+                        MaxTicketsPerDay = service.MaxTicketsPerDay,
+                        ServiceStatus = service.ServiceStatus,
+                        ModifiedAt = service.ModifiedAt,
+                        BankId = service.BankId
+                    };
+                ViewBag.LanguageReturnUrl =
+                        Url.Action(
+                            "Edit",
+                            "Service",
+                            new
+                            {
+                                id = model.ServiceId
+                            });
+
+                return View("Form", model);
+            }
             catch (Exception)
             {
-                TempData["Message"] = Resources.Resources.GeneralError;
-                return RedirectToAction("Index", "Dashboard");
+                TempData["Message"] =
+                    Resources.Resources.GeneralError;
+
+                return RedirectToAction(
+                    "Index",
+                    "Service");
             }
-
-            if (_service == null)
-            {
-                TempData["Message"] = Resources.Resources.ItemDeleted;
-                return RedirectToAction("Index", "Dashboard");
-            }
-
-            var model = new ServiceViewModel
-            {
-                ServiceId = _service.ServiceId,
-                ServiceNameEN = _service.ServiceNameEN,
-                ServiceNameAR = _service.ServiceNameAR,
-                MaxTicketsPerDay = _service.MaxTicketsPerDay,
-                ServiceStatus = _service.ServiceStatus,
-                ModifiedAt = _service.ModifiedAt,
-                BankId = _service.BankId,
-            };
-
-            return View("Index", model);
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Save(ServiceViewModel model)
+        public ActionResult Save(
+            ServiceViewModel model)
         {
-            int bankId = Convert.ToInt32(Session["BankId"]);
+
+            ViewBag.LanguageReturnUrl =
+                model.ServiceId == 0
+                    ? Url.Action(
+                        "Create",
+                        "Service")
+                    : Url.Action(
+                        "Edit",
+                        "Service",
+                        new
+                        {
+                            id = model.ServiceId
+                        });
             if (!ModelState.IsValid)
             {
-                TempData["ServiceModel"] = model;
-                return RedirectToSource(model.ServiceId);
+                return View(
+                    "Form",
+                    model);
             }
 
             try
             {
                 if (model.ServiceId == 0)
                 {
-                    _serviceManager.CreateService(new ServiceCreateRequestDto
-                    {
-                        BankId = bankId,
-                        ServiceNameEN = model.ServiceNameEN.Trim(),
-                        ServiceNameAR = model.ServiceNameAR.Trim(),
-                        ServiceStatus = model.ServiceStatus,
-                        MaxTicketsPerDay = model.MaxTicketsPerDay
-                    });
-
+                    _serviceManager.CreateService(
+                        new ServiceCreateRequestDto
+                        {
+                            BankId = CurrentBankId,
+                            ServiceNameEN = model.ServiceNameEN.Trim(),
+                            ServiceNameAR = model.ServiceNameAR.Trim(),
+                            ServiceStatus = model.ServiceStatus,
+                            MaxTicketsPerDay = model.MaxTicketsPerDay
+                        });
                 }
                 else
                 {
-
-                    _serviceManager.UpdateService(new ServiceUpdateRequestDto
+                    bool isUpdated = _serviceManager.UpdateService(
+                        new ServiceUpdateRequestDto
+                        {
+                            ServiceId = model.ServiceId,
+                            ServiceNameEN = model.ServiceNameEN.Trim(),
+                            ServiceNameAR = model.ServiceNameAR.Trim(),
+                            ServiceStatus = model.ServiceStatus,
+                            MaxTicketsPerDay = model.MaxTicketsPerDay
+                        });
+                    if (!isUpdated)
                     {
-                        ServiceId = model.ServiceId,
-                        ServiceNameEN = model.ServiceNameEN.Trim(),
-                        ServiceNameAR = model.ServiceNameAR.Trim(),
-                        ServiceStatus = model.ServiceStatus,
-                        MaxTicketsPerDay = model.MaxTicketsPerDay
-                    });
+                        TempData["Message"] = Resources.Resources.ItemDeleted;
 
-
+                        return RedirectToAction(
+                            "Index",
+                            "Service");
+                    }
                 }
             }
             catch (DuplicateRecordException)
             {
-                TempData["Error"] = Resources.Resources.ServiceDuplicateName;
-                TempData["ServiceModel"] = model;
-                return RedirectToSource(model.ServiceId);
-            }
+                ModelState.AddModelError(
+                    "",
+                    Resources.Resources
+                        .ServiceDuplicateName);
 
+                return View(
+                    "Form",
+                    model);
+            }
             catch (ParentDeletedWithChildConflictException)
             {
-                TempData["Error"] = Resources.Resources.ServiceOrphan;
-                TempData["ServiceModel"] = model;
-                return RedirectToSource(model.ServiceId);
+                ModelState.AddModelError(
+                    "",
+                    Resources.Resources
+                        .ServiceOrphan);
+
+                return View(
+                    "Form",
+                    model);
             }
             catch (Exception)
             {
-                TempData["Error"] = Resources.Resources.GeneralError;
-                TempData["ServiceModel"] = model;
-                return RedirectToSource(model.ServiceId);
+                ModelState.AddModelError(
+                    "",
+                    Resources.Resources
+                        .GeneralError);
+
+                return View(
+                    "Form",
+                    model);
             }
 
-            return RedirectToAction("Index", "Dashboard");
+            return RedirectToAction(
+                "Index",
+                "Service");
         }
 
-        private ActionResult RedirectToSource(int serviceId)
-        {
-            if (serviceId == 0)
-            {
-                return RedirectToAction("Create");
-            }
-            return RedirectToAction("Edit", new { id = serviceId });
-        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -139,14 +248,18 @@ namespace WebPortal.ASP.Controllers
         {
             try
             {
-                bool isDeleted = _serviceManager.DeleteService(id);
+                _serviceManager
+                    .DeleteService(id);
             }
             catch (Exception)
             {
-                TempData["Message"] = Resources.Resources.GeneralError;
+                TempData["Message"] =
+                    Resources.Resources.GeneralError;
             }
 
-            return RedirectToAction("Index", "Dashboard");
+            return RedirectToAction(
+                "Index",
+                "Service");
         }
     }
 }

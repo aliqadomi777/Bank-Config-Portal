@@ -10,5 +10,6 @@ namespace WebPortal.Application.Interfaces
         int CreateService(ServiceCreateRequestDto request);
         bool UpdateService(ServiceUpdateRequestDto request);
         bool DeleteService(int serviceId);
+
     }
 }

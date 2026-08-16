@@ -33,9 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="App.Shared">
-      <HintPath>..\..\2- Ticketing Screen Designer\App.Infrastructure\bin\Release\App.Shared.dll</HintPath>
-    </Reference>
     <Reference Include="Autofac, Version=4.0.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.4.0.1\lib\net45\Autofac.dll</HintPath>
     </Reference>
@@ -88,6 +85,7 @@
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.6.3\lib\net462\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="System.Transactions" />
     <Reference Include="System.ValueTuple" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.0\lib\net45\System.Web.Helpers.dll</HintPath>
@@ -116,10 +114,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationModule.cs" />
+    <Compile Include="DTO\Allocations\AllocationBaseRequestDto.cs" />
+    <Compile Include="DTO\Allocations\AllocationCreateRequestDto.cs" />
+    <Compile Include="DTO\Allocations\AllocationResponseDto.cs" />
+    <Compile Include="DTO\Allocations\AllocationUpdateRequestDto.cs" />
     <Compile Include="DTO\Branch\BranchBaseRequestDto.cs" />
     <Compile Include="DTO\Branch\BranchCreateRequestDto.cs" />
     <Compile Include="DTO\Branch\BranchResponseDto.cs" />
     <Compile Include="DTO\Branch\BranchUpdateRequestDto.cs" />
+    <Compile Include="DTO\CounterType\CounterTypeResponseDto.cs" />
+    <Compile Include="DTO\Counter\CounterBaseRequestDto.cs" />
+    <Compile Include="DTO\Counter\CounterCreateRequestDto.cs" />
+    <Compile Include="DTO\Counter\CounterResponseDto.cs" />
+    <Compile Include="DTO\Counter\CounterUpdateRequestDto.cs" />
     <Compile Include="DTO\Service\ServiceBaseRequestDto.cs" />
     <Compile Include="DTO\Service\ServiceCreateRequestDto.cs" />
     <Compile Include="DTO\Service\ServiceResponseDto.cs" />
@@ -127,15 +134,25 @@
     <Compile Include="DTO\User\UserRequestDto.cs" />
     <Compile Include="DTO\User\UserResponseDto.cs" />
     <Compile Include="Exceptions\SqlErrorTypes.cs" />
+    <Compile Include="Interfaces\IAllocationService.cs" />
     <Compile Include="Interfaces\IBranchService.cs" />
+    <Compile Include="Interfaces\ICounterService.cs" />
+    <Compile Include="Interfaces\ICounterTypeService.cs" />
     <Compile Include="Interfaces\IServiceManager.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AllocationService.cs" />
     <Compile Include="Services\BranchService.cs" />
+    <Compile Include="Services\CounterService.cs" />
+    <Compile Include="Services\CounterTypeService.cs" />
     <Compile Include="Services\ServiceManager.cs" />
     <Compile Include="Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\2- Ticketing Screen Designer\App.Shared\App.Shared.csproj">
+      <Project>{1b692059-f3db-4a53-895a-31ce395a3bcb}</Project>
+      <Name>App.Shared</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WebPortal.Domain\WebPortal.Domain.csproj">
       <Project>{7488025e-cc38-4b56-bc28-d3ace7eda35a}</Project>
       <Name>WebPortal.Domain</Name>
@@ -144,6 +161,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.ValueTuple.4.6.2\build\net471\System.ValueTuple.targets" Condition="Exists('..\packages\System.ValueTuple.4.6.2\build\net471\System.ValueTuple.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

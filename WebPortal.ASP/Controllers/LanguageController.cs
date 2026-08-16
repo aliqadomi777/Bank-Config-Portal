@@ -6,27 +6,41 @@ namespace WebPortal.ASP.Controllers
 {
     public class LanguageController : Controller
     {
-        public ActionResult ChangeLanguage(string language, string returnUrl)
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult ChangeLanguage(
+            string language,
+            string returnUrl)
         {
-            if (language != "en" && language != "ar")
+            if (language != "en" &&
+                language != "ar")
             {
                 language = "en";
             }
 
-            HttpCookie cultureCookie = new HttpCookie("Culture", language)
-            {
-                Expires = DateTime.Now.AddYears(1),
-                HttpOnly = true
-            };
+            HttpCookie cultureCookie =
+                new HttpCookie(
+                    "Culture",
+                    language)
+                {
+                    Expires =
+                        DateTime.Now.AddYears(1),
 
-            Response.Cookies.Add(cultureCookie);
+                    HttpOnly = true
+                };
 
-            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+            Response.Cookies.Add(
+                cultureCookie);
+
+            if (!string.IsNullOrEmpty(returnUrl) &&
+                Url.IsLocalUrl(returnUrl))
             {
                 return Redirect(returnUrl);
             }
 
-            return RedirectToAction("Index", "Login");
+            return RedirectToAction(
+                "Index",
+                "Login");
         }
     }
 }

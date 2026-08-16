@@ -217,7 +217,7 @@
     <value>حدثت مشكلة أثناء إكمال هذا الإجراء</value>
   </data>
   <data name="BranchDuplicateName" xml:space="preserve">
-    <value>هناك فرع بنفس الاسم باللغة الإنجليزية أو العربية موجودة</value>
+    <value>هناك فرع بنفس الاسم باللغة الإنجليزية أو العربية </value>
   </data>
   <data name="BranchOrphan" xml:space="preserve">
     <value>البنك الذي تقوم بإضافة  الفرع إليه قد تم حذفه</value>
@@ -254,5 +254,123 @@
   </data>
   <data name="Unauthorized" xml:space="preserve">
     <value>اسم المستخدم أو كلمة المرور غير صالحة</value>
+  </data>
+  <data name="Counters" xml:space="preserve">
+    <value>الكاونترز</value>
+  </data>
+  <data name="CounterType" xml:space="preserve">
+    <value>فئة الكاونتر</value>
+  </data>
+  <data name="AddCounter" xml:space="preserve">
+    <value>اضافة كاونتر</value>
+  </data>
+  <data name="ApplicationName" xml:space="preserve">
+    <value>بوابة إعدادات البنك</value>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>لوحة التحكم</value>
+  </data>
+  <data name="ManageServices" xml:space="preserve">
+    <value>إدارة الخدمات</value>
+  </data>
+  <data name="ManageBranches" xml:space="preserve">
+    <value>إدارة الفروع</value>
+  </data>
+  <data name="ManageCounters" xml:space="preserve">
+    <value>إدارة الكاونترز</value>
+  </data>
+  <data name="ManageServiceAllocations" xml:space="preserve">
+    <value>إدارة تخصيص الخدمات</value>
+  </data>
+  <data name="EditCounter" xml:space="preserve">
+    <value>تعديل كاونتر</value>
+  </data>
+  <data name="SelectCounterType" xml:space="preserve">
+    <value>اختر فئة الكاونتر</value>
+  </data>
+  <data name="CounterNameENRequired" xml:space="preserve">
+    <value>اسم الكاونتر بالعربية مطلوب</value>
+  </data>
+  <data name="CounterNameARRequired" xml:space="preserve">
+    <value>اسم الكاونتر بالإنجليزية مطلوب</value>
+  </data>
+  <data name="CounterNameENMaxLength" xml:space="preserve">
+    <value>اسم الفرع الكاونتر لا يمكن أن يتجاوز 100 حرف</value>
+  </data>
+  <data name="CounterNameENInvalidCharacters" xml:space="preserve">
+    <value>اسم الفرع الكاونتر يحتوي على رموز غير مسموح بها</value>
+  </data>
+  <data name="CounterNameARMaxLength" xml:space="preserve">
+    <value>اسم الكاونتر بالعربية لا يمكن أن يتجاوز 100 حرف</value>
+  </data>
+  <data name="CounterNameARInvalidCharacters" xml:space="preserve">
+    <value>اسم الكاونتر بالعربية يحتوي على رموز غير مسموح بها</value>
+  </data>
+  <data name="CounterStatusRequired" xml:space="preserve">
+    <value>حالة الكاونتر مطلوبة</value>
+  </data>
+  <data name="CounterTypeIdRequired" xml:space="preserve">
+    <value> فئة الكاونتر مطلوبة</value>
+  </data>
+  <data name="Management" xml:space="preserve">
+    <value>إدارة </value>
+  </data>
+  <data name="BranchesManagement" xml:space="preserve">
+    <value>إدارة الفروع</value>
+  </data>
+  <data name="CountersManagement" xml:space="preserve">
+    <value>إدارة الكاونترز</value>
+  </data>
+  <data name="ServicesManagement" xml:space="preserve">
+    <value>إدارة الخدمات</value>
+  </data>
+  <data name="CounterOrphan" xml:space="preserve">
+    <value>الفرع الذي تقوم بإضافة  الكاونتر إليه قد تم حذفه</value>
+  </data>
+  <data name="CounterDuplicateName" xml:space="preserve">
+    <value>هناك كاونتر بنفس الاسم باللغة الإنجليزية أو العربية </value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>السابق</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>التالي</value>
+  </data>
+  <data name="AllocationsManagement" xml:space="preserve">
+    <value>تخصيص الخدمات</value>
+  </data>
+  <data name="AddAllocation" xml:space="preserve">
+    <value>إضافة خدمة</value>
+  </data>
+  <data name="AllocationDuplicate" xml:space="preserve">
+    <value>هذه الخدمة مخصصة لهذا كاونتر بالفعل</value>
+  </data>
+  <data name="AllocationOrphan" xml:space="preserve">
+    <value>
+كاونتر أو الفرع التابع له أو الخدمة المحددة لم تعد موجودة</value>
+  </data>
+  <data name="Service" xml:space="preserve">
+    <value>الخدمة</value>
+  </data>
+  <data name="SelectService" xml:space="preserve">
+    <value>اختر الخدمة</value>
+  </data>
+  <data name="ServiceRequired" xml:space="preserve">
+    <value>يرجى اختيار خدمة</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>إضافة</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>رجوع</value>
+  </data>
+  <data name="PageNotFound" xml:space="preserve">
+    <value>الصفحة غير موجودة</value>
+  </data>
+  <data name="PageNotFoundMessage" xml:space="preserve">
+    <value>تعذر العثور على الصفحة التي تبحث عنها</value>
+  </data>
+  <data name="BackToDashboard" xml:space="preserve">
+    <value>العودة إلى لوحة التحكم</value>
   </data>
 </root>

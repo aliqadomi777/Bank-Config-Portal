@@ -20,12 +20,16 @@ namespace WebPortal.Application.Services
         private readonly IUpdateableRepository<BranchModel> _updateRepository;
         private readonly IDeleteableRepository<BranchModel> _deleteRepository;
         private readonly ILogger<BranchModel> _logger;
+
+        private readonly ICounterService _counterService;
+
         public BranchService(IFetchableRepository<BranchModel> fetchRepository,
                              IListableRepository<BranchModel> listRepository,
                              IAddableRepository<BranchModel> addRepository,
                              IUpdateableRepository<BranchModel> updateRepository,
                              IDeleteableRepository<BranchModel> deleteRepository,
-                             ILogger<BranchModel> logger)
+                             ILogger<BranchModel> logger,
+                             ICounterService counterService)
         {
             _fetchRepository = fetchRepository;
             _listRepository = listRepository;
@@ -33,6 +37,8 @@ namespace WebPortal.Application.Services
             _updateRepository = updateRepository;
             _deleteRepository = deleteRepository;
             _logger = logger;
+            _counterService = counterService;
+
         }
 
         public BranchResponseDto GetBranchById(int branchId)
@@ -197,7 +203,7 @@ namespace WebPortal.Application.Services
             catch (SqlException ex) when (ex.Number == (int)SqlErrorTypes.ForeignKeyViolation)
             {
                 throw new ParentDeletedWithChildConflictException(
-                    $"The bank you are adding the branch to, has been deleted.",
+                    $"The bank you are updating the branch on, has been deleted.",
                     ex);
             }
 
@@ -225,27 +231,43 @@ namespace WebPortal.Application.Services
         {
             try
             {
-                bool isDeleted = _deleteRepository.Delete(branchId);
-                return isDeleted;
+                using (var scope = new System.Transactions.TransactionScope(
+                    System.Transactions.TransactionScopeOption.Required,
+                    new System.Transactions.TransactionOptions
+                    {
+                        IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted
+                    }))
+                {
+                    var counters = _counterService.GetAllCounters(branchId);
+
+                    foreach (var counter in counters)
+                    {
+                        _counterService.DeleteCounter(counter.CounterId);
+                    }
+
+                    bool isDeleted = _deleteRepository.Delete(branchId);
+
+                    scope.Complete();
+
+                    return isDeleted;
+                }
             }
             catch (SqlException ex)
             {
-                _logger.LogError(ex,
-                          ex.Message,
-                          ex.Number,
-                          branchId);
+                _logger.LogError(
+                    ex,
+                    ex.Message,
+                    ex.Number);
 
                 throw;
-
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex,
-                    ex.Message,
-                    branchId);
+                _logger.LogError(
+                    ex,
+                    ex.Message);
 
                 throw;
-
             }
         }
 

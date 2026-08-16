@@ -1,187 +1,223 @@
-﻿@model WebPortal.ASP.Models.BranchViewModel
 @using WebPortal.ASP.Resources
-@if (TempData["Error"] != null)
-{
-    <div class="alert alert-info">
-        @TempData["Error"]
-    </div>
+@model IEnumerable<WebPortal.ASP.Models.BranchViewModel>
 
-}
 @{
-    ViewBag.Title = Model.BranchId == 0
-        ? Resources.AddBranch
-        : Resources.EditBranch;
+    ViewBag.Title = Resources.BranchesManagement;
 
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    int currentPage =
+        ViewBag.CurrentPage != null
+            ? (int)ViewBag.CurrentPage
+            : 1;
+
+    int totalPages =
+        ViewBag.TotalPages != null
+            ? (int)ViewBag.TotalPages
+            : 0;
 }
 
-<style>
-    .branch-form-panel {
-        max-width: 700px;
-        margin: 30px auto;
-    }
 
-        .branch-form-panel .panel-heading {
-            padding: 12px 15px;
-        }
+<div class="title">
 
-        .branch-form-panel .panel-title {
-            font-size: 18px;
-        }
+    <h2>
+        @Resources.BranchesManagement
+    </h2>
 
-        .branch-form-panel .panel-body {
-            padding: 25px;
-        }
+</div>
 
-    .branch-form-buttons {
-        margin-top: 20px;
-        text-align: right;
-    }
 
-        .branch-form-buttons .btn {
-            min-width: 90px;
-            margin-left: 5px;
-        }
-
-    .branch-arabic-input {
-        direction: rtl;
-        text-align: right;
-    }
-
-    .text-danger {
-        display: block;
-        margin-top: 5px;
-    }
-</style>
-
-<div class="panel panel-default branch-form-panel">
-
-    <div class="panel-heading">
-
-        <h3 class="panel-title">
-            @(Model.BranchId == 0
-                ? Resources.AddBranch
-                : Resources.EditBranch)
-        </h3>
-
-    </div>
+<div class="panel panel-default">
 
     <div class="panel-body">
 
-        @using (Html.BeginForm(
-            "Save",
-            "Branch",
-            FormMethod.Post,
-            new { @class = "form-horizontal" }))
+        <table class="table table-bordered table-striped management-table">
+
+            <thead>
+
+                <tr>
+
+                    <th class="name-cell">
+                        @Resources.EnglishName
+                    </th>
+
+                    <th class="name-cell">
+                        @Resources.ArabicName
+                    </th>
+
+                    <th style="width: 80px;">
+                        @Resources.Active
+                    </th>
+
+                    <th style="width: 200px; padding: 5px;">
+
+                        @Html.ActionLink(
+                            Resources.AddBranch,
+                            "Create",
+                            "Branch",
+                            null,
+                            new
+                            {
+                                @class = "btn btn-primary btn-xs add-button"
+                            })
+
+                    </th>
+
+                    <th style="width: 160px; text-align: center;">
+                        @Resources.Counters
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                @foreach (var branch in Model)
+                {
+                    <tr>
+
+                        <td class="name-cell">
+                            @branch.BranchNameEN
+                        </td>
+
+                        <td class="name-cell arabic-name">
+                            @branch.BranchNameAR
+                        </td>
+
+                        <td>
+                            @(branch.BranchStatus
+                                ? Resources.Yes
+                                : Resources.No)
+                        </td>
+
+                        <td class="action-cell">
+
+                            <div class="action-buttons">
+
+                                @Html.ActionLink(
+                                    Resources.Edit,
+                                    "Edit",
+                                    "Branch",
+                                    new
+                                    {
+                                        id = branch.BranchId
+                                    },
+                                    new
+                                    {
+                                        @class = "btn btn-warning btn-xs"
+                                    })
+
+
+                                @using (Html.BeginForm(
+                                    "Delete",
+                                    "Branch",
+                                    new
+                                    {
+                                        id = branch.BranchId
+                                    },
+                                    FormMethod.Post,
+                                    new
+                                    {
+                                        style = "display: contents;"
+                                    }))
+                                {
+                                    @Html.AntiForgeryToken()
+
+                                    <button type="submit"
+                                            class="btn btn-danger btn-xs"
+                                            onclick="return confirm('@Resources.ConfirmDelete');">
+
+                                        @Resources.Delete
+
+                                    </button>
+                                }
+
+                            </div>
+
+                        </td>
+
+
+                        <td class="action-cell">
+
+                            @Html.ActionLink(
+                                Resources.ManageCounters,
+                                "Index",
+                                "Counter",
+                                new
+                                {
+                                    branchId = branch.BranchId
+                                },
+                                new
+                                {
+                                    @class = "btn btn-info btn-xs add-button"
+                                })
+
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+
+        @if (totalPages > 1)
         {
-            @Html.AntiForgeryToken()
+            <div class="table-paging">
 
-            @Html.HiddenFor(m => m.BranchId)
-
-            <div class="form-group">
-
-                @Html.LabelFor(
-                    m => m.BranchNameEN,
-                    Resources.EnglishName,
-                    new
-                    {
-                        @class = "col-sm-4 control-label"
-                    })
-
-                <div class="col-sm-8">
-
-                    @Html.TextBoxFor(
-                        m => m.BranchNameEN,
+                @if (currentPage > 1)
+                {
+                    @Html.ActionLink(
+                        Resources.Previous,
+                        "Index",
+                        "Branch",
                         new
                         {
-                            @class = "form-control"
-                        })
-
-                    @Html.ValidationMessageFor(
-                        m => m.BranchNameEN,
-                        "",
+                            page = currentPage - 1
+                        },
                         new
                         {
-                            @class = "text-danger"
+                            @class = "btn btn-default btn-sm"
                         })
+                }
 
-                </div>
 
-            </div>
-
-            <div class="form-group">
-
-                @Html.LabelFor(
-                    m => m.BranchNameAR,
-                    Resources.ArabicName,
-                    new
-                    {
-                        @class = "col-sm-4 control-label"
-                    })
-
-                <div class="col-sm-8">
-
-                    @Html.TextBoxFor(
-                        m => m.BranchNameAR,
+                @for (int i = 1; i <= totalPages; i++)
+                {
+                    @Html.ActionLink(
+                        i.ToString(),
+                        "Index",
+                        "Branch",
                         new
                         {
-                            @class = "form-control branch-arabic-input"
-                        })
-
-                    @Html.ValidationMessageFor(
-                        m => m.BranchNameAR,
-                        "",
+                            page = i
+                        },
                         new
                         {
-                            @class = "text-danger"
+                            @class =
+                                i == currentPage
+                                    ? "btn btn-primary btn-sm"
+                                    : "btn btn-default btn-sm"
                         })
+                }
 
-                </div>
 
-            </div>
-
-            <div class="form-group">
-
-                @Html.LabelFor(
-                    m => m.BranchStatus,
-                    Resources.Active,
-                    new
-                    {
-                        @class = "col-sm-4 control-label"
-                    })
-
-                <div class="col-sm-8">
-
-                    <div class="checkbox">
-
-                        @Html.CheckBoxFor(
-                            m => m.BranchStatus)
-
-                    </div>
-
-                    @Html.ValidationMessageFor(
-                        m => m.BranchStatus,
-                        "",
+                @if (currentPage < totalPages)
+                {
+                    @Html.ActionLink(
+                        Resources.Next,
+                        "Index",
+                        "Branch",
                         new
                         {
-                            @class = "text-danger"
+                            page = currentPage + 1
+                        },
+                        new
+                        {
+                            @class = "btn btn-default btn-sm"
                         })
-
-                </div>
-
-            </div>
-
-            <div class="branch-form-buttons">
-
-                <a href="@Url.Action("Index", "Dashboard")"
-                   class="btn btn-default">
-                    @Resources.Cancel
-                </a>
-
-                <button type="submit"
-                        class="btn btn-primary">
-                    @Resources.Save
-                </button>
+                }
 
             </div>
         }
@@ -190,6 +226,14 @@
 
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+<div style="margin-bottom: 15px;">
+    @Html.ActionLink(
+        Resources.Back,
+        "Index",
+        "Dashboard",
+        null,
+        new
+        {
+            @class = "btn btn-primary btn-sm"
+        })
+</div>

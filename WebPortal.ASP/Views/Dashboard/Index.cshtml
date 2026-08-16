@@ -1,350 +1,82 @@
 ﻿@using WebPortal.ASP.Resources
-@model WebPortal.ASP.Models.DashboardViewModel
-
-@if (TempData["Message"] != null)
-{
-    <div class="alert alert-info">
-        @TempData["Message"]
-    </div>
-}
 
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    string currentLanguage = Session["Culture"]?.ToString() ?? "en";
+    ViewBag.Title = Resources.Dashboard;
 }
 
 <style>
-    .dashboard-table {
-        width: 100%;
-        table-layout: fixed;
-/*        direction: ltr;*/
+
+    .dashboard-options {
+        max-width: 900px;
+        margin: 0 auto;
     }
 
-        .dashboard-table th,
-        .dashboard-table td {
-            vertical-align: middle;
-            word-wrap: break-word;
-            overflow-wrap: anywhere;
-        }
-
-    .name-cell {
-        white-space: normal;
-        word-break: break-word;
-    }
-
-    .action-cell {
-        padding: 5px !important;
-    }
-
-    .action-buttons {
-        display: flex;
-        flex-direction: row;
-/*        direction: ltr;*/
-        gap: 4px;
-    }
-
-        .action-buttons .btn {
-            flex: 1;
-            text-align: center;
-        }
-
-    .arabic-name {
-        direction: rtl;
-        text-align: right;
-    }
-
-    .translated-header {
+    .dashboard-row {
         direction: ltr;
-        text-align: left;
     }
 
-        .translated-header.rtl {
-            direction: rtl;
-            text-align: right;
+    .dashboard-option {
+        text-align: center;
+        padding: 30px 20px;
+        margin-bottom: 20px;
+    }
+
+        .dashboard-option .btn {
+            min-width: 180px;
         }
-
-    .logout-container {
-        display: flex;
-        justify-content: flex-end;
-        flex-direction: row;
-        direction: ltr;
-        margin-top: 20px;
-        padding-bottom: 15px;
-    }
-
-    .logout-button {
-        min-width: 90px;
-    }
 </style>
 
 
-<div class="panel panel-default">
+<div class="title">
 
-    <div class="panel-heading">
-        <h3 class="panel-title">
-            @Resources.Branches
-        </h3>
-    </div>
-
-    <div class="panel-body">
-
-        <table class="table table-bordered table-striped dashboard-table">
-
-            <thead>
-                <tr>
-
-                    <th class="name-cell">
-                        <span class="translated-header @(currentLanguage == "ar" ? "rtl" : "")">
-                            @Resources.EnglishName
-                        </span>
-                    </th>
-
-                    <th class="name-cell">
-                        <span class="translated-header @(currentLanguage == "ar" ? "rtl" : "")">
-                            @Resources.ArabicName
-                        </span>
-                    </th>
-
-                    <th style="width: 80px;">
-                        <span class="translated-header @(currentLanguage == "ar" ? "rtl" : "")">
-                            @Resources.Active
-                        </span>
-                    </th>
-
-                    <th style="width: 200px; padding: 5px;">
-
-                        @Html.ActionLink(
-                            Resources.AddBranch,
-                            "Create",
-                            "Branch",
-                            null,
-                            new
-                            {
-                                @class = "btn btn-primary btn-xs",
-                                @style = "display: block; width: 100%; text-align: center;"
-                            }
-                        )
-
-                    </th>
-
-                </tr>
-            </thead>
-
-            <tbody>
-
-                @foreach (var branch in Model.Branches)
-                {
-                    <tr>
-
-                        <td class="name-cell">
-                            @branch.BranchNameEN
-                        </td>
-
-                        <td class="name-cell arabic-name">
-                            @branch.BranchNameAR
-                        </td>
-
-                        <td>
-                            @(branch.BranchStatus
-                                ? Resources.Yes
-                                : Resources.No)
-                        </td>
-
-                        <td class="action-cell">
-
-                            <div class="action-buttons">
-
-                                @Html.ActionLink(
-                                    Resources.Edit,
-                                    "Edit",
-                                    "Branch",
-                                    new { id = branch.BranchId },
-                                    new
-                                    {
-                                        @class = "btn btn-warning btn-xs"
-                                    }
-                                )
-
-                                @using (Html.BeginForm(
-                                    "Delete",
-                                    "Branch",
-                                    new { id = branch.BranchId },
-                                    FormMethod.Post,
-                                    new { style = "display: contents;" }))
-                                {
-                                    @Html.AntiForgeryToken()
-
-                                    <button type="submit"
-                                            class="btn btn-danger btn-xs"
-                                            onclick="return confirm('@Resources.ConfirmDelete');">
-                                        @Resources.Delete
-                                    </button>
-                                }
-
-                            </div>
-
-                        </td>
-
-                    </tr>
-                }
-
-            </tbody>
-
-        </table>
-
-    </div>
+    <h2>
+        @Resources.Dashboard - @Session["BankName"]
+    </h2>
 
 </div>
 
 
-<div class="panel panel-default">
+<div class="dashboard-options">
 
-    <div class="panel-heading">
+    <div class="row dashboard-row">
 
-        <h3 class="panel-title">
-            @Resources.Services
-        </h3>
+        <div class="col-md-6">
 
-    </div>
+            <div class="panel panel-default dashboard-option">
 
-    <div class="panel-body">
+                @Html.ActionLink(
+                    Resources.ManageBranches,
+                    "Index",
+                    "Branch",
+                    null,
+                    new
+                    {
+                        @class = "btn btn-primary"
+                    })
 
-        <table class="table table-bordered table-striped dashboard-table">
+            </div>
 
-            <thead>
+        </div>
 
-                <tr>
 
-                    <th class="name-cell">
-                        <span class="translated-header @(currentLanguage == "ar" ? "rtl" : "")">
-                            @Resources.EnglishName
-                        </span>
-                    </th>
+        <div class="col-md-6">
 
-                    <th class="name-cell">
-                        <span class="translated-header @(currentLanguage == "ar" ? "rtl" : "")">
-                            @Resources.ArabicName
-                        </span>
-                    </th>
+            <div class="panel panel-default dashboard-option">
 
-                    <th style="width: 160px;">
-                        <span class="translated-header @(currentLanguage == "ar" ? "rtl" : "")">
-                            @Resources.MaxTicketsPerDay
-                        </span>
-                    </th>
+                @Html.ActionLink(
+                    Resources.ManageServices,
+                    "Index",
+                    "Service",
+                    null,
+                    new
+                    {
+                        @class = "btn btn-primary"
+                    })
 
-                    <th style="width: 80px;">
-                        <span class="translated-header @(currentLanguage == "ar" ? "rtl" : "")">
-                            @Resources.Active
-                        </span>
-                    </th>
+            </div>
 
-                    <th style="width: 200px; padding: 5px;">
-
-                        @Html.ActionLink(
-                            Resources.AddService,
-                            "Create",
-                            "Service",
-                            null,
-                            new
-                            {
-                                @class = "btn btn-primary btn-xs",
-                                @style = "display: block; width: 100%; text-align: center;"
-                            }
-                        )
-
-                    </th>
-
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-                @foreach (var service in Model.Services)
-                {
-                    <tr>
-
-                        <td class="name-cell">
-                            @service.ServiceNameEN
-                        </td>
-
-                        <td class="name-cell arabic-name">
-                            @service.ServiceNameAR
-                        </td>
-
-                        <td>
-                            @service.MaxTicketsPerDay
-                        </td>
-
-                        <td>
-                            @(service.ServiceStatus
-                                ? Resources.Yes
-                                : Resources.No)
-                        </td>
-
-                        <td class="action-cell">
-
-                            <div class="action-buttons">
-
-                                @Html.ActionLink(
-                                    Resources.Edit,
-                                    "Edit",
-                                    "Service",
-                                    new { id = service.ServiceId },
-                                    new
-                                    {
-                                        @class = "btn btn-warning btn-xs"
-                                    }
-                                )
-
-                                @using (Html.BeginForm(
-                                    "Delete",
-                                    "Service",
-                                    new { id = service.ServiceId },
-                                    FormMethod.Post,
-                                    new { style = "display: contents;" }))
-                                {
-                                    @Html.AntiForgeryToken()
-
-                                    <button type="submit"
-                                            class="btn btn-danger btn-xs"
-                                            onclick="return confirm('@Resources.ConfirmDelete');">
-                                        @Resources.Delete
-                                    </button>
-                                }
-
-                            </div>
-
-                        </td>
-
-                    </tr>
-                }
-
-            </tbody>
-
-        </table>
+        </div>
 
     </div>
-
-</div>
-
-
-<div class="logout-container">
-
-    @using (Html.BeginForm(
-        "Logout",
-        "Login",
-        FormMethod.Post))
-    {
-        @Html.AntiForgeryToken()
-
-        <button type="submit"
-                class="btn btn-danger btn-sm logout-button">
-
-            @Resources.Logout
-
-        </button>
-    }
 
 </div>

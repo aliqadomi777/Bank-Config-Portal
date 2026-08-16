@@ -1,0 +1,212 @@
+@model WebPortal.ASP.Models.CounterViewModel
+@using WebPortal.ASP.Resources
+
+@{
+    ViewBag.Title =
+        Model.CounterId == 0
+            ? Resources.AddCounter
+            : Resources.EditCounter;
+}
+
+
+<div class="title">
+
+    <h2>
+        @(Model.CounterId == 0
+            ? Resources.AddCounter
+            : Resources.EditCounter)
+    </h2>
+
+</div>
+
+
+<div class="panel panel-default form-panel">
+
+    <div class="panel-body">
+
+        @using (Html.BeginForm(
+            "Save",
+            "Counter",
+            FormMethod.Post,
+            new
+            {
+                @class = "form-horizontal"
+            }))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.HiddenFor(m => m.CounterId)
+
+            @Html.HiddenFor(m => m.BranchId)
+
+
+            @Html.ValidationSummary(
+                true,
+                "",
+                new
+                {
+                    @class = "text-danger"
+                })
+
+
+            <div class="form-group">
+
+                @Html.LabelFor(
+                    m => m.CounterNameEN,
+                    Resources.EnglishName,
+                    new
+                    {
+                        @class = "col-sm-4 control-label"
+                    })
+
+                <div class="col-sm-8">
+
+                    @Html.TextBoxFor(
+                        m => m.CounterNameEN,
+                        new
+                        {
+                            @class = "form-control"
+                        })
+
+                    @Html.ValidationMessageFor(
+                        m => m.CounterNameEN,
+                        "",
+                        new
+                        {
+                            @class = "text-danger"
+                        })
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                @Html.LabelFor(
+                    m => m.CounterNameAR,
+                    Resources.ArabicName,
+                    new
+                    {
+                        @class = "col-sm-4 control-label"
+                    })
+
+                <div class="col-sm-8">
+
+                    @Html.TextBoxFor(
+                        m => m.CounterNameAR,
+                        new
+                        {
+                            @class = "form-control arabic-input"
+                        })
+
+                    @Html.ValidationMessageFor(
+                        m => m.CounterNameAR,
+                        "",
+                        new
+                        {
+                            @class = "text-danger"
+                        })
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                @Html.LabelFor(
+                    m => m.CounterTypeId,
+                    Resources.CounterType,
+                    new
+                    {
+                        @class = "col-sm-4 control-label"
+                    })
+
+                <div class="col-sm-8">
+
+                    @Html.DropDownListFor(
+                        m => m.CounterTypeId,
+                        new SelectList(
+                            Model.Types,
+                            "TypeId",
+                            "TypeName",
+                            Model.CounterTypeId),
+                        Resources.SelectCounterType,
+                        new
+                        {
+                            @class = "form-control"
+                        })
+
+                    @Html.ValidationMessageFor(
+                        m => m.CounterTypeId,
+                        "",
+                        new
+                        {
+                            @class = "text-danger"
+                        })
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                @Html.LabelFor(
+                    m => m.CounterStatus,
+                    Resources.Active,
+                    new
+                    {
+                        @class = "col-sm-4 control-label"
+                    })
+
+                <div class="col-sm-8">
+
+                    <div class="checkbox">
+
+                        @Html.CheckBoxFor(
+                            m => m.CounterStatus)
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-buttons">
+
+                @Html.ActionLink(
+                    Resources.Cancel,
+                    "Index",
+                    "Counter",
+                    new
+                    {
+                        branchId = Model.BranchId
+                    },
+                    new
+                    {
+                        @class = "btn btn-default"
+                    })
+
+                <button type="submit"
+                        class="btn btn-primary">
+
+                    @Resources.Save
+
+                </button>
+
+            </div>
+        }
+
+    </div>
+
+</div>
+
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+}
