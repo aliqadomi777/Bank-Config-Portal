@@ -44,7 +44,7 @@ namespace WebPortal.ASP.Controllers
 
             try
             {
-                var counter = _counterService.GetCounterById(counterId);
+                var counter = _counterService.GetCounterById(counterId, CurrentBankId);
 
                 if (counter == null)
                 {
@@ -56,7 +56,7 @@ namespace WebPortal.ASP.Controllers
                 }
 
                 var allocationDTOs = _allocationService
-                                        .GetAllAllocations(counterId)
+                                        .GetAllAllocations(counterId, CurrentBankId)
                                         .ToList();
 
                 int totalItems = allocationDTOs.Count;
@@ -95,6 +95,14 @@ namespace WebPortal.ASP.Controllers
                     "Index",
                     model);
             }
+            catch (UnauthorizedAccessException)
+            {
+                TempData["Message"] = Resources.Resources.ItemDeleted;
+
+                return RedirectToAction(
+                    "Index",
+                    "Branch");
+            }
             catch (Exception)
             {
                 TempData["Message"] = Resources.Resources.GeneralError;
@@ -111,7 +119,7 @@ namespace WebPortal.ASP.Controllers
         {
             try
             {
-                var counter = _counterService.GetCounterById(counterId);
+                var counter = _counterService.GetCounterById(counterId, CurrentBankId);
 
                 if (counter == null)
                 {
@@ -129,6 +137,7 @@ namespace WebPortal.ASP.Controllers
                     };
 
                 LoadAvailableServices(model);
+
                 ViewBag.LanguageReturnUrl =
                     Url.Action(
                         "Create",
@@ -141,6 +150,14 @@ namespace WebPortal.ASP.Controllers
                 return View(
                     "Form",
                     model);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                TempData["Message"] = Resources.Resources.ItemDeleted;
+
+                return RedirectToAction(
+                    "Index",
+                    "Branch");
             }
             catch (Exception)
             {
@@ -162,6 +179,38 @@ namespace WebPortal.ASP.Controllers
         public ActionResult Save(
             AllocationFormViewModel model)
         {
+            try
+            {
+                var counter = _counterService.GetCounterById(model.CounterId, CurrentBankId);
+
+                if (counter == null)
+                {
+                    TempData["Message"] = Resources.Resources.ItemDeleted;
+
+                    return RedirectToAction(
+                        "Index",
+                        "Branch");
+                }
+
+                model.CounterId = counter.CounterId;
+            }
+            catch (UnauthorizedAccessException)
+            {
+                TempData["Message"] = Resources.Resources.ItemDeleted;
+
+                return RedirectToAction(
+                    "Index",
+                    "Branch");
+            }
+            catch (Exception)
+            {
+                TempData["Message"] = Resources.Resources.GeneralError;
+
+                return RedirectToAction(
+                    "Index",
+                    "Branch");
+            }
+
             ViewBag.LanguageReturnUrl =
                 Url.Action(
                     "Create",
@@ -170,6 +219,7 @@ namespace WebPortal.ASP.Controllers
                     {
                         counterId = model.CounterId
                     });
+
             if (!ModelState.IsValid)
             {
                 LoadAvailableServicesSafely(model);
@@ -189,7 +239,16 @@ namespace WebPortal.ASP.Controllers
 
                         ServiceId =
                             model.ServiceId
-                    });
+                    },
+                    CurrentBankId);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                TempData["Message"] = Resources.Resources.ItemDeleted;
+
+                return RedirectToAction(
+                    "Index",
+                    "Branch");
             }
             catch (DuplicateRecordException)
             {
@@ -248,8 +307,28 @@ namespace WebPortal.ASP.Controllers
         {
             try
             {
-                _allocationService
-                    .DeleteAllocation(id);
+                var allocation = _allocationService.GetAllocationById(id, CurrentBankId);
+
+                if (allocation == null)
+                {
+                    TempData["Message"] = Resources.Resources.ItemDeleted;
+
+                    return RedirectToAction(
+                        "Index",
+                        "Branch");
+                }
+
+                counterId = allocation.CounterId;
+
+                _allocationService.DeleteAllocation(id, CurrentBankId);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                TempData["Message"] = Resources.Resources.ItemDeleted;
+
+                return RedirectToAction(
+                    "Index",
+                    "Branch");
             }
             catch (Exception)
             {
@@ -282,7 +361,7 @@ namespace WebPortal.ASP.Controllers
 
             var allocatedServiceIds =
                 _allocationService
-                    .GetAllAllocations(model.CounterId)
+                    .GetAllAllocations(model.CounterId, CurrentBankId)
                     .Select(allocation =>
                         allocation.ServiceId)
                     .ToList();

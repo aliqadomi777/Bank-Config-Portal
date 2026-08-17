@@ -6,10 +6,10 @@ namespace WebPortal.Application.Interfaces
     public interface IServiceManager
     {
         IEnumerable<ServiceResponseDto> GetAllServices(int bankId);
-        ServiceResponseDto GetServiceById(int serviceId);
-        int CreateService(ServiceCreateRequestDto request);
-        bool UpdateService(ServiceUpdateRequestDto request);
-        bool DeleteService(int serviceId);
+        ServiceResponseDto GetServiceById(int serviceId, int bankId);
+        int CreateService(ServiceCreateRequestDto request, int bankId);
+        bool UpdateService(ServiceUpdateRequestDto request, int bankId);
+        bool DeleteService(int serviceId, int bankId);
 
     }
 }

@@ -37,7 +37,7 @@ namespace WebPortal.ASP.Controllers
 
             try
             {
-                var counterDTOs = _counterService.GetAllCounters(branchId).ToList();
+                var counterDTOs = _counterService.GetAllCounters(branchId, CurrentBankId).ToList();
 
                 int totalItems =
                     counterDTOs.Count;
@@ -76,6 +76,14 @@ namespace WebPortal.ASP.Controllers
                     "Index",
                     model);
             }
+            catch (UnauthorizedAccessException)
+            {
+                TempData["Message"] = Resources.Resources.ItemDeleted;
+
+                return RedirectToAction(
+                    "Index",
+                    "Branch");
+            }
             catch (Exception)
             {
                 TempData["Message"] =
@@ -100,7 +108,10 @@ namespace WebPortal.ASP.Controllers
 
             try
             {
+                _counterService.GetAllCounters(branchId, CurrentBankId);
+
                 LoadCounterTypes(model);
+
                 ViewBag.LanguageReturnUrl =
                     Url.Action(
                         "Create",
@@ -114,6 +125,14 @@ namespace WebPortal.ASP.Controllers
                 return View(
                     "Form",
                     model);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                TempData["Message"] = Resources.Resources.ItemDeleted;
+
+                return RedirectToAction(
+                    "Index",
+                    "Branch");
             }
             catch (Exception)
             {
@@ -136,7 +155,7 @@ namespace WebPortal.ASP.Controllers
         {
             try
             {
-                var counter = _counterService.GetCounterById(id);
+                var counter = _counterService.GetCounterById(id, CurrentBankId);
 
                 if (counter == null)
                 {
@@ -162,6 +181,7 @@ namespace WebPortal.ASP.Controllers
                     };
 
                 LoadCounterTypes(model);
+
                 ViewBag.LanguageReturnUrl =
                     Url.Action(
                         "Edit",
@@ -170,9 +190,18 @@ namespace WebPortal.ASP.Controllers
                         {
                             id = model.CounterId
                         });
+
                 return View(
                     "Form",
                     model);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                TempData["Message"] = Resources.Resources.ItemDeleted;
+
+                return RedirectToAction(
+                    "Index",
+                    "Branch");
             }
             catch (Exception)
             {
@@ -191,6 +220,45 @@ namespace WebPortal.ASP.Controllers
         public ActionResult Save(
             CounterViewModel model)
         {
+            try
+            {
+                if (model.CounterId == 0)
+                {
+                    _counterService.GetAllCounters(model.BranchId, CurrentBankId);
+                }
+                else
+                {
+                    var counter = _counterService.GetCounterById(model.CounterId, CurrentBankId);
+
+                    if (counter == null)
+                    {
+                        TempData["Message"] = Resources.Resources.ItemDeleted;
+
+                        return RedirectToAction(
+                            "Index",
+                            "Branch");
+                    }
+
+                    model.BranchId = counter.BranchId;
+                }
+            }
+            catch (UnauthorizedAccessException)
+            {
+                TempData["Message"] = Resources.Resources.ItemDeleted;
+
+                return RedirectToAction(
+                    "Index",
+                    "Branch");
+            }
+            catch (Exception)
+            {
+                TempData["Message"] = Resources.Resources.GeneralError;
+
+                return RedirectToAction(
+                    "Index",
+                    "Branch");
+            }
+
             ViewBag.LanguageReturnUrl =
                 model.CounterId == 0
                     ? Url.Action(
@@ -207,6 +275,7 @@ namespace WebPortal.ASP.Controllers
                         {
                             id = model.CounterId
                         });
+
             if (!ModelState.IsValid)
             {
                 LoadCounterTypesSafely(model);
@@ -228,7 +297,8 @@ namespace WebPortal.ASP.Controllers
                             CounterNameAR = model.CounterNameAR.Trim(),
                             CounterStatus = model.CounterStatus,
                             TypeID = model.CounterTypeId
-                        });
+                        },
+                        CurrentBankId);
                 }
                 else
                 {
@@ -240,16 +310,26 @@ namespace WebPortal.ASP.Controllers
                              CounterNameAR = model.CounterNameAR.Trim(),
                              CounterStatus = model.CounterStatus,
                              TypeID = model.CounterTypeId
-                         });
+                         },
+                         CurrentBankId);
+
                     if (!isUpdated)
                     {
                         TempData["Message"] = Resources.Resources.ItemDeleted;
 
                         return RedirectToAction(
                             "Index",
-                            "Counter");
+                            "Branch");
                     }
                 }
+            }
+            catch (UnauthorizedAccessException)
+            {
+                TempData["Message"] = Resources.Resources.ItemDeleted;
+
+                return RedirectToAction(
+                    "Index",
+                    "Branch");
             }
             catch (DuplicateRecordException)
             {
@@ -309,7 +389,28 @@ namespace WebPortal.ASP.Controllers
         {
             try
             {
-                _counterService.DeleteCounter(id);
+                var counter = _counterService.GetCounterById(id, CurrentBankId);
+
+                if (counter == null)
+                {
+                    TempData["Message"] = Resources.Resources.ItemDeleted;
+
+                    return RedirectToAction(
+                        "Index",
+                        "Branch");
+                }
+
+                branchId = counter.BranchId;
+
+                _counterService.DeleteCounter(id, CurrentBankId);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                TempData["Message"] = Resources.Resources.ItemDeleted;
+
+                return RedirectToAction(
+                    "Index",
+                    "Branch");
             }
             catch (Exception)
             {

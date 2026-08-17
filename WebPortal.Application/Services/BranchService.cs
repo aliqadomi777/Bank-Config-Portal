@@ -22,6 +22,7 @@ namespace WebPortal.Application.Services
         private readonly ILogger<BranchModel> _logger;
 
         private readonly ICounterService _counterService;
+        private readonly IBankAuthorizationService _bankAuthorization;
 
         public BranchService(IFetchableRepository<BranchModel> fetchRepository,
                              IListableRepository<BranchModel> listRepository,
@@ -29,7 +30,8 @@ namespace WebPortal.Application.Services
                              IUpdateableRepository<BranchModel> updateRepository,
                              IDeleteableRepository<BranchModel> deleteRepository,
                              ILogger<BranchModel> logger,
-                             ICounterService counterService)
+                             ICounterService counterService,
+                             IBankAuthorizationService bankAuthorization)
         {
             _fetchRepository = fetchRepository;
             _listRepository = listRepository;
@@ -38,10 +40,11 @@ namespace WebPortal.Application.Services
             _deleteRepository = deleteRepository;
             _logger = logger;
             _counterService = counterService;
+            _bankAuthorization = bankAuthorization;
 
         }
 
-        public BranchResponseDto GetBranchById(int branchId)
+        public BranchResponseDto GetBranchById(int branchId, int bankId)
         {
             if (branchId <= 0)
             {
@@ -50,13 +53,14 @@ namespace WebPortal.Application.Services
 
             try
             {
-                var branch = _fetchRepository.GetById(branchId);
+                var branch = _bankAuthorization.GetBranchForBank(branchId, bankId);
+
                 return branch == null ? null : new BranchResponseDto
                 {
                     BranchId = branch.BranchId,
                     BranchNameEN = branch.BranchNameEN,
                     BranchNameAR = branch.BranchNameAR,
-                    BankId = branch.BranchId,
+                    BankId = branch.BankId,
                     BranchStatus = branch.BranchStatus,
                     ModifiedAt = branch.ModifiedAt,
                 };
@@ -95,7 +99,7 @@ namespace WebPortal.Application.Services
                     BranchId = branch.BranchId,
                     BranchNameEN = branch.BranchNameEN,
                     BranchNameAR = branch.BranchNameAR,
-                    BankId = branch.BranchId,
+                    BankId = branch.BankId,
                     BranchStatus = branch.BranchStatus,
                     ModifiedAt = branch.ModifiedAt,
                 }).ToList();
@@ -120,7 +124,8 @@ namespace WebPortal.Application.Services
 
             }
         }
-        public int CreateBranch(BranchCreateRequestDto request)
+
+        public int CreateBranch(BranchCreateRequestDto request, int bankId)
         {
             try
             {
@@ -130,7 +135,7 @@ namespace WebPortal.Application.Services
                     BranchNameEN = request.BranchNameEN,
                     BranchNameAR = request.BranchNameAR,
                     BranchStatus = request.BranchStatus,
-                    BankId = request.BankId
+                    BankId = bankId
 
                 };
                 int newBranchId = _addRepository.Add(branchModel);
@@ -175,10 +180,17 @@ namespace WebPortal.Application.Services
         }
 
 
-        public bool UpdateBranch(BranchUpdateRequestDto request)
+        public bool UpdateBranch(BranchUpdateRequestDto request, int bankId)
         {
             try
             {
+                var currentBranch = _bankAuthorization.GetBranchForBank(request.BranchId, bankId);
+
+                if (currentBranch == null)
+                {
+                    return false;
+                }
+
                 ValidationExtensions.ValidateModel(request);
                 var branchModel = new BranchModel
                 {
@@ -227,10 +239,18 @@ namespace WebPortal.Application.Services
 
             }
         }
-        public bool DeleteBranch(int branchId)
+
+        public bool DeleteBranch(int branchId, int bankId)
         {
             try
             {
+                var branch = _bankAuthorization.GetBranchForBank(branchId, bankId);
+
+                if (branch == null)
+                {
+                    return false;
+                }
+
                 using (var scope = new System.Transactions.TransactionScope(
                     System.Transactions.TransactionScopeOption.Required,
                     new System.Transactions.TransactionOptions
@@ -238,11 +258,11 @@ namespace WebPortal.Application.Services
                         IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted
                     }))
                 {
-                    var counters = _counterService.GetAllCounters(branchId);
+                    var counters = _counterService.GetAllCounters(branchId, bankId);
 
                     foreach (var counter in counters)
                     {
-                        _counterService.DeleteCounter(counter.CounterId);
+                        _counterService.DeleteCounter(counter.CounterId, bankId);
                     }
 
                     bool isDeleted = _deleteRepository.Delete(branchId);

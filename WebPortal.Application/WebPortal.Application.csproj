@@ -135,6 +135,7 @@
     <Compile Include="DTO\User\UserResponseDto.cs" />
     <Compile Include="Exceptions\SqlErrorTypes.cs" />
     <Compile Include="Interfaces\IAllocationService.cs" />
+    <Compile Include="Interfaces\IBankAuthorizationService.cs" />
     <Compile Include="Interfaces\IBranchService.cs" />
     <Compile Include="Interfaces\ICounterService.cs" />
     <Compile Include="Interfaces\ICounterTypeService.cs" />
@@ -142,6 +143,7 @@
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AllocationService.cs" />
+    <Compile Include="Services\BankAuthorizationService.cs" />
     <Compile Include="Services\BranchService.cs" />
     <Compile Include="Services\CounterService.cs" />
     <Compile Include="Services\CounterTypeService.cs" />

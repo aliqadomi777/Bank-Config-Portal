@@ -20,12 +20,15 @@ namespace WebPortal.Application.Services
         private readonly IUpdateableRepository<ServiceModel> _updateRepository;
         private readonly IDeleteableRepository<ServiceModel> _deleteRepository;
         private readonly ILogger<ServiceModel> _logger;
+        private readonly IBankAuthorizationService _bankAuthorization;
+
         public ServiceManager(IFetchableRepository<ServiceModel> fetchRepository,
                              IListableRepository<ServiceModel> listRepository,
                              IAddableRepository<ServiceModel> addRepository,
                              IUpdateableRepository<ServiceModel> updateRepository,
                              IDeleteableRepository<ServiceModel> deleteRepository,
-                             ILogger<ServiceModel> logger)
+                             ILogger<ServiceModel> logger,
+                             IBankAuthorizationService bankAuthorization)
         {
             _fetchRepository = fetchRepository;
             _listRepository = listRepository;
@@ -33,8 +36,10 @@ namespace WebPortal.Application.Services
             _updateRepository = updateRepository;
             _deleteRepository = deleteRepository;
             _logger = logger;
+            _bankAuthorization = bankAuthorization;
         }
-        public ServiceResponseDto GetServiceById(int serviceId)
+
+        public ServiceResponseDto GetServiceById(int serviceId, int bankId)
         {
             if (serviceId <= 0)
             {
@@ -43,7 +48,8 @@ namespace WebPortal.Application.Services
 
             try
             {
-                var service = _fetchRepository.GetById(serviceId);
+                var service = _bankAuthorization.GetServiceForBank(serviceId, bankId);
+
                 return service == null ? null : new ServiceResponseDto
                 {
                     ServiceId = service.ServiceId,
@@ -74,6 +80,7 @@ namespace WebPortal.Application.Services
 
             }
         }
+
         public IEnumerable<ServiceResponseDto> GetAllServices(int bankId)
         {
             if (bankId <= 0)
@@ -115,7 +122,7 @@ namespace WebPortal.Application.Services
             }
         }
 
-        public int CreateService(ServiceCreateRequestDto request)
+        public int CreateService(ServiceCreateRequestDto request, int bankId)
         {
             try
             {
@@ -126,7 +133,7 @@ namespace WebPortal.Application.Services
                     ServiceNameAR = request.ServiceNameAR,
                     ServiceStatus = request.ServiceStatus,
                     MaxTicketsPerDay = request.MaxTicketsPerDay,
-                    BankId = request.BankId
+                    BankId = bankId
 
                 };
                 int newServiceId = _addRepository.Add(serviceModel);
@@ -170,10 +177,17 @@ namespace WebPortal.Application.Services
             }
         }
 
-        public bool UpdateService(ServiceUpdateRequestDto request)
+        public bool UpdateService(ServiceUpdateRequestDto request, int bankId)
         {
             try
             {
+                var currentService = _bankAuthorization.GetServiceForBank(request.ServiceId, bankId);
+
+                if (currentService == null)
+                {
+                    return false;
+                }
+
                 ValidationExtensions.ValidateModel(request);
                 var serviceModel = new ServiceModel
                 {
@@ -223,10 +237,18 @@ namespace WebPortal.Application.Services
 
             }
         }
-        public bool DeleteService(int serviceId)
+
+        public bool DeleteService(int serviceId, int bankId)
         {
             try
             {
+                var service = _bankAuthorization.GetServiceForBank(serviceId, bankId);
+
+                if (service == null)
+                {
+                    return false;
+                }
+
                 bool isDeleted = _deleteRepository.Delete(serviceId);
                 return isDeleted;
             }

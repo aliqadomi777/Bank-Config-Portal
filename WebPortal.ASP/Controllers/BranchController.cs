@@ -80,15 +80,16 @@ namespace WebPortal.ASP.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            var model =
-                new BranchViewModel
-                {
-                    BranchStatus = true
-                };
+            var model = new BranchViewModel
+            {
+                BranchStatus = true
+            };
+
             ViewBag.LanguageReturnUrl =
                 Url.Action(
                     "Create",
                     "Branch");
+
             return View(
                 "Form",
                 model);
@@ -100,9 +101,7 @@ namespace WebPortal.ASP.Controllers
         {
             try
             {
-                var branch =
-                    _branchService
-                        .GetBranchById(id);
+                var branch = _branchService.GetBranchById(id, CurrentBankId);
 
                 if (branch == null)
                 {
@@ -124,6 +123,7 @@ namespace WebPortal.ASP.Controllers
                         ModifiedAt = branch.ModifiedAt,
                         BankId = branch.BankId
                     };
+
                 ViewBag.LanguageReturnUrl =
                     Url.Action(
                         "Edit",
@@ -132,9 +132,18 @@ namespace WebPortal.ASP.Controllers
                         {
                             id = model.BranchId
                         });
+
                 return View(
                     "Form",
                     model);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                TempData["Message"] = Resources.Resources.ItemDeleted;
+
+                return RedirectToAction(
+                    "Index",
+                    "Branch");
             }
             catch (Exception)
             {
@@ -166,6 +175,7 @@ namespace WebPortal.ASP.Controllers
                         {
                             id = model.BranchId
                         });
+
             if (!ModelState.IsValid)
             {
                 return View(
@@ -180,11 +190,11 @@ namespace WebPortal.ASP.Controllers
                     _branchService.CreateBranch(
                         new BranchCreateRequestDto
                         {
-                            BankId = CurrentBankId,
                             BranchNameEN = model.BranchNameEN.Trim(),
                             BranchNameAR = model.BranchNameAR.Trim(),
                             BranchStatus = model.BranchStatus
-                        });
+                        },
+                        CurrentBankId);
                 }
                 else
                 {
@@ -195,7 +205,8 @@ namespace WebPortal.ASP.Controllers
                             BranchNameEN = model.BranchNameEN.Trim(),
                             BranchNameAR = model.BranchNameAR.Trim(),
                             BranchStatus = model.BranchStatus
-                        });
+                        },
+                        CurrentBankId);
 
                     if (!isUpdated)
                     {
@@ -206,6 +217,14 @@ namespace WebPortal.ASP.Controllers
                             "Branch");
                     }
                 }
+            }
+            catch (UnauthorizedAccessException)
+            {
+                TempData["Message"] = Resources.Resources.ItemDeleted;
+
+                return RedirectToAction(
+                    "Index",
+                    "Branch");
             }
             catch (DuplicateRecordException)
             {
@@ -253,8 +272,11 @@ namespace WebPortal.ASP.Controllers
         {
             try
             {
-                _branchService
-                    .DeleteBranch(id);
+                _branchService.DeleteBranch(id, CurrentBankId);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                TempData["Message"] = Resources.Resources.ItemDeleted;
             }
             catch (Exception)
             {

@@ -25,6 +25,10 @@ namespace WebPortal.Infrastructure
             builder.RegisterType<CounterTypeService>()
                 .As<ICounterTypeService>()
                 .InstancePerDependency();
+
+            builder.RegisterType<BankAuthorizationService>()
+                .As<IBankAuthorizationService>()
+                .InstancePerDependency();
         }
     }
 }

@@ -32,6 +32,11 @@ namespace WebPortal.ASP.Controllers
                 TempData["LoginModel"] as LoginViewModel
                 ?? new LoginViewModel();
 
+            if (!string.IsNullOrEmpty(App_Start.ContainerConfig.DbErrorMessage))
+            {
+                ViewBag.DbError = App_Start.ContainerConfig.DbErrorMessage;
+            }
+
             return View(model);
         }
 

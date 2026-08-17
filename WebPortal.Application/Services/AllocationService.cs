@@ -21,12 +21,15 @@ namespace WebPortal.Application.Services
         private readonly IUpdateableRepository<AllocationModel> _updateRepository;
         private readonly IDeleteableRepository<AllocationModel> _deleteRepository;
         private readonly ILogger<AllocationModel> _logger;
+        private readonly IBankAuthorizationService _bankAuthorization;
+
         public AllocationService(IFetchableRepository<AllocationModel> fetchRepository,
                              IListableRepository<AllocationModel> listRepository,
                              IAddableRepository<AllocationModel> addRepository,
                              IUpdateableRepository<AllocationModel> updateRepository,
                              IDeleteableRepository<AllocationModel> deleteRepository,
-                             ILogger<AllocationModel> logger)
+                             ILogger<AllocationModel> logger,
+                             IBankAuthorizationService bankAuthorization)
         {
             _fetchRepository = fetchRepository;
             _listRepository = listRepository;
@@ -34,8 +37,10 @@ namespace WebPortal.Application.Services
             _updateRepository = updateRepository;
             _deleteRepository = deleteRepository;
             _logger = logger;
+            _bankAuthorization = bankAuthorization;
         }
-        public AllocationResponseDto GetAllocationById(int allocationId)
+
+        public AllocationResponseDto GetAllocationById(int allocationId, int bankId)
         {
             if (allocationId <= 0)
             {
@@ -44,7 +49,8 @@ namespace WebPortal.Application.Services
 
             try
             {
-                var allocation = _fetchRepository.GetById(allocationId);
+                var allocation = _bankAuthorization.GetAllocationForBank(allocationId, bankId);
+
                 return allocation == null ? null : new AllocationResponseDto
                 {
                     AllocationId = allocation.AllocationId,
@@ -72,7 +78,7 @@ namespace WebPortal.Application.Services
             }
         }
 
-        public IEnumerable<AllocationResponseDto> GetAllAllocations(int counterId)
+        public IEnumerable<AllocationResponseDto> GetAllAllocations(int counterId, int bankId)
         {
             if (counterId <= 0)
             {
@@ -80,7 +86,20 @@ namespace WebPortal.Application.Services
             }
             try
             {
-                var allocations = _listRepository.GetAll(counterId);
+                var counter = _bankAuthorization.GetCounterForBank(counterId, bankId);
+
+                if (counter == null)
+                {
+                    return Enumerable.Empty<AllocationResponseDto>();
+                }
+
+                var allocations = _listRepository.GetAll(counterId).ToList();
+
+                foreach (var allocation in allocations)
+                {
+                    _bankAuthorization.GetAllocationForBank(allocation.AllocationId, bankId);
+                }
+
                 return allocations.Select(allocation => new AllocationResponseDto
                 {
                     AllocationId = allocation.AllocationId,
@@ -108,10 +127,14 @@ namespace WebPortal.Application.Services
 
             }
         }
-        public int CreateAllocation(AllocationCreateRequestDto request)
+
+        public int CreateAllocation(AllocationCreateRequestDto request, int bankId)
         {
             try
             {
+                _bankAuthorization.GetCounterForBank(request.CounterId, bankId);
+                _bankAuthorization.GetServiceForBank(request.ServiceId, bankId);
+
                 ValidationExtensions.ValidateModel(request);
                 var allocationModel = new AllocationModel
                 {
@@ -159,10 +182,18 @@ namespace WebPortal.Application.Services
 
 
 
-        public bool UpdateAllocation(AllocationUpdateRequestDto request)
+        public bool UpdateAllocation(AllocationUpdateRequestDto request, int bankId)
         {
             try
             {
+                var currentAllocation = _bankAuthorization.GetAllocationForBank(request.AllocationId, bankId);
+
+                if (currentAllocation == null)
+                {
+                    return false;
+                }
+
+                _bankAuthorization.GetServiceForBank(request.ServiceId, bankId);
 
                 ValidationExtensions.ValidateModel(request);
                 var allocationModel = new AllocationModel
@@ -209,10 +240,17 @@ namespace WebPortal.Application.Services
             }
         }
 
-        public bool DeleteAllocation(int allocationId)
+        public bool DeleteAllocation(int allocationId, int bankId)
         {
             try
             {
+                var allocation = _bankAuthorization.GetAllocationForBank(allocationId, bankId);
+
+                if (allocation == null)
+                {
+                    return false;
+                }
+
                 bool isDeleted = _deleteRepository.Delete(allocationId);
                 return isDeleted;
             }

@@ -5,6 +5,13 @@
     ViewBag.Title = Resources.Login;
 }
 
+@if (ViewBag.DbError != null)
+{
+    <div class="alert alert-danger" style="color: red; background-color: #f8d7da; border: 1px solid #f5c6cb; padding: 15px; border-radius: 4px; margin-bottom: 20px;">
+        <strong>System Configuration Warning:</strong> @ViewBag.DbError
+        <p style="margin-top: 5px; font-size: 13px;">Please contact your system administrator. Login functionality is temporarily unavailable.</p>
+    </div>
+}
 <style>
 
     .login-wrapper {
@@ -170,7 +177,8 @@
                             col-xs-9 col-sm-9 col-md-9">
 
                     <button type="submit"
-                            class="btn btn-custom-login">
+                            class="btn btn-custom-login"
+                            @(ViewBag.DbError != null ? "disabled=\"disabled\"" : "")>
 
                         @Resources.Login
 

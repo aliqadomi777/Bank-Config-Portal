@@ -6,10 +6,10 @@ namespace WebPortal.Application.Interfaces
     public interface IBranchService
     {
         IEnumerable<BranchResponseDto> GetAllBranches(int bankId);
-        BranchResponseDto GetBranchById(int branchId);
-        int CreateBranch(BranchCreateRequestDto request);
-        bool UpdateBranch(BranchUpdateRequestDto request);
-        bool DeleteBranch(int branchId);
+        BranchResponseDto GetBranchById(int branchId, int bankId);
+        int CreateBranch(BranchCreateRequestDto request, int bankId);
+        bool UpdateBranch(BranchUpdateRequestDto request, int bankId);
+        bool DeleteBranch(int branchId, int bankId);
 
     }
 }

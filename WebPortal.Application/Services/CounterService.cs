@@ -24,6 +24,7 @@ namespace WebPortal.Application.Services
 
         private readonly IListableRepository<AllocationModel> _listAllocationRepository;
         private readonly IAllocationRepository _deleteAllocationRepository;
+        private readonly IBankAuthorizationService _bankAuthorization;
 
         public CounterService(IFetchableRepository<CounterModel> fetchRepository,
                      IListableRepository<CounterModel> listRepository,
@@ -32,7 +33,8 @@ namespace WebPortal.Application.Services
                      IDeleteableRepository<CounterModel> deleteRepository,
                      ILogger<CounterModel> logger,
                      IListableRepository<AllocationModel> listAllocationRepository,
-                     IAllocationRepository deleteAllocationRepository)
+                     IAllocationRepository deleteAllocationRepository,
+                     IBankAuthorizationService bankAuthorization)
         {
             _fetchRepository = fetchRepository;
             _listRepository = listRepository;
@@ -42,8 +44,10 @@ namespace WebPortal.Application.Services
             _logger = logger;
             _listAllocationRepository = listAllocationRepository;
             _deleteAllocationRepository = deleteAllocationRepository;
+            _bankAuthorization = bankAuthorization;
         }
-        public CounterResponseDto GetCounterById(int counterId)
+
+        public CounterResponseDto GetCounterById(int counterId, int bankId)
         {
             if (counterId <= 0)
             {
@@ -52,7 +56,8 @@ namespace WebPortal.Application.Services
 
             try
             {
-                var counter = _fetchRepository.GetById(counterId);
+                var counter = _bankAuthorization.GetCounterForBank(counterId, bankId);
+
                 return counter == null ? null : new CounterResponseDto
                 {
                     CounterId = counter.CounterId,
@@ -83,7 +88,7 @@ namespace WebPortal.Application.Services
             }
         }
 
-        public IEnumerable<CounterResponseDto> GetAllCounters(int branchId)
+        public IEnumerable<CounterResponseDto> GetAllCounters(int branchId, int bankId)
         {
             if (branchId <= 0)
             {
@@ -91,7 +96,15 @@ namespace WebPortal.Application.Services
             }
             try
             {
+                var branch = _bankAuthorization.GetBranchForBank(branchId, bankId);
+
+                if (branch == null)
+                {
+                    return Enumerable.Empty<CounterResponseDto>();
+                }
+
                 var counters = _listRepository.GetAll(branchId);
+
                 return counters.Select(counter => new CounterResponseDto
                 {
                     CounterId = counter.CounterId,
@@ -122,10 +135,13 @@ namespace WebPortal.Application.Services
 
             }
         }
-        public int CreateCounter(CounterCreateRequestDto request)
+
+        public int CreateCounter(CounterCreateRequestDto request, int bankId)
         {
             try
             {
+                _bankAuthorization.GetBranchForBank(request.BranchId, bankId);
+
                 ValidationExtensions.ValidateModel(request);
                 var counterModel = new CounterModel
                 {
@@ -175,10 +191,18 @@ namespace WebPortal.Application.Services
 
             }
         }
-        public bool UpdateCounter(CounterUpdateRequestDto request)
+
+        public bool UpdateCounter(CounterUpdateRequestDto request, int bankId)
         {
             try
             {
+                var currentCounter = _bankAuthorization.GetCounterForBank(request.CounterId, bankId);
+
+                if (currentCounter == null)
+                {
+                    return false;
+                }
+
                 ValidationExtensions.ValidateModel(request);
                 var counterModel = new CounterModel
                 {
@@ -227,10 +251,17 @@ namespace WebPortal.Application.Services
             }
         }
 
-        public bool DeleteCounter(int counterId)
+        public bool DeleteCounter(int counterId, int bankId)
         {
             try
             {
+                var counter = _bankAuthorization.GetCounterForBank(counterId, bankId);
+
+                if (counter == null)
+                {
+                    return false;
+                }
+
                 using (var scope = new System.Transactions.TransactionScope(
                     System.Transactions.TransactionScopeOption.Required,
                     new System.Transactions.TransactionOptions

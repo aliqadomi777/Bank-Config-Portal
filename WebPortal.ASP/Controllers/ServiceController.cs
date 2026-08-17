@@ -97,7 +97,7 @@ namespace WebPortal.ASP.Controllers
         {
             try
             {
-                var service = _serviceManager.GetServiceById(id);
+                var service = _serviceManager.GetServiceById(id, CurrentBankId);
 
                 if (service == null)
                 {
@@ -119,6 +119,7 @@ namespace WebPortal.ASP.Controllers
                         ModifiedAt = service.ModifiedAt,
                         BankId = service.BankId
                     };
+
                 ViewBag.LanguageReturnUrl =
                         Url.Action(
                             "Edit",
@@ -129,6 +130,14 @@ namespace WebPortal.ASP.Controllers
                             });
 
                 return View("Form", model);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                TempData["Message"] = Resources.Resources.ItemDeleted;
+
+                return RedirectToAction(
+                    "Index",
+                    "Service");
             }
             catch (Exception)
             {
@@ -160,6 +169,7 @@ namespace WebPortal.ASP.Controllers
                         {
                             id = model.ServiceId
                         });
+
             if (!ModelState.IsValid)
             {
                 return View(
@@ -174,12 +184,12 @@ namespace WebPortal.ASP.Controllers
                     _serviceManager.CreateService(
                         new ServiceCreateRequestDto
                         {
-                            BankId = CurrentBankId,
                             ServiceNameEN = model.ServiceNameEN.Trim(),
                             ServiceNameAR = model.ServiceNameAR.Trim(),
                             ServiceStatus = model.ServiceStatus,
                             MaxTicketsPerDay = model.MaxTicketsPerDay
-                        });
+                        },
+                        CurrentBankId);
                 }
                 else
                 {
@@ -191,7 +201,9 @@ namespace WebPortal.ASP.Controllers
                             ServiceNameAR = model.ServiceNameAR.Trim(),
                             ServiceStatus = model.ServiceStatus,
                             MaxTicketsPerDay = model.MaxTicketsPerDay
-                        });
+                        },
+                        CurrentBankId);
+
                     if (!isUpdated)
                     {
                         TempData["Message"] = Resources.Resources.ItemDeleted;
@@ -201,6 +213,14 @@ namespace WebPortal.ASP.Controllers
                             "Service");
                     }
                 }
+            }
+            catch (UnauthorizedAccessException)
+            {
+                TempData["Message"] = Resources.Resources.ItemDeleted;
+
+                return RedirectToAction(
+                    "Index",
+                    "Service");
             }
             catch (DuplicateRecordException)
             {
@@ -248,8 +268,11 @@ namespace WebPortal.ASP.Controllers
         {
             try
             {
-                _serviceManager
-                    .DeleteService(id);
+                _serviceManager.DeleteService(id, CurrentBankId);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                TempData["Message"] = Resources.Resources.ItemDeleted;
             }
             catch (Exception)
             {
