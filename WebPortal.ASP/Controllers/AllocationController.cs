@@ -12,26 +12,26 @@ namespace WebPortal.ASP.Controllers
 {
     public class AllocationController : BaseController
     {
-        private readonly IAllocationService
-            _allocationService;
+        private readonly IAllocationService _allocationService;
 
-        private readonly IServiceManager
-            _serviceManager;
+        private readonly IServiceManager _serviceManager;
 
-        private readonly ICounterService
-            _counterService;
-
+        private readonly ICounterService _counterService;
+        private readonly IBranchService _branchService;
 
         public AllocationController(
             IAllocationService allocationService,
             IServiceManager serviceManager,
-            ICounterService counterService)
+            ICounterService counterService,
+            IBranchService branchService)
         {
             _allocationService = allocationService;
 
             _serviceManager = serviceManager;
 
             _counterService = counterService;
+
+            _branchService = branchService;
         }
 
 
@@ -47,6 +47,17 @@ namespace WebPortal.ASP.Controllers
                 var counter = _counterService.GetCounterById(counterId, CurrentBankId);
 
                 if (counter == null)
+                {
+                    TempData["Message"] = Resources.Resources.ItemDeleted;
+
+                    return RedirectToAction(
+                        "Index",
+                        "Branch");
+                }
+                if (!LoadAllocationContext(
+                                counter.BranchId,
+                                counter.CounterNameEN,
+                                counter.CounterNameAR))
                 {
                     TempData["Message"] = Resources.Resources.ItemDeleted;
 
@@ -92,7 +103,7 @@ namespace WebPortal.ASP.Controllers
                 ViewBag.BranchId = counter.BranchId;
 
                 return View(
-                    "Index",
+                    "List",
                     model);
             }
             catch (UnauthorizedAccessException)
@@ -129,7 +140,17 @@ namespace WebPortal.ASP.Controllers
                         "Index",
                         "Branch");
                 }
+                if (!LoadAllocationContext(
+                counter.BranchId,
+                counter.CounterNameEN,
+                counter.CounterNameAR))
+                {
+                    TempData["Message"] = Resources.Resources.ItemDeleted;
 
+                    return RedirectToAction(
+                        "Index",
+                        "Branch");
+                }
                 var model =
                     new AllocationFormViewModel
                     {
@@ -398,6 +419,36 @@ namespace WebPortal.ASP.Controllers
                 model.Services =
                     new List<ServiceOptionViewModel>();
             }
+        }
+        private bool LoadAllocationContext(
+                    int branchId,
+                    string counterNameEN,
+                    string counterNameAR)
+        {
+            var branch = _branchService.GetBranchById(
+                    branchId,
+                    CurrentBankId);
+
+            if (branch == null)
+            {
+                return false;
+            }
+
+            bool isArabic = Thread.CurrentThread
+                    .CurrentUICulture
+                    .TwoLetterISOLanguageName == "ar";
+
+            ViewBag.BranchName = isArabic
+                    ? branch.BranchNameAR
+                    : branch.BranchNameEN;
+
+            ViewBag.CounterName = isArabic
+                    ? counterNameAR
+                    : counterNameEN;
+
+            ViewBag.BranchId = branchId;
+
+            return true;
         }
     }
 }

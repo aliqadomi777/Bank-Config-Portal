@@ -2,10 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web.Mvc;
 using WebPortal.Application.DTO.Counter;
 using WebPortal.Application.DTO.CounterType;
 using WebPortal.Application.Interfaces;
+using WebPortal.Application.Services;
 using WebPortal.ASP.Models;
 
 namespace WebPortal.ASP.Controllers
@@ -14,17 +16,21 @@ namespace WebPortal.ASP.Controllers
     {
         private readonly ICounterService _counterService;
 
-        private readonly ICounterTypeService
-            _counterTypeService;
+        private readonly ICounterTypeService _counterTypeService;
+
+        private readonly IBranchService _branchService;
 
 
         public CounterController(
             ICounterService counterService,
-            ICounterTypeService counterTypeService)
+            ICounterTypeService counterTypeService,
+            IBranchService branchService)
         {
             _counterService = counterService;
 
             _counterTypeService = counterTypeService;
+
+            _branchService = branchService;
         }
 
 
@@ -37,6 +43,14 @@ namespace WebPortal.ASP.Controllers
 
             try
             {
+                if (!LoadBranchContext(branchId))
+                {
+                    TempData["Message"] = Resources.Resources.ItemDeleted;
+
+                    return RedirectToAction(
+                        "Index",
+                        "Branch");
+                }
                 var counterDTOs = _counterService.GetAllCounters(branchId, CurrentBankId).ToList();
 
                 int totalItems =
@@ -73,7 +87,7 @@ namespace WebPortal.ASP.Controllers
                 ViewBag.BranchId = branchId;
 
                 return View(
-                    "Index",
+                    "List",
                     model);
             }
             catch (UnauthorizedAccessException)
@@ -108,6 +122,14 @@ namespace WebPortal.ASP.Controllers
 
             try
             {
+                if (!LoadBranchContext(branchId))
+                {
+                    TempData["Message"] = Resources.Resources.ItemDeleted;
+
+                    return RedirectToAction(
+                        "Index",
+                        "Branch");
+                }
                 _counterService.GetAllCounters(branchId, CurrentBankId);
 
                 LoadCounterTypes(model);
@@ -179,6 +201,14 @@ namespace WebPortal.ASP.Controllers
                         CounterTypeName = counter.TypeName,
                         ModifiedAt = counter.ModifiedAt
                     };
+                if (!LoadBranchContext(model.BranchId))
+                {
+                    TempData["Message"] = Resources.Resources.ItemDeleted;
+
+                    return RedirectToAction(
+                        "Index",
+                        "Branch");
+                }
 
                 LoadCounterTypes(model);
 
@@ -222,6 +252,7 @@ namespace WebPortal.ASP.Controllers
         {
             try
             {
+
                 if (model.CounterId == 0)
                 {
                     _counterService.GetAllCounters(model.BranchId, CurrentBankId);
@@ -240,6 +271,16 @@ namespace WebPortal.ASP.Controllers
                     }
 
                     model.BranchId = counter.BranchId;
+                    if (!LoadBranchContext(model.BranchId))
+                    {
+                        TempData["Message"] =
+                            Resources.Resources.ItemDeleted;
+
+                        return RedirectToAction(
+                            "Index",
+                            "Branch");
+                    }
+
                 }
             }
             catch (UnauthorizedAccessException)
@@ -458,6 +499,29 @@ namespace WebPortal.ASP.Controllers
                 model.Types =
                     new List<CounterTypeViewModel>();
             }
+        }
+        private bool LoadBranchContext(int branchId)
+        {
+            var branch = _branchService.GetBranchById(
+                    branchId,
+                    CurrentBankId);
+
+            if (branch == null)
+            {
+                return false;
+            }
+
+            bool isArabic = Thread.CurrentThread
+                    .CurrentUICulture
+                    .TwoLetterISOLanguageName == "ar";
+
+            ViewBag.BranchName = isArabic
+                    ? branch.BranchNameAR
+                    : branch.BranchNameEN;
+
+            ViewBag.BranchId = branchId;
+
+            return true;
         }
     }
 }

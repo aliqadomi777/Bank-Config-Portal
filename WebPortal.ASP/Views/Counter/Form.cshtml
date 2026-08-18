@@ -12,10 +12,17 @@
 <div class="title">
 
     <h2>
+
         @(Model.CounterId == 0
             ? Resources.AddCounter
             : Resources.EditCounter)
+
     </h2>
+
+    <hr />
+    <h6>
+        @Resources.BranchName @ViewBag.BranchName
+    </h6>
 
 </div>
 
@@ -151,7 +158,7 @@
             </div>
 
 
-            <div class="form-group">
+            <div class="form-group row status-row">
 
                 @Html.LabelFor(
                     m => m.CounterStatus,

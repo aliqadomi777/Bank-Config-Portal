@@ -60,7 +60,7 @@ namespace WebPortal.ASP.Controllers
                 ViewBag.CurrentPage = page;
                 ViewBag.TotalPages = totalPages;
 
-                return View("Index", model);
+                return View("List", model);
             }
             catch (Exception)
             {
@@ -68,7 +68,7 @@ namespace WebPortal.ASP.Controllers
                     Resources.Resources.GeneralError;
 
                 return View(
-                    "Index",
+                    "List",
                     Enumerable.Empty<ServiceViewModel>());
             }
         }

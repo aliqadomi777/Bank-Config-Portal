@@ -7,41 +7,12 @@
 
 @if (ViewBag.DbError != null)
 {
-    <div class="alert alert-danger" style="color: red; background-color: #f8d7da; border: 1px solid #f5c6cb; padding: 15px; border-radius: 4px; margin-bottom: 20px;">
+    <div class="alert alert-danger">
         <strong>System Configuration Warning:</strong> @ViewBag.DbError
-        <p style="margin-top: 5px; font-size: 13px;">Please contact your system administrator. Login functionality is temporarily unavailable.</p>
+        <p>Please contact your system administrator. Login functionality is temporarily unavailable.</p>
     </div>
 }
-<style>
 
-    .login-wrapper {
-        max-width: 420px;
-        margin: 80px auto;
-        padding: 30px;
-        background: #fff;
-        border-radius: 6px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-        .login-wrapper .control-label {
-            white-space: nowrap;
-        }
-
-    .btn-custom-login {
-        margin-top: 10px;
-        background-color: #337ab7;
-        color: #fff;
-        border: none;
-        padding: 10px 20px;
-        font-size: 16px;
-        border-radius: 4px;
-    }
-
-        .btn-custom-login:hover {
-            background-color: #286090;
-            color: #fff;
-        }
-</style>
 
 
 <div class="title">

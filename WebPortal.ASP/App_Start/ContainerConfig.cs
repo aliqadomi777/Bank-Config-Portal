@@ -73,7 +73,7 @@ namespace WebPortal.ASP.App_Start
                         default: message += ex.Message; break;
                     }
 
-                    logger.Fatal(ex, "Startup database test failed: {Message}", message);
+                    logger.Fatal(ex, ex.Message);
 
                     DbErrorMessage = message;
                 }

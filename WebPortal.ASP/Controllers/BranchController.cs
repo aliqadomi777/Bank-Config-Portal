@@ -62,7 +62,7 @@ namespace WebPortal.ASP.Controllers
                 ViewBag.TotalPages = totalPages;
 
                 return View(
-                    "Index",
+                    "List",
                     model);
             }
             catch (Exception)
@@ -71,7 +71,7 @@ namespace WebPortal.ASP.Controllers
                     Resources.Resources.GeneralError;
 
                 return View(
-                    "Index",
+                    "List",
                     Enumerable.Empty<BranchViewModel>());
             }
         }

@@ -1,20 +1,401 @@
-﻿/* Set padding to keep content from hitting the edges */
+﻿
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f5f5f5;
+}
+
 .body-content {
+    width: 100%;
     margin-top: 15px;
     padding-left: 15px;
     padding-right: 15px;
 }
 
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
 .dl-horizontal dt {
     white-space: normal;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
 textarea {
+    width: 100%;
     max-width: 280px;
+}
+
+
+
+.header-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 40px;
+    margin: 10px 15px;
+    direction: ltr;
+}
+
+.language-container,
+.bank-container,
+.header-actions {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+.language-container {
+    display: flex;
+    justify-content: flex-start;
+    direction: ltr;
+}
+
+.language-option {
+    width: 42px;
+    padding: 6px 0;
+    border: 1px solid #ccc;
+    background: #fff;
+    color: #555;
+    text-align: center;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+    .language-option:hover {
+        background: #f5f5f5;
+        color: #333;
+        text-decoration: none;
+    }
+
+    .language-option.active {
+        background: #337ab7;
+        border-color: #337ab7;
+        color: #fff;
+    }
+
+.bank-container {
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.bank-label {
+    color: #666;
+}
+
+.header-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    direction: ltr;
+}
+
+    .header-actions form {
+        margin: 0;
+    }
+
+.dashboard-header-button {
+    width: 145px;
+}
+
+.logout-button {
+    width: 90px;
+}
+
+
+
+.title {
+    min-height: 72px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+    .title h2 {
+        margin-top: 0;
+        margin-bottom: 8px;
+    }
+
+
+
+.page-context {
+    min-height: 20px;
+    color: #666;
+    font-size: 14px;
+}
+
+.context-item {
+    display: inline-block;
+    margin: 0 8px;
+}
+
+
+
+.management-panel {
+    width: 100%;
+    position:relative;
+}
+
+.management-table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+    .management-table th,
+    .management-table td {
+        height: 42px;
+        vertical-align: middle !important;
+        overflow-wrap: anywhere;
+        word-wrap: break-word;
+    }
+
+    .management-table thead th {
+        height: 46px;
+    }
+
+.name-cell {
+    white-space: normal;
+    word-break: break-word;
+}
+
+.arabic-name {
+    direction: rtl;
+    text-align: right;
+}
+
+
+
+.column-status {
+    width: 80px;
+}
+
+.column-actions {
+    width: 200px;
+    padding: 5px !important;
+}
+
+.column-related {
+    width: 190px;
+    text-align: center;
+}
+
+.column-ticket-limit {
+    width: 160px;
+}
+
+.column-counter-type {
+    width: 150px;
+}
+
+.column-services {
+    width: 190px;
+}
+
+
+
+.action-cell {
+    padding: 5px !important;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+}
+
+    .action-buttons > a,
+    .action-buttons > form {
+        flex: 1 1 0;
+        min-width: 0;
+    }
+
+    .action-buttons > form,
+    .table-action-form,
+    .delete-form {
+        margin: 0;
+    }
+
+        .action-buttons .btn,
+        .action-buttons form .btn,
+        .table-action-form .btn {
+            width: 100%;
+            text-align: center;
+        }
+
+.add-button {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.add-button-custom {
+    position: absolute;
+    top: -45px;
+    inset-inline-end: 0px;
+    width: fit-content;
+}
+
+
+.table-paging {
+    margin-top: 15px;
+    text-align: center;
+    direction: ltr;
+}
+
+    .table-paging .btn {
+        min-width: 35px;
+        margin: 0 2px;
+    }
+
+
+
+.management-buttons,
+.page-bottom-actions {
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.back-button {
+    min-width: 90px;
+    text-align: center;
+}
+
+
+
+.form-panel {
+    width: 100%;
+    max-width: 700px;
+    margin: 30px auto;
+}
+
+    .form-panel .panel-body {
+        padding: 25px;
+    }
+
+    .form-panel .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-panel .control-label {
+        white-space: nowrap;
+    }
+
+.arabic-input {
+    direction: rtl;
+    text-align: right;
+}
+
+.form-buttons {
+    margin-top: 25px;
+    text-align: right;
+}
+
+    .form-buttons .btn {
+        min-width: 90px;
+        margin-left: 5px;
+    }
+
+html[dir="rtl"] .form-buttons {
+    text-align: left;
+}
+
+    html[dir="rtl"] .form-buttons .btn {
+        margin-right: 5px;
+        margin-left: 0;
+    }
+
+.text-danger {
+    display: block;
+    margin-top: 5px;
+}
+
+
+
+.dashboard-options {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.dashboard-row {
+    direction: ltr;
+}
+
+.dashboard-option {
+    min-height: 100px;
+    margin-bottom: 20px;
+    padding: 30px 20px;
+    text-align: center;
+}
+
+    .dashboard-option .btn {
+        width: 220px;
+        max-width: 100%;
+    }
+
+
+
+.login-wrapper {
+    width: 100%;
+    max-width: 420px;
+    margin: 80px auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+    .login-wrapper .control-label {
+        white-space: nowrap;
+    }
+
+.btn-custom-login {
+    margin-top: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #337ab7;
+    color: #fff;
+    font-size: 16px;
+}
+
+    .btn-custom-login:hover {
+        background-color: #286090;
+        color: #fff;
+    }
+
+.system-warning {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+    background-color: #f8d7da;
+    color: red;
+}
+
+.system-warning-note {
+    margin-top: 5px;
+    font-size: 13px;
+}
+
+
+
+.error-actions {
+    margin-top: 20px;
+}
+
+.bank-title {
+    min-height: 72px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+
+
+.status-row {
+    max-width:60px;
 }

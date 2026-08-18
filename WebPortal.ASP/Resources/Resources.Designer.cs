@@ -61,6 +61,15 @@ namespace WebPortal.ASP.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Actions.
+        /// </summary>
+        public static string Actions {
+            get {
+                return ResourceManager.GetString("Actions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Active.
         /// </summary>
         public static string Active {
@@ -160,11 +169,20 @@ namespace WebPortal.ASP.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Back.
+        ///   Looks up a localized string similar to Back to Branches.
         /// </summary>
-        public static string Back {
+        public static string BackToBranches {
             get {
-                return ResourceManager.GetString("Back", resourceCulture);
+                return ResourceManager.GetString("BackToBranches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Back to Counters.
+        /// </summary>
+        public static string BackToCounters {
+            get {
+                return ResourceManager.GetString("BackToCounters", resourceCulture);
             }
         }
         
@@ -210,6 +228,15 @@ namespace WebPortal.ASP.Resources {
         public static string BranchesManagement {
             get {
                 return ResourceManager.GetString("BranchesManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Branch Name : .
+        /// </summary>
+        public static string BranchName {
+            get {
+                return ResourceManager.GetString("BranchName", resourceCulture);
             }
         }
         
@@ -304,11 +331,29 @@ namespace WebPortal.ASP.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please contact your system administrator. Login functionality is temporarily unavailable..
+        /// </summary>
+        public static string ContactMessage {
+            get {
+                return ResourceManager.GetString("ContactMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A counter with the same EN/AR name already exists.
         /// </summary>
         public static string CounterDuplicateName {
             get {
                 return ResourceManager.GetString("CounterDuplicateName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Counter Name.
+        /// </summary>
+        public static string CounterName {
+            get {
+                return ResourceManager.GetString("CounterName", resourceCulture);
             }
         }
         
@@ -430,6 +475,24 @@ namespace WebPortal.ASP.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Database Error: .
+        /// </summary>
+        public static string DatabaseError {
+            get {
+                return ResourceManager.GetString("DatabaseError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Database name not found..
+        /// </summary>
+        public static string DatabaseNotFound {
+            get {
+                return ResourceManager.GetString("DatabaseNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string Delete {
@@ -547,7 +610,7 @@ namespace WebPortal.ASP.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Manage Service Allocations.
+        ///   Looks up a localized string similar to Manage Allocations.
         /// </summary>
         public static string ManageServiceAllocations {
             get {
@@ -637,6 +700,15 @@ namespace WebPortal.ASP.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wrong password or username..
+        /// </summary>
+        public static string PasswordUsernameMismatch {
+            get {
+                return ResourceManager.GetString("PasswordUsernameMismatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Previous.
         /// </summary>
         public static string Previous {
@@ -678,6 +750,15 @@ namespace WebPortal.ASP.Resources {
         public static string SelectService {
             get {
                 return ResourceManager.GetString("SelectService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Server not found or inaccessible..
+        /// </summary>
+        public static string ServerNotFound {
+            get {
+                return ResourceManager.GetString("ServerNotFound", resourceCulture);
             }
         }
         
@@ -795,6 +876,24 @@ namespace WebPortal.ASP.Resources {
         public static string ServiceStatusRequired {
             get {
                 return ResourceManager.GetString("ServiceStatusRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System Configuration Warning:.
+        /// </summary>
+        public static string SystemWarning {
+            get {
+                return ResourceManager.GetString("SystemWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connection timed out..
+        /// </summary>
+        public static string TimeOutError {
+            get {
+                return ResourceManager.GetString("TimeOutError", resourceCulture);
             }
         }
         

@@ -280,7 +280,7 @@
     <value>Manage Counters</value>
   </data>
   <data name="ManageServiceAllocations" xml:space="preserve">
-    <value>Manage Service Allocations</value>
+    <value>Manage Allocations</value>
   </data>
   <data name="EditCounter" xml:space="preserve">
     <value>Edit Counter</value>
@@ -360,8 +360,8 @@
   <data name="Add" xml:space="preserve">
     <value>Add</value>
   </data>
-  <data name="Back" xml:space="preserve">
-    <value>Back</value>
+  <data name="BackToBranches" xml:space="preserve">
+    <value>Back to Branches</value>
   </data>
   <data name="PageNotFound" xml:space="preserve">
     <value>Page Not Found</value>
@@ -371,5 +371,38 @@
   </data>
   <data name="BackToDashboard" xml:space="preserve">
     <value>Back to Dashboard</value>
+  </data>
+  <data name="BackToCounters" xml:space="preserve">
+    <value>Back to Counters</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="BranchName" xml:space="preserve">
+    <value>Branch Name : </value>
+  </data>
+  <data name="CounterName" xml:space="preserve">
+    <value>Counter Name</value>
+  </data>
+  <data name="SystemWarning" xml:space="preserve">
+    <value>System Configuration Warning:</value>
+  </data>
+  <data name="ContactMessage" xml:space="preserve">
+    <value>Please contact your system administrator. Login functionality is temporarily unavailable.</value>
+  </data>
+  <data name="DatabaseError" xml:space="preserve">
+    <value>Database Error: </value>
+  </data>
+  <data name="TimeOutError" xml:space="preserve">
+    <value>Connection timed out.</value>
+  </data>
+  <data name="DatabaseNotFound" xml:space="preserve">
+    <value>Database name not found.</value>
+  </data>
+  <data name="PasswordUsernameMismatch" xml:space="preserve">
+    <value>Wrong password or username.</value>
+  </data>
+  <data name="ServerNotFound" xml:space="preserve">
+    <value>Server not found or inaccessible.</value>
   </data>
 </root>

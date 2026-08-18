@@ -1,8 +1,8 @@
 @using WebPortal.ASP.Resources
-@model IEnumerable<WebPortal.ASP.Models.ServiceViewModel>
+@model IEnumerable<WebPortal.ASP.Models.BranchViewModel>
 
 @{
-    ViewBag.Title = Resources.ServicesManagement;
+    ViewBag.Title = Resources.BranchesManagement;
 
     int currentPage =
         ViewBag.CurrentPage != null
@@ -19,15 +19,24 @@
 <div class="title">
 
     <h2>
-        @Resources.ServicesManagement
+        @Resources.BranchesManagement
     </h2>
 
 </div>
 
 
-<div class="panel panel-default">
-
+<div class="panel panel-default management-panel">
+    @Html.ActionLink(
+        Resources.AddBranch,
+        "Create",
+        "Branch",
+        null,
+        new
+        {
+            @class = "btn btn-primary btn-xs add-button-custom"
+        })
     <div class="panel-body">
+
 
         <table class="table table-bordered table-striped management-table">
 
@@ -43,27 +52,20 @@
                         @Resources.ArabicName
                     </th>
 
-                    <th style="width: 160px;">
-                        @Resources.MaxTicketsPerDay
-                    </th>
-
-                    <th style="width: 80px;">
+                    <th class="column-status">
                         @Resources.Active
                     </th>
 
-                    <th style="width: 200px; padding: 5px;">
+                    <th class="column-related">
+                        @Resources.Counters
+                    </th>
 
-                        @Html.ActionLink(
-                            Resources.AddService,
-                            "Create",
-                            "Service",
-                            null,
-                            new
-                            {
-                                @class = "btn btn-primary btn-xs add-button"
-                            })
+                    <th class="column-actions">
+
+                        @Resources.Actions
 
                     </th>
+
 
                 </tr>
 
@@ -72,28 +74,39 @@
 
             <tbody>
 
-                @foreach (var service in Model)
+                @foreach (var branch in Model)
                 {
                     <tr>
 
                         <td class="name-cell">
-                            @service.ServiceNameEN
+                            @branch.BranchNameEN
                         </td>
 
                         <td class="name-cell arabic-name">
-                            @service.ServiceNameAR
+                            @branch.BranchNameAR
                         </td>
 
                         <td>
-                            @service.MaxTicketsPerDay
-                        </td>
-
-                        <td>
-                            @(service.ServiceStatus
+                            @(branch.BranchStatus
                                 ? Resources.Yes
                                 : Resources.No)
                         </td>
+                        <td class="action-cell">
 
+                            @Html.ActionLink(
+                                Resources.ManageCounters,
+                                "Index",
+                                "Counter",
+                                new
+                                {
+                                    branchId = branch.BranchId
+                                },
+                                new
+                                {
+                                    @class = "btn btn-info btn-xs add-button"
+                                })
+
+                        </td>
                         <td class="action-cell">
 
                             <div class="action-buttons">
@@ -101,10 +114,10 @@
                                 @Html.ActionLink(
                                     Resources.Edit,
                                     "Edit",
-                                    "Service",
+                                    "Branch",
                                     new
                                     {
-                                        id = service.ServiceId
+                                        id = branch.BranchId
                                     },
                                     new
                                     {
@@ -114,15 +127,14 @@
 
                                 @using (Html.BeginForm(
                                     "Delete",
-                                    "Service",
+                                    "Branch",
                                     new
                                     {
-                                        id = service.ServiceId
+                                        id = branch.BranchId
                                     },
                                     FormMethod.Post,
                                     new
                                     {
-                                        style = "display: contents;"
                                     }))
                                 {
                                     @Html.AntiForgeryToken()
@@ -139,6 +151,9 @@
                             </div>
 
                         </td>
+
+
+
 
                     </tr>
                 }
@@ -157,7 +172,7 @@
                     @Html.ActionLink(
                         Resources.Previous,
                         "Index",
-                        "Service",
+                        "Branch",
                         new
                         {
                             page = currentPage - 1
@@ -174,7 +189,7 @@
                     @Html.ActionLink(
                         i.ToString(),
                         "Index",
-                        "Service",
+                        "Branch",
                         new
                         {
                             page = i
@@ -194,7 +209,7 @@
                     @Html.ActionLink(
                         Resources.Next,
                         "Index",
-                        "Service",
+                        "Branch",
                         new
                         {
                             page = currentPage + 1
@@ -212,14 +227,3 @@
 
 </div>
 
-<div style="margin-bottom: 15px;">
-    @Html.ActionLink(
-        Resources.Back,
-        "Index",
-        "Dashboard",
-        null,
-        new
-        {
-            @class = "btn btn-primary btn-sm"
-        })
-</div>

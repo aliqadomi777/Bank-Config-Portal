@@ -2,12 +2,13 @@
 
 namespace WebPortal.ASP.Controllers
 {
+
     public class DashboardController : BaseController
     {
         [HttpGet]
         public ActionResult Index()
         {
-            return View();
+            return View("Home");
         }
     }
 }

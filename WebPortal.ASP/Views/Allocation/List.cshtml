@@ -28,14 +28,39 @@
 
 <div class="title">
 
+
+
     <h2>
         @Resources.AllocationsManagement
     </h2>
+    <hr />
+
+        <h6>
+            @Resources.BranchName @ViewBag.BranchName
+        </h6>
+        <h6>
+            @Resources.CounterName @ViewBag.CounterName
+        </h6>
+
+
 
 </div>
 
 
-<div class="panel panel-default">
+<div class="panel panel-default management-panel">
+    @Html.ActionLink(
+    Resources.AddAllocation,
+    "Create",
+    "Allocation",
+    new
+    {
+        counterId = counterId
+    },
+    new
+    {
+        @class = "btn btn-primary btn-xs add-button-custom"
+    })
+
 
     <div class="panel-body">
 
@@ -53,21 +78,9 @@
                         @Resources.ArabicName
                     </th>
 
-                    <th style="width: 200px; padding: 5px;">
+                    <th class="column-actions">
 
-                        @Html.ActionLink(
-                            Resources.AddAllocation,
-                            "Create",
-                            "Allocation",
-                            new
-                            {
-                                counterId = counterId
-                            },
-                            new
-                            {
-                                @class = "btn btn-primary btn-xs add-button"
-                            })
-
+                        @Resources.Actions
                     </th>
 
                 </tr>
@@ -190,22 +203,22 @@
         }
 
 
-    <div class="management-buttons">
+        <div class="management-buttons">
 
-        @Html.ActionLink(
-            Resources.Back,
-            "Index",
-            "Counter",
-            new
-            {
-                branchId = branchId
-            },
-            new
-            {
-                @class = "btn btn-primary btn-sm"
-            })
+            @Html.ActionLink(
+                Resources.BackToCounters,
+                "Index",
+                "Counter",
+                new
+                {
+                    branchId = branchId
+                },
+                new
+                {
+                    @class = "btn btn-primary btn-sm"
+                })
 
-    </div>
+        </div>
 
     </div>
 

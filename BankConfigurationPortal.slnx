@@ -1,5 +1,5 @@
 <Solution>
-  <Project Path="../2- Ticketing Screen Designer/App.Shared/App.Shared.csproj" Id="1b692059-f3db-4a53-895a-31ce395a3bcb" />
+  <Project Path="../Ticketing-Screen-Designer-Application/App.Shared/App.Shared.csproj" Id="1b692059-f3db-4a53-895a-31ce395a3bcb" />
   <Project Path="WebPortal.Application/WebPortal.Application.csproj" Id="e15ac27f-da42-474d-844e-0aa06318e579" />
   <Project Path="WebPortal.ASP/WebPortal.ASP.csproj" Id="88f873ba-5117-4f7f-b187-7666d8b720bf" />
   <Project Path="WebPortal.Domain/WebPortal.Domain.csproj" Id="7488025e-cc38-4b56-bc28-d3ace7eda35a" />

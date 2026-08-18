@@ -295,10 +295,10 @@
     <value>اسم الكاونتر بالإنجليزية مطلوب</value>
   </data>
   <data name="CounterNameENMaxLength" xml:space="preserve">
-    <value>اسم الفرع الكاونتر لا يمكن أن يتجاوز 100 حرف</value>
+    <value>اسم الكاونتر لا يمكن أن يتجاوز 100 حرف</value>
   </data>
   <data name="CounterNameENInvalidCharacters" xml:space="preserve">
-    <value>اسم الفرع الكاونتر يحتوي على رموز غير مسموح بها</value>
+    <value>اسم الكاونتر يحتوي على رموز غير مسموح بها</value>
   </data>
   <data name="CounterNameARMaxLength" xml:space="preserve">
     <value>اسم الكاونتر بالعربية لا يمكن أن يتجاوز 100 حرف</value>
@@ -361,8 +361,8 @@
   <data name="Add" xml:space="preserve">
     <value>إضافة</value>
   </data>
-  <data name="Back" xml:space="preserve">
-    <value>رجوع</value>
+  <data name="BackToBranches" xml:space="preserve">
+    <value>العودة إلى الفروع</value>
   </data>
   <data name="PageNotFound" xml:space="preserve">
     <value>الصفحة غير موجودة</value>
@@ -372,5 +372,38 @@
   </data>
   <data name="BackToDashboard" xml:space="preserve">
     <value>العودة إلى لوحة التحكم</value>
+  </data>
+  <data name="BackToCounters" xml:space="preserve">
+    <value>العودة إلى الكاونترز</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>الخيارات</value>
+  </data>
+  <data name="BranchName" xml:space="preserve">
+    <value>اسم الفرع : </value>
+  </data>
+  <data name="CounterName" xml:space="preserve">
+    <value>اسم الكاونتر :</value>
+  </data>
+  <data name="SystemWarning" xml:space="preserve">
+    <value>تحذير إعدادات النظام: </value>
+  </data>
+  <data name="ContactMessage" xml:space="preserve">
+    <value>يرجى التواصل مع مسؤول النظام. خدمة تسجيل الدخول غير متوفرة حالياً.</value>
+  </data>
+  <data name="DatabaseError" xml:space="preserve">
+    <value>خطأ في قاعدة البيانات:</value>
+  </data>
+  <data name="TimeOutError" xml:space="preserve">
+    <value>انتهت مهلة الاتصال.</value>
+  </data>
+  <data name="DatabaseNotFound" xml:space="preserve">
+    <value>لم يتم العثور على اسم قاعدة البيانات.</value>
+  </data>
+  <data name="PasswordUsernameMismatch" xml:space="preserve">
+    <value>اسم المستخدم أو كلمة المرور غير صحيحة.</value>
+  </data>
+  <data name="ServerNotFound" xml:space="preserve">
+    <value>الخادم غير موجود أو لا يمكن الوصول إليه.</value>
   </data>
 </root>
