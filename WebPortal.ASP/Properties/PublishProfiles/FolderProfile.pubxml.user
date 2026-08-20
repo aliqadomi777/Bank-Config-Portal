@@ -2,8 +2,8 @@
 <!-- https://go.microsoft.com/fwlink/?LinkID=208121. -->
 <Project>
   <PropertyGroup>
-    <_PublishTargetUrl>C:\Users\A.obaidallah\Desktop\BankPortal</_PublishTargetUrl>
-    <History>True|2026-08-18T09:59:35.8652731Z||;True|2026-08-18T12:47:51.7279950+03:00||;</History>
+    <_PublishTargetUrl>D:\Projects\Bank-Config-Portal</_PublishTargetUrl>
+    <History>True|2026-08-20T09:16:38.9991000Z||;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -14,13 +14,13 @@
       <publishTime>09/10/2013 16:29:20</publishTime>
     </File>
     <File Include="bin/App.Shared.dll">
-      <publishTime>08/03/2026 14:45:23</publishTime>
+      <publishTime>08/20/2026 12:16:27</publishTime>
     </File>
     <File Include="bin/App.Shared.pdb">
-      <publishTime>08/03/2026 14:45:23</publishTime>
+      <publishTime>08/20/2026 12:16:27</publishTime>
     </File>
     <File Include="bin/ar/WebPortal.ASP.resources.dll">
-      <publishTime>08/18/2026 13:03:48</publishTime>
+      <publishTime>08/20/2026 12:16:30</publishTime>
     </File>
     <File Include="bin/Autofac.dll">
       <publishTime>08/18/2016 18:15:34</publishTime>
@@ -263,16 +263,16 @@
       <publishTime>01/23/2014 12:57:34</publishTime>
     </File>
     <File Include="bin/WebPortal.Application.dll">
-      <publishTime>08/18/2026 12:47:48</publishTime>
+      <publishTime>08/20/2026 12:16:28</publishTime>
     </File>
     <File Include="bin/WebPortal.Application.pdb">
-      <publishTime>08/18/2026 12:47:48</publishTime>
+      <publishTime>08/20/2026 12:16:28</publishTime>
     </File>
     <File Include="bin/WebPortal.ASP.dll">
-      <publishTime>08/18/2026 13:03:48</publishTime>
+      <publishTime>08/20/2026 12:16:29</publishTime>
     </File>
     <File Include="bin/WebPortal.ASP.pdb">
-      <publishTime>08/18/2026 13:03:48</publishTime>
+      <publishTime>08/20/2026 12:16:29</publishTime>
     </File>
     <File Include="bin/WebPortal.Domain.dll">
       <publishTime>08/17/2026 09:58:11</publishTime>
@@ -281,10 +281,10 @@
       <publishTime>08/17/2026 09:58:11</publishTime>
     </File>
     <File Include="bin/WebPortal.Infrastructure.dll">
-      <publishTime>08/18/2026 12:47:47</publishTime>
+      <publishTime>08/20/2026 12:16:27</publishTime>
     </File>
     <File Include="bin/WebPortal.Infrastructure.pdb">
-      <publishTime>08/18/2026 12:47:47</publishTime>
+      <publishTime>08/20/2026 12:16:27</publishTime>
     </File>
     <File Include="Content/bootstrap-grid.css">
       <publishTime>08/04/2026 12:24:18</publishTime>
@@ -463,17 +463,11 @@
     <File Include="Views/Allocation/Form.cshtml">
       <publishTime>08/18/2026 12:15:23</publishTime>
     </File>
-    <File Include="Views/Allocation/Index.cshtml">
-      <publishTime>08/17/2026 12:19:47</publishTime>
-    </File>
     <File Include="Views/Allocation/List.cshtml">
       <publishTime>08/18/2026 12:15:48</publishTime>
     </File>
     <File Include="Views/Branch/Form.cshtml">
       <publishTime>08/18/2026 10:33:57</publishTime>
-    </File>
-    <File Include="Views/Branch/Index.cshtml">
-      <publishTime>08/16/2026 12:37:10</publishTime>
     </File>
     <File Include="Views/Branch/List.cshtml">
       <publishTime>08/18/2026 11:00:19</publishTime>
@@ -481,29 +475,20 @@
     <File Include="Views/Counter/Form.cshtml">
       <publishTime>08/18/2026 12:16:06</publishTime>
     </File>
-    <File Include="Views/Counter/Index.cshtml">
-      <publishTime>08/16/2026 12:36:32</publishTime>
-    </File>
     <File Include="Views/Counter/List.cshtml">
       <publishTime>08/18/2026 12:16:11</publishTime>
     </File>
     <File Include="Views/Dashboard/Home.cshtml">
       <publishTime>08/18/2026 08:18:25</publishTime>
     </File>
-    <File Include="Views/Dashboard/Index.cshtml">
-      <publishTime>08/16/2026 10:32:36</publishTime>
-    </File>
     <File Include="Views/Error/NotFound.cshtml">
       <publishTime>08/16/2026 10:34:38</publishTime>
     </File>
     <File Include="Views/Login/Index.cshtml">
-      <publishTime>08/18/2026 12:08:27</publishTime>
+      <publishTime>08/18/2026 17:13:00</publishTime>
     </File>
     <File Include="Views/Service/Form.cshtml">
       <publishTime>08/18/2026 10:32:37</publishTime>
-    </File>
-    <File Include="Views/Service/Index.cshtml">
-      <publishTime>08/16/2026 12:37:00</publishTime>
     </File>
     <File Include="Views/Service/List.cshtml">
       <publishTime>08/18/2026 11:01:25</publishTime>
@@ -521,7 +506,7 @@
       <publishTime>08/04/2026 12:24:15</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>08/18/2026 13:03:49</publishTime>
+      <publishTime>08/20/2026 12:16:31</publishTime>
     </File>
   </ItemGroup>
 </Project>

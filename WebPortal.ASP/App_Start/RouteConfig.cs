@@ -61,7 +61,7 @@ namespace WebPortal.ASP
                 url: "{controller}/{action}/{id}",
                 defaults: new
                 {
-                    controller = "Login",
+                    controller = "Dashboard",
                     action = "Index",
                     id = UrlParameter.Optional
                 }
