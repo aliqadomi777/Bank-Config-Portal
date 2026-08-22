@@ -1,4 +1,5 @@
 ﻿using Serilog;
+using Serilog.Events;
 using System;
 using System.IO;
 
@@ -6,6 +7,10 @@ namespace WebPortal.ASP.App_Start
 {
     public static class LoggerConfig
     {
+        private const string EventLogSource = "Bank Configuration Portal";
+
+        private const string EventLogName = "Application";
+
         public static ILogger CreateLogger()
         {
             string logDirectory = Path.Combine(
@@ -29,6 +34,15 @@ namespace WebPortal.ASP.App_Start
                     ),
                     path: logFilePath,
                     rollingInterval: RollingInterval.Day)
+                .WriteTo.EventLog(
+                    source:
+                        EventLogSource,
+                    logName:
+                        EventLogName,
+                    manageEventSource:
+                        false,
+                    restrictedToMinimumLevel:
+                        LogEventLevel.Error)
                 .CreateLogger();
 
             return Log.Logger;
