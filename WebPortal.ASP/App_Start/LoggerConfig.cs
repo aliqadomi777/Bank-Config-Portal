@@ -9,8 +9,7 @@ namespace WebPortal.ASP.App_Start
     {
         private const string EventLogSource = "Bank Configuration Portal";
 
-        private const string EventLogName = "Application";
-
+        private const string EventLogName = "BankPortalLog";
         public static ILogger CreateLogger()
         {
             string logDirectory = Path.Combine(
@@ -35,16 +34,11 @@ namespace WebPortal.ASP.App_Start
                     path: logFilePath,
                     rollingInterval: RollingInterval.Day)
                 .WriteTo.EventLog(
-                    source:
-                        EventLogSource,
-                    logName:
-                        EventLogName,
-                    manageEventSource:
-                        false,
-                    restrictedToMinimumLevel:
-                        LogEventLevel.Error)
+                    source: EventLogSource,
+                    logName: EventLogName,
+                    manageEventSource: false,
+                    restrictedToMinimumLevel: LogEventLevel.Error)
                 .CreateLogger();
-
             return Log.Logger;
         }
     }
