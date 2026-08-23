@@ -19,7 +19,8 @@ namespace WebPortal.Infrastructure.Repositories
         public ServiceModel GetById(int serviceId)
         {
             string query = @"
-                SELECT ServiceID, ServiceNameEN, ServiceNameAR, MaxTicketsPerDay, IsActive, ModifiedAt, BankID
+                SELECT ServiceID, ServiceNameEN, ServiceNameAR, MaxTicketsPerDay, IsActive, ModifiedAt, BankID,
+                MinimumServiceTime, MaximumServiceTime
                 FROM Services
                 WHERE ServiceID=@ServiceID;";
 
@@ -45,6 +46,8 @@ namespace WebPortal.Infrastructure.Repositories
                         ServiceStatus = reader.GetBoolean(reader.GetOrdinal("IsActive")),
                         MaxTicketsPerDay = reader.GetInt32(reader.GetOrdinal("MaxTicketsPerDay")),
                         ModifiedAt = reader.GetDateTimeOffset(reader.GetOrdinal("ModifiedAt")),
+                        MaximumServiceTime = reader.GetInt32(reader.GetOrdinal("MaximumServiceTime")),
+                        MinimumServiceTime = reader.GetInt32(reader.GetOrdinal("MinimumServiceTime"))
                     };
                 }
             }
@@ -53,7 +56,8 @@ namespace WebPortal.Infrastructure.Repositories
         public IEnumerable<ServiceModel> GetAll(int bankId)
         {
             string query = @"
-                SELECT ServiceID, ServiceNameEN, ServiceNameAR, MaxTicketsPerDay, IsActive, ModifiedAt, BankID
+                SELECT ServiceID, ServiceNameEN, ServiceNameAR, MaxTicketsPerDay, IsActive, ModifiedAt, BankID,
+                MinimumServiceTime, MaximumServiceTime
                 FROM Services
                 WHERE BankID=@BankID;";
             List<ServiceModel> services = new List<ServiceModel>();
@@ -75,6 +79,8 @@ namespace WebPortal.Infrastructure.Repositories
                         int serviceStatusOrd = reader.GetOrdinal("IsActive");
                         int modifiedAtOrd = reader.GetOrdinal("ModifiedAt");
                         int maxTicketsPerDayOrd = reader.GetOrdinal("MaxTicketsPerDay");
+                        int maximumServiceTimeOrd = reader.GetOrdinal("MaximumServiceTime");
+                        int minimumServiceTimeOrd = reader.GetOrdinal("MinimumServiceTime");
                         while (reader.Read())
                         {
                             services.Add(new ServiceModel
@@ -85,7 +91,9 @@ namespace WebPortal.Infrastructure.Repositories
                                 ServiceStatus = reader.GetBoolean(serviceStatusOrd),
                                 ModifiedAt = reader.GetDateTimeOffset(modifiedAtOrd),
                                 BankId = reader.GetInt32(bankIdOrd),
-                                MaxTicketsPerDay = reader.GetInt32(maxTicketsPerDayOrd)
+                                MaxTicketsPerDay = reader.GetInt32(maxTicketsPerDayOrd),
+                                MaximumServiceTime = reader.GetInt32(maximumServiceTimeOrd),
+                                MinimumServiceTime = reader.GetInt32(minimumServiceTimeOrd)
                             });
                         }
                     }
@@ -99,8 +107,10 @@ namespace WebPortal.Infrastructure.Repositories
         public int Add(ServiceModel serviceModel)
         {
             string query = @"
-                INSERT INTO Services (ServiceNameEN, ServiceNameAR, IsActive, MaxTicketsPerDay, BankID)
-                VALUES(@ServiceNameEN, @ServiceNameAR, @IsActive, @MaxTicketsPerDay,@BankID);
+                INSERT INTO Services (ServiceNameEN, ServiceNameAR, IsActive, MaxTicketsPerDay, BankID,
+                MinimumServiceTime, MaximumServiceTime)
+                VALUES(@ServiceNameEN, @ServiceNameAR, @IsActive, @MaxTicketsPerDay,@BankID,
+                @MinimumServiceTime, @MaximumServiceTime);
                 SELECT CAST(SCOPE_IDENTITY() as int);";
 
             using (var conn = new SqlConnection(ConnectionString))
@@ -111,6 +121,8 @@ namespace WebPortal.Infrastructure.Repositories
                 cmd.Parameters.Add("@IsActive", SqlDbType.Bit).Value = serviceModel.ServiceStatus;
                 cmd.Parameters.Add("@MaxTicketsPerDay", SqlDbType.Int).Value = serviceModel.MaxTicketsPerDay;
                 cmd.Parameters.Add("@BankID", SqlDbType.Int).Value = serviceModel.BankId;
+                cmd.Parameters.Add("@MinimumServiceTime", SqlDbType.Int).Value = serviceModel.MinimumServiceTime;
+                cmd.Parameters.Add("@MaximumServiceTime", SqlDbType.Int).Value = serviceModel.MaximumServiceTime;
                 conn.Open();
                 if (cmd.ExecuteScalar() is int newId)
                 {
@@ -126,7 +138,8 @@ namespace WebPortal.Infrastructure.Repositories
         {
             string query = @"
                 UPDATE Services 
-                SET ServiceNameEN=@ServiceNameEN, ServiceNameAR=@ServiceNameAR, IsActive=@IsActive, MaxTicketsPerDay=@MaxTicketsPerDay
+                SET ServiceNameEN=@ServiceNameEN, ServiceNameAR=@ServiceNameAR, IsActive=@IsActive,
+                MaxTicketsPerDay=@MaxTicketsPerDay, MinimumServiceTime=@MinimumServiceTime, MaximumServiceTime=@MaximumServiceTime
                 WHERE ServiceID=@ServiceID;";
 
             using (var conn = new SqlConnection(ConnectionString))
@@ -137,6 +150,8 @@ namespace WebPortal.Infrastructure.Repositories
                 cmd.Parameters.Add("@ServiceNameAR", SqlDbType.NVarChar, 100).Value = serviceModel.ServiceNameAR;
                 cmd.Parameters.Add("@IsActive", SqlDbType.Bit).Value = serviceModel.ServiceStatus;
                 cmd.Parameters.Add("@MaxTicketsPerDay", SqlDbType.Int).Value = serviceModel.MaxTicketsPerDay;
+                cmd.Parameters.Add("@MinimumServiceTime", SqlDbType.Int).Value = serviceModel.MinimumServiceTime;
+                cmd.Parameters.Add("@MaximumServiceTime", SqlDbType.Int).Value = serviceModel.MaximumServiceTime;
                 conn.Open();
                 int rowsAffected = cmd.ExecuteNonQuery();
                 return rowsAffected > 0;

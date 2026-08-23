@@ -53,7 +53,9 @@ namespace WebPortal.ASP.Controllers
                                 ServiceNameAR = dto.ServiceNameAR,
                                 MaxTicketsPerDay = dto.MaxTicketsPerDay,
                                 ServiceStatus = dto.ServiceStatus,
-                                ModifiedAt = dto.ModifiedAt
+                                ModifiedAt = dto.ModifiedAt,
+                                MaximumServiceTime = dto.MaximumServiceTime,
+                                MinimumServiceTime = dto.MinimumServiceTime
                             })
                         .ToList();
 
@@ -80,7 +82,10 @@ namespace WebPortal.ASP.Controllers
             var model = new ServiceViewModel
             {
                 ServiceStatus = true,
-                MaxTicketsPerDay = 1
+                MaxTicketsPerDay = 1,
+                MinimumServiceTime = 30,
+                MaximumServiceTime = 300
+
             };
 
             ViewBag.LanguageReturnUrl =
@@ -117,7 +122,9 @@ namespace WebPortal.ASP.Controllers
                         MaxTicketsPerDay = service.MaxTicketsPerDay,
                         ServiceStatus = service.ServiceStatus,
                         ModifiedAt = service.ModifiedAt,
-                        BankId = service.BankId
+                        BankId = service.BankId,
+                        MinimumServiceTime = service.MinimumServiceTime,
+                        MaximumServiceTime = service.MaximumServiceTime,
                     };
 
                 ViewBag.LanguageReturnUrl =
@@ -187,7 +194,9 @@ namespace WebPortal.ASP.Controllers
                             ServiceNameEN = model.ServiceNameEN.Trim(),
                             ServiceNameAR = model.ServiceNameAR.Trim(),
                             ServiceStatus = model.ServiceStatus,
-                            MaxTicketsPerDay = model.MaxTicketsPerDay
+                            MaxTicketsPerDay = model.MaxTicketsPerDay,
+                            MinimumServiceTime = model.MinimumServiceTime,
+                            MaximumServiceTime = model.MaximumServiceTime,
                         },
                         CurrentBankId);
                 }
@@ -200,7 +209,9 @@ namespace WebPortal.ASP.Controllers
                             ServiceNameEN = model.ServiceNameEN.Trim(),
                             ServiceNameAR = model.ServiceNameAR.Trim(),
                             ServiceStatus = model.ServiceStatus,
-                            MaxTicketsPerDay = model.MaxTicketsPerDay
+                            MaxTicketsPerDay = model.MaxTicketsPerDay,
+                            MinimumServiceTime = model.MinimumServiceTime,
+                            MaximumServiceTime = model.MaximumServiceTime,
                         },
                         CurrentBankId);
 

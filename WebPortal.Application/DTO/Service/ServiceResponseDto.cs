@@ -10,6 +10,8 @@ namespace WebPortal.Application.DTO.Service
         public bool ServiceStatus { get; set; }
         public DateTimeOffset ModifiedAt { get; set; }
         public int MaxTicketsPerDay { get; set; }
+        public int MinimumServiceTime { get; set; }
+        public int MaximumServiceTime { get; set; }
         public int BankId { get; set; }
     }
 }

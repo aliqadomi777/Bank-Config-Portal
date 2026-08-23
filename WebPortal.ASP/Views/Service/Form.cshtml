@@ -144,6 +144,69 @@
             </div>
 
 
+            <div class="form-group">
+
+                @Html.LabelFor(
+                    m => m.MinimumServiceTime,
+                    Resources.MinimumServiceTime,
+                    new
+                    {
+                        @class = "col-sm-4 control-label"
+                    })
+
+                <div class="col-sm-8">
+
+                    @Html.TextBoxFor(
+                        m => m.MinimumServiceTime,
+                        new
+                        {
+                            @class = "form-control",
+                            type = "number"
+                        })
+
+                    @Html.ValidationMessageFor(
+                        m => m.MinimumServiceTime,
+                        "",
+                        new
+                        {
+                            @class = "text-danger"
+                        })
+
+                </div>
+
+            </div>
+            <div class="form-group">
+
+                @Html.LabelFor(
+                    m => m.MaximumServiceTime,
+                    Resources.MaximumServiceTime,
+                    new
+                    {
+                        @class = "col-sm-4 control-label"
+                    })
+
+                <div class="col-sm-8">
+
+                    @Html.TextBoxFor(
+                        m => m.MaximumServiceTime,
+                        new
+                        {
+                            @class = "form-control",
+                            type = "number"
+                        })
+
+                    @Html.ValidationMessageFor(
+                        m => m.MaximumServiceTime,
+                        "",
+                        new
+                        {
+                            @class = "text-danger"
+                        })
+
+                </div>
+
+            </div>
+
             <div class="form-group row status-row">
 
                 @Html.LabelFor(
@@ -198,5 +261,5 @@
 @section Scripts {
 
     @Scripts.Render("~/bundles/jqueryval")
-
+    <script src="~/Scripts/LessThanValidation.js"></script>
 }

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using WebPortal.Application.Validation;
 
 namespace WebPortal.Application.DTO.Service
 {
@@ -21,6 +23,15 @@ namespace WebPortal.Application.DTO.Service
         [Required(ErrorMessage = "Maximum tickets per day is required.")]
         [Range(1, 100, ErrorMessage = "Maximum tickets per day must be between 1 and 100.")]
         public int MaxTicketsPerDay { get; set; }
+
+        [Required(ErrorMessage = "Minimum Service Time is required.")]
+        [Range(30, 999999, ErrorMessage = "Minimum Service Time must be between 30 and 999999 seconds.")]
+        [LessThan("MaximumServiceTime", ErrorMessage = "Minimum Service Time must be less than Maximum Service Time.")]
+        public int MinimumServiceTime { get; set; }
+
+        [Required(ErrorMessage = "Maximum Service Time is required.")]
+        [Range(30, 999999, ErrorMessage = "Maximum Service Time must be between 30 and 999999 seconds.")]
+        public int MaximumServiceTime { get; set; }
 
     }
 }

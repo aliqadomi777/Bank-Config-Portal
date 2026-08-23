@@ -58,7 +58,9 @@ namespace WebPortal.Application.Services
                     ServiceStatus = service.ServiceStatus,
                     MaxTicketsPerDay = service.MaxTicketsPerDay,
                     ModifiedAt = service.ModifiedAt,
-                    BankId = service.BankId
+                    BankId = service.BankId,
+                    MaximumServiceTime = service.MaximumServiceTime,
+                    MinimumServiceTime = service.MinimumServiceTime,
                 };
             }
             catch (SqlException ex)
@@ -98,7 +100,9 @@ namespace WebPortal.Application.Services
                     ServiceStatus = service.ServiceStatus,
                     MaxTicketsPerDay = service.MaxTicketsPerDay,
                     ModifiedAt = service.ModifiedAt,
-                    BankId = service.BankId
+                    BankId = service.BankId,
+                    MaximumServiceTime = service.MaximumServiceTime,
+                    MinimumServiceTime = service.MinimumServiceTime
                 }).ToList();
             }
             catch (SqlException ex)
@@ -133,7 +137,9 @@ namespace WebPortal.Application.Services
                     ServiceNameAR = request.ServiceNameAR,
                     ServiceStatus = request.ServiceStatus,
                     MaxTicketsPerDay = request.MaxTicketsPerDay,
-                    BankId = bankId
+                    BankId = bankId,
+                    MaximumServiceTime = request.MaximumServiceTime,
+                    MinimumServiceTime = request.MinimumServiceTime
 
                 };
                 int newServiceId = _addRepository.Add(serviceModel);
@@ -196,6 +202,8 @@ namespace WebPortal.Application.Services
                     ServiceNameAR = request.ServiceNameAR,
                     ServiceStatus = request.ServiceStatus,
                     MaxTicketsPerDay = request.MaxTicketsPerDay,
+                    MaximumServiceTime = request.MaximumServiceTime,
+                    MinimumServiceTime = request.MinimumServiceTime,
 
                 };
                 bool isUpdated = _updateRepository.Update(serviceModel);

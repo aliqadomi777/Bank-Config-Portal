@@ -628,6 +628,33 @@ namespace WebPortal.ASP.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Maximum Service Time.
+        /// </summary>
+        public static string MaximumServiceTime {
+            get {
+                return ResourceManager.GetString("MaximumServiceTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maximum service time must be between 30 and 999999 seconds..
+        /// </summary>
+        public static string MaximumServiceTimeInvalid {
+            get {
+                return ResourceManager.GetString("MaximumServiceTimeInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maximum service time is required..
+        /// </summary>
+        public static string MaximumServiceTimerequired {
+            get {
+                return ResourceManager.GetString("MaximumServiceTimerequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Max Tickets / Day.
         /// </summary>
         public static string MaxTicketsPerDay {
@@ -651,6 +678,42 @@ namespace WebPortal.ASP.Resources {
         public static string MaxTicketsPerDayRequired {
             get {
                 return ResourceManager.GetString("MaxTicketsPerDayRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimum Service Time.
+        /// </summary>
+        public static string MinimumServiceTime {
+            get {
+                return ResourceManager.GetString("MinimumServiceTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimum service time must be between 30 and 999999 seconds..
+        /// </summary>
+        public static string MinimumServiceTimeInvalid {
+            get {
+                return ResourceManager.GetString("MinimumServiceTimeInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimum service time is required..
+        /// </summary>
+        public static string MinimumServiceTimerequired {
+            get {
+                return ResourceManager.GetString("MinimumServiceTimerequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimum service time must be less than Maximum service time.
+        /// </summary>
+        public static string MinServiceTimeGreaterThanMax {
+            get {
+                return ResourceManager.GetString("MinServiceTimeGreaterThanMax", resourceCulture);
             }
         }
         

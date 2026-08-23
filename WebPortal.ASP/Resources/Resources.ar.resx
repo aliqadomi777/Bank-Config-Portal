@@ -406,4 +406,25 @@
   <data name="ServerNotFound" xml:space="preserve">
     <value>الخادم غير موجود أو لا يمكن الوصول إليه.</value>
   </data>
+  <data name="MinimumServiceTimerequired" xml:space="preserve">
+    <value>وقت الخدمة الأدنى مطلوب</value>
+  </data>
+  <data name="MinimumServiceTimeInvalid" xml:space="preserve">
+    <value>يجب أن يكون وقت الخدمة الأدنى بين 30 و 999999 ثانية </value>
+  </data>
+  <data name="MinServiceTimeGreaterThanMax" xml:space="preserve">
+    <value>يجب أن يكون وقت الخدمة الأدنى أقل من وقت الخدمة الأقصى</value>
+  </data>
+  <data name="MaximumServiceTimerequired" xml:space="preserve">
+    <value>وقت الخدمة الأقصى مطلوب</value>
+  </data>
+  <data name="MaximumServiceTimeInvalid" xml:space="preserve">
+    <value>يجب أن يكون وقت الخدمة الأقصى بين  30 و 999999 ثانية</value>
+  </data>
+  <data name="MinimumServiceTime" xml:space="preserve">
+    <value>الحد الأدنى لمدة الخدمة</value>
+  </data>
+  <data name="MaximumServiceTime" xml:space="preserve">
+    <value> الحد الأقصى لمدة الخدمة</value>
+  </data>
 </root>

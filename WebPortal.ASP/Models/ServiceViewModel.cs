@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using WebPortal.ASP.Resources;
-
+using WebPortal.ASP.Validation;
 namespace WebPortal.ASP.Models
 {
     public class ServiceViewModel
@@ -45,6 +44,26 @@ namespace WebPortal.ASP.Models
 
         public DateTimeOffset ModifiedAt { get; set; }
         public int BankId { get; set; }
+
+        [Required(
+            ErrorMessageResourceType = typeof(Resources.Resources),
+            ErrorMessageResourceName = "MinimumServiceTimerequired")]
+        [Range(30, 999999,
+            ErrorMessageResourceType = typeof(Resources.Resources),
+            ErrorMessageResourceName = "MinimumServiceTimeInvalid")]
+        [ClientLessThan(
+            "MaximumServiceTime",
+            ErrorMessageResourceType = typeof(Resources.Resources),
+            ErrorMessageResourceName = "MinServiceTimeGreaterThanMax")]
+        public int MinimumServiceTime { get; set; }
+
+        [Required(
+            ErrorMessageResourceType = typeof(Resources.Resources),
+            ErrorMessageResourceName = "MaximumServiceTimerequired")]
+        [Range(30, 999999,
+            ErrorMessageResourceType = typeof(Resources.Resources),
+            ErrorMessageResourceName = "MaximumServiceTimeInvalid")]
+        public int MaximumServiceTime { get; set; }
 
     }
 }

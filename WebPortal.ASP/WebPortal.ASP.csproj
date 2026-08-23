@@ -215,6 +215,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Validation\ClientLessThanAttribute.cs" />
+    <Content Include="Scripts\LessThanValidation.js" />
     <Content Include="Views\Allocation\List.cshtml" />
   </ItemGroup>
   <ItemGroup>

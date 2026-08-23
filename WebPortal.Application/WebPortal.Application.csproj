@@ -149,6 +149,7 @@
     <Compile Include="Services\CounterTypeService.cs" />
     <Compile Include="Services\ServiceManager.cs" />
     <Compile Include="Services\UserService.cs" />
+    <Compile Include="Validation\LessThanAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Ticketing-Screen-Designer-Application\App.Shared\App.Shared.csproj">

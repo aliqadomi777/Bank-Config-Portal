@@ -405,4 +405,25 @@
   <data name="ServerNotFound" xml:space="preserve">
     <value>Server not found or inaccessible.</value>
   </data>
+  <data name="MinimumServiceTimerequired" xml:space="preserve">
+    <value>Minimum service time is required.</value>
+  </data>
+  <data name="MinimumServiceTimeInvalid" xml:space="preserve">
+    <value>Minimum service time must be between 30 and 999999 seconds.</value>
+  </data>
+  <data name="MinServiceTimeGreaterThanMax" xml:space="preserve">
+    <value>Minimum service time must be less than Maximum service time</value>
+  </data>
+  <data name="MaximumServiceTimerequired" xml:space="preserve">
+    <value>Maximum service time is required.</value>
+  </data>
+  <data name="MaximumServiceTimeInvalid" xml:space="preserve">
+    <value>Maximum service time must be between 30 and 999999 seconds.</value>
+  </data>
+  <data name="MinimumServiceTime" xml:space="preserve">
+    <value>Minimum Service Time</value>
+  </data>
+  <data name="MaximumServiceTime" xml:space="preserve">
+    <value>Maximum Service Time</value>
+  </data>
 </root>

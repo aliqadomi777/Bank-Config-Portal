@@ -54,7 +54,12 @@
                     <th class="column-ticket-limit">
                         @Resources.MaxTicketsPerDay
                     </th>
-
+                    <th>
+                        @Resources.MinimumServiceTime
+                    </th>
+                    <th>
+                        @Resources.MaximumServiceTime
+                    </th>
                     <th class="column-status">
                         @Resources.Active
                     </th>
@@ -87,7 +92,12 @@
                         <td>
                             @service.MaxTicketsPerDay
                         </td>
-
+                        <td>
+                            @service.MinimumServiceTime
+                        </td>
+                        <td>
+                            @service.MaximumServiceTime
+                        </td>
                         <td>
                             @(service.ServiceStatus
                                 ? Resources.Yes
