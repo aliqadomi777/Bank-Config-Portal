@@ -83,7 +83,7 @@ namespace WebPortal.ASP.Controllers
             {
                 ServiceStatus = true,
                 MaxTicketsPerDay = 1,
-                MinimumServiceTime = 30,
+                MinimumServiceTime = 45,
                 MaximumServiceTime = 300
 
             };
