@@ -27,10 +27,10 @@ namespace WebPortal.ASP
                     CookieSecure = CookieSecureOption.SameAsRequest,
                     Provider = new CookieAuthenticationProvider
                     {
-                        //Prevents Hijacking User agent 
+                        //Prevents Hijacking Through matching -> user agent
                         OnValidateIdentity = async context =>
                         {
-                            var agentClaim = context.Identity.FindFirst("OriginalUserAgent");
+                            var agentClaim = context.Identity.FindFirst(AuthenticationConstants.UserAgentClaimType);
 
                             if (agentClaim == null)
                             {
@@ -38,7 +38,6 @@ namespace WebPortal.ASP
                                 return;
                             }
                             string currentAgent = context.Request.Headers.Get("User-Agent") ?? "";
-                            string currentIp = context.Request.RemoteIpAddress ?? "";
                             if (agentClaim.Value != currentAgent)
                             {
                                 context.RejectIdentity();
