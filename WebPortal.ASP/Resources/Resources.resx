@@ -382,7 +382,7 @@
     <value>Branch Name : </value>
   </data>
   <data name="CounterName" xml:space="preserve">
-    <value>Counter Name</value>
+    <value>Counter Name : </value>
   </data>
   <data name="SystemWarning" xml:space="preserve">
     <value>System Configuration Warning:</value>

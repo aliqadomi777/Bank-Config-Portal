@@ -1,26 +1,61 @@
-﻿using System;
+﻿using Microsoft.Owin.Security;
+using System;
+using System.Globalization;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using WebPortal.ASP.Security;
 
 namespace WebPortal.ASP.Controllers
 {
+    [Authorize]
     public class BaseController : Controller
     {
         protected int CurrentBankId
         {
             get
             {
-                return Session["BankId"] != null ? (int)Session["BankId"] : 0;
+                int? bankId = GetCurrentBankId();
+
+                if (!bankId.HasValue)
+                {
+                    throw new UnauthorizedAccessException("Authenticated user does not contain a valid BankId claim.");
+                }
+
+
+                return bankId.Value;
             }
         }
 
 
-        protected override void OnActionExecuting(
-            ActionExecutingContext filterContext)
+        protected string CurrentBankName
         {
-            if (Session["BankId"] == null)
+            get
             {
+                var principal = User as ClaimsPrincipal;
+
+                if (principal == null)
+                {
+                    return null;
+                }
+
+                Claim claim = principal.FindFirst(AuthenticationConstants.BankNameClaimType);
+
+                return claim?.Value;
+            }
+        }
+
+
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            if (!GetCurrentBankId().HasValue)
+            {
+                HttpContext.GetOwinContext()
+                           .Authentication
+                           .SignOut(AuthenticationConstants.AuthenticationType);
+
+
                 filterContext.Result =
                     new RedirectToRouteResult(
                         new RouteValueDictionary
@@ -28,9 +63,46 @@ namespace WebPortal.ASP.Controllers
                             { "controller", "Login" },
                             { "action", "Index" }
                         });
+
+                return;
             }
 
+
             base.OnActionExecuting(filterContext);
+        }
+
+        private int? GetCurrentBankId()
+        {
+            var principal = User as ClaimsPrincipal;
+
+            if (principal == null)
+            {
+                return null;
+            }
+
+            Claim bankIdClaim = principal.FindFirst(AuthenticationConstants.BankIdClaimType);
+
+            if (bankIdClaim == null)
+            {
+                return null;
+            }
+
+            int bankId;
+
+            bool parsed = int.TryParse(bankIdClaim.Value,
+                        NumberStyles.Integer,
+                        CultureInfo.InvariantCulture,
+                        out bankId);
+
+
+            if (!parsed ||
+                bankId <= 0)
+            {
+                return null;
+            }
+
+
+            return bankId;
         }
 
 

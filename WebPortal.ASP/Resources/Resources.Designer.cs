@@ -349,7 +349,7 @@ namespace WebPortal.ASP.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Counter Name.
+        ///   Looks up a localized string similar to Counter Name : .
         /// </summary>
         public static string CounterName {
             get {

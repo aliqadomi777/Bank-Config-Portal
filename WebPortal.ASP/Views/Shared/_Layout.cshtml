@@ -1,4 +1,28 @@
-﻿@using WebPortal.ASP.Resources
+﻿@using System.Security.Claims
+@using WebPortal.ASP.Resources
+@using WebPortal.ASP.Security
+
+@{
+    bool isAuthenticated =
+        User != null &&
+        User.Identity != null &&
+        User.Identity.IsAuthenticated;
+
+
+    ClaimsPrincipal claimsPrincipal = User as ClaimsPrincipal;
+
+    string bankName =null;
+
+    if (claimsPrincipal != null)
+    {
+        Claim bankNameClaim = claimsPrincipal.FindFirst(AuthenticationConstants.BankNameClaimType);
+
+        if (bankNameClaim != null)
+        {
+            bankName = bankNameClaim.Value;
+        }
+    }
+}
 
 @{
     string currentLanguage = "en";
@@ -92,17 +116,11 @@ ViewBag.LanguageReturnUrl != null
         </div>
 
 
-        @if (!isLoginPage &&
-             Session["BankName"] != null)
+        @if (isAuthenticated && !string.IsNullOrEmpty(bankName))
         {
-
-
-
-                <h2 >
-                    @Session["BankName"]
-                </h2>
-
-            
+            <h2>
+                @bankName
+            </h2>
         }
         else
         {
@@ -114,40 +132,40 @@ ViewBag.LanguageReturnUrl != null
         {
 
 
-<div class="header-actions">
-    @if (!isDashboardPage)
-    {
+            <div class="header-actions">
+                @if (!isDashboardPage)
+                {
 
-        @Html.ActionLink(
-            Resources.BackToDashboard,
-            "Index",
-            "Dashboard",
-            null,
-            new
-            {
-                @class =
-                    "btn btn-primary btn-sm "
-            })
-    }
+                    @Html.ActionLink(
+                        Resources.BackToDashboard,
+                        "Index",
+                        "Dashboard",
+                        null,
+                        new
+                        {
+                            @class =
+                                "btn btn-primary btn-sm "
+                        })
+                }
 
 
 
-    @using (Html.BeginForm(
-        "Logout",
-        "Login",
-        FormMethod.Post))
-    {
-        @Html.AntiForgeryToken()
+                @using (Html.BeginForm(
+                    "Logout",
+                    "Login",
+                    FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
 
-        <button type="submit"
-                class="btn btn-danger btn-sm logout-button">
+                    <button type="submit"
+                            class="btn btn-danger btn-sm logout-button">
 
-            @Resources.Logout
+                        @Resources.Logout
 
-        </button>
-    }
+                    </button>
+                }
 
-    </div>
+            </div>
         }
         else
         {
@@ -189,11 +207,11 @@ ViewBag.LanguageReturnUrl != null
 
         window.addEventListener("pageshow", function (event) {
 
-                if (event.persisted) {
-                    window.location.reload();
-                }
+            if (event.persisted) {
+                window.location.reload();
+            }
 
-            });
+        });
 
     </script>
 
