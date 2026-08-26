@@ -78,7 +78,6 @@ ViewBag.LanguageReturnUrl != null
 </head>
 
 <body>
-    @Html.Partial("_DeleteConfirmation")
     <div class="header-container">
 
         <div class="language-container">
@@ -128,7 +127,7 @@ ViewBag.LanguageReturnUrl != null
         }
 
 
-        @if (!isLoginPage)
+        @if (!isLoginPage&& isAuthenticated)
         {
 
 

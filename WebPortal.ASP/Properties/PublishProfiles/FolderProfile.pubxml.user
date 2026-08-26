@@ -3,7 +3,7 @@
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>D:\Projects\Bank-Config-Portal</_PublishTargetUrl>
-    <History>True|2026-08-24T08:01:05.5621320Z||;True|2026-08-20T12:16:38.9991000+03:00||;</History>
+    <History>True|2026-08-26T10:02:08.3935469Z||;True|2026-08-26T12:50:04.5104559+03:00||;True|2026-08-24T11:01:05.5621320+03:00||;True|2026-08-20T12:16:38.9991000+03:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -20,7 +20,7 @@
       <publishTime>08/20/2026 12:16:27</publishTime>
     </File>
     <File Include="bin/ar/WebPortal.ASP.resources.dll">
-      <publishTime>08/24/2026 11:01:02</publishTime>
+      <publishTime>08/26/2026 13:02:07</publishTime>
     </File>
     <File Include="bin/Autofac.dll">
       <publishTime>08/18/2016 18:15:34</publishTime>
@@ -287,10 +287,10 @@
       <publishTime>08/24/2026 11:01:00</publishTime>
     </File>
     <File Include="bin/WebPortal.ASP.dll">
-      <publishTime>08/24/2026 11:01:01</publishTime>
+      <publishTime>08/26/2026 13:02:06</publishTime>
     </File>
     <File Include="bin/WebPortal.ASP.pdb">
-      <publishTime>08/24/2026 11:01:01</publishTime>
+      <publishTime>08/26/2026 13:02:06</publishTime>
     </File>
     <File Include="bin/WebPortal.Domain.dll">
       <publishTime>08/24/2026 11:00:58</publishTime>
@@ -299,10 +299,10 @@
       <publishTime>08/24/2026 11:00:58</publishTime>
     </File>
     <File Include="bin/WebPortal.Infrastructure.dll">
-      <publishTime>08/24/2026 11:01:00</publishTime>
+      <publishTime>08/26/2026 12:50:01</publishTime>
     </File>
     <File Include="bin/WebPortal.Infrastructure.pdb">
-      <publishTime>08/24/2026 11:01:00</publishTime>
+      <publishTime>08/26/2026 12:50:01</publishTime>
     </File>
     <File Include="Content/bootstrap-grid.css">
       <publishTime>08/04/2026 12:24:18</publishTime>
@@ -401,7 +401,7 @@
       <publishTime>08/04/2026 12:24:17</publishTime>
     </File>
     <File Include="Content/Site.css">
-      <publishTime>08/18/2026 11:09:57</publishTime>
+      <publishTime>08/26/2026 11:22:44</publishTime>
     </File>
     <File Include="favicon.ico">
       <publishTime>08/04/2026 12:24:16</publishTime>
@@ -485,40 +485,43 @@
       <publishTime>08/18/2026 12:15:23</publishTime>
     </File>
     <File Include="Views/Allocation/List.cshtml">
-      <publishTime>08/18/2026 12:15:48</publishTime>
+      <publishTime>08/26/2026 11:26:26</publishTime>
     </File>
     <File Include="Views/Branch/Form.cshtml">
       <publishTime>08/18/2026 10:33:57</publishTime>
     </File>
     <File Include="Views/Branch/List.cshtml">
-      <publishTime>08/18/2026 11:00:19</publishTime>
+      <publishTime>08/26/2026 11:26:33</publishTime>
     </File>
     <File Include="Views/Counter/Form.cshtml">
       <publishTime>08/18/2026 12:16:06</publishTime>
     </File>
     <File Include="Views/Counter/List.cshtml">
-      <publishTime>08/18/2026 12:16:11</publishTime>
+      <publishTime>08/26/2026 11:26:39</publishTime>
     </File>
     <File Include="Views/Dashboard/Home.cshtml">
       <publishTime>08/18/2026 08:18:25</publishTime>
     </File>
     <File Include="Views/Error/NotFound.cshtml">
-      <publishTime>08/16/2026 10:34:38</publishTime>
+      <publishTime>08/26/2026 12:16:26</publishTime>
     </File>
     <File Include="Views/Login/Index.cshtml">
-      <publishTime>08/24/2026 09:50:47</publishTime>
+      <publishTime>08/26/2026 09:51:40</publishTime>
     </File>
     <File Include="Views/Service/Form.cshtml">
       <publishTime>08/23/2026 11:58:35</publishTime>
     </File>
     <File Include="Views/Service/List.cshtml">
-      <publishTime>08/23/2026 10:57:29</publishTime>
+      <publishTime>08/26/2026 11:17:32</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
-      <publishTime>08/16/2026 10:34:53</publishTime>
+      <publishTime>08/26/2026 12:49:28</publishTime>
+    </File>
+    <File Include="Views/Shared/_DeleteConfirmation.cshtml">
+      <publishTime>08/26/2026 11:30:21</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>08/24/2026 08:34:35</publishTime>
+      <publishTime>08/26/2026 12:15:38</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>08/04/2026 12:24:16</publishTime>
@@ -527,7 +530,7 @@
       <publishTime>08/04/2026 12:24:15</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>08/24/2026 10:59:53</publishTime>
+      <publishTime>08/26/2026 13:01:22</publishTime>
     </File>
   </ItemGroup>
 </Project>

@@ -943,6 +943,15 @@ namespace WebPortal.ASP.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Oops! Something went wrong..
+        /// </summary>
+        public static string SomeThingWrongError {
+            get {
+                return ResourceManager.GetString("SomeThingWrongError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to System Configuration Warning:.
         /// </summary>
         public static string SystemWarning {

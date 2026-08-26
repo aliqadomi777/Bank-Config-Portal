@@ -427,4 +427,7 @@
   <data name="MaximumServiceTime" xml:space="preserve">
     <value> الحد الأقصى لمدة الخدمة</value>
   </data>
+  <data name="SomeThingWrongError" xml:space="preserve">
+    <value>عذراً! حدث خطأ ما</value>
+  </data>
 </root>

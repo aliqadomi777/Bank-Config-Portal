@@ -79,6 +79,7 @@ namespace WebPortal.ASP.Controllers
         [HttpGet]
         public ActionResult Create()
         {
+
             var model = new ServiceViewModel
             {
                 ServiceStatus = true,
