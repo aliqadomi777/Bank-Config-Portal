@@ -2,8 +2,6 @@
 using Autofac.Integration.Mvc;
 using Microsoft.Extensions.Logging;
 using Serilog;
-using System.Configuration;
-using System.Data.SqlClient;
 using System.Web.Mvc;
 using WebPortal.Infrastructure;
 
@@ -16,7 +14,8 @@ namespace WebPortal.ASP.App_Start
         internal static void RegisterContainer()
         {
             var builder = new ContainerBuilder();
-            string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"]?.ConnectionString;
+            string connectionString;
+            string dbErrorMessage;
 
             var serilogLogger = LoggerConfig.CreateLogger();
             var loggerFactory = new LoggerFactory();
@@ -25,8 +24,12 @@ namespace WebPortal.ASP.App_Start
             builder.RegisterInstance(loggerFactory).As<ILoggerFactory>().SingleInstance();
             builder.RegisterGeneric(typeof(Logger<>)).As(typeof(ILogger<>)).InstancePerDependency();
 
-            TestDatabaseConnection(connectionString, serilogLogger);
+            bool isConnectionStringValid = DatabaseConnectionValidator.TryGetValidConnectionString(
+                serilogLogger,
+                out connectionString,
+                out dbErrorMessage);
 
+            DbErrorMessage = dbErrorMessage;
             if (string.IsNullOrEmpty(DbErrorMessage))
             {
                 builder.RegisterModule(new InfrastructureModule(connectionString));
@@ -44,40 +47,7 @@ namespace WebPortal.ASP.App_Start
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }
 
-        private static void TestDatabaseConnection(string connString, Serilog.ILogger logger)
-        {
-            if (string.IsNullOrEmpty(connString))
-            {
-                DbErrorMessage = "Database configuration missing in Web.config.";
-                return;
-            }
 
-            SqlConnectionStringBuilder timeoutBuilder = new SqlConnectionStringBuilder(connString) { ConnectTimeout = 5 };
 
-            using (SqlConnection conn = new SqlConnection(timeoutBuilder.ConnectionString))
-            {
-                try
-                {
-                    conn.Open();
-                }
-                catch (SqlException ex)
-                {
-                    string message = "Database Error: ";
-                    switch (ex.Number)
-                    {
-                        case -2: message += "Connection timed out."; break;
-                        case 4060: message += "Database name not found."; break;
-                        case 18456: message += "Wrong password or username."; break;
-                        case 26:
-                        case 53: message += "Server not found or inaccessible."; break;
-                        default: message += ex.Message; break;
-                    }
-
-                    logger.Fatal(ex, ex.Message);
-
-                    DbErrorMessage = message;
-                }
-            }
-        }
     }
 }

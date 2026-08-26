@@ -200,6 +200,7 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\ContainerConfig.cs" />
+    <Compile Include="App_Start\DatabaseConnectionValidator.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="Controllers\AllocationController.cs" />
     <Compile Include="Controllers\CounterController.cs" />

@@ -41,11 +41,14 @@ namespace WebPortal.ASP.Controllers
             VaryByParam = "*")]
         public ActionResult Index()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                AuthenticationManager.SignOut(AuthenticationConstants.AuthenticationType);
+                return RedirectToAction(
+                    "Index",
+                    "Login");
+            }
 
-
-            var model =
-                TempData["LoginModel"] as LoginViewModel
-                ?? new LoginViewModel();
 
             if (!string.IsNullOrEmpty(App_Start.ContainerConfig.DbErrorMessage))
             {
@@ -53,7 +56,7 @@ namespace WebPortal.ASP.Controllers
             }
 
 
-            return View(model);
+            return View("Index");
         }
 
 
