@@ -120,12 +120,8 @@
                             {
                                 @Html.AntiForgeryToken()
 
-                                <button type="submit"
-                                        class="btn btn-danger btn-xs add-button"
-                                        onclick="return confirm('@Resources.ConfirmDelete');">
-
+                                <button type="button" class="btn btn-danger btn-xs open-delete-popup">
                                     @Resources.Delete
-
                                 </button>
                             }
 

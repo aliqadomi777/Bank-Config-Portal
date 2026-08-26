@@ -290,6 +290,7 @@
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Counter\Form.cshtml" />
     <Content Include="Views\Allocation\Form.cshtml" />
+    <Content Include="Views\Shared\_DeleteConfirmation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

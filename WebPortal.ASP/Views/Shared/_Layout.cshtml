@@ -78,7 +78,7 @@ ViewBag.LanguageReturnUrl != null
 </head>
 
 <body>
-
+    @Html.Partial("_DeleteConfirmation")
     <div class="header-container">
 
         <div class="language-container">
@@ -213,6 +213,33 @@ ViewBag.LanguageReturnUrl != null
             }
         });
     </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const overlay = document.getElementById("deleteOverlay");
+            const cancelBtn = document.getElementById("cancelDeleteBtn");
+            const confirmBtn = document.getElementById("confirmDeleteBtn");
+            let activeForm = null;
+            document.addEventListener("click", function (event) {
+                if (event.target.classList.contains("open-delete-popup")) {
+                    activeForm = event.target.closest("form");
+                    overlay.style.display = "flex";
+                }
+            });
+
+
+            cancelBtn.addEventListener("click", function () {
+                overlay.style.display = "none";
+                activeForm = null;
+            });
+
+            confirmBtn.addEventListener("click", function () {
+                if (activeForm) {
+                    activeForm.submit();
+                }
+            });
+        });
+    </script>
+
 
 
 </body>
