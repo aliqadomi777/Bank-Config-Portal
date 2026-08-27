@@ -11,7 +11,7 @@
 
     ClaimsPrincipal claimsPrincipal = User as ClaimsPrincipal;
 
-    string bankName =null;
+    string bankName = null;
 
     if (claimsPrincipal != null)
     {
@@ -72,8 +72,6 @@ ViewBag.LanguageReturnUrl != null
     @Styles.Render("~/Content/css")
 
     @Scripts.Render("~/bundles/modernizr")
-    <link rel="stylesheet" href="~/Content/Site.css">
-
 
 </head>
 
@@ -117,17 +115,15 @@ ViewBag.LanguageReturnUrl != null
 
         @if (isAuthenticated && !string.IsNullOrEmpty(bankName))
         {
-            <h2>
-                @bankName
-            </h2>
-        }
-        else
-        {
-            <div class="bank-container"></div>
+            <div class="bank-container">
+                <h2 dir="auto">
+                    @bankName
+                </h2>
+            </div>
         }
 
 
-        @if (!isLoginPage&& isAuthenticated)
+        @if (!isLoginPage && isAuthenticated)
         {
 
 
@@ -136,15 +132,15 @@ ViewBag.LanguageReturnUrl != null
                 {
 
                     @Html.ActionLink(
-                        Resources.BackToDashboard,
-                        "Index",
-                        "Dashboard",
-                        null,
-                        new
-                        {
-                            @class =
-                                "btn btn-primary btn-sm "
-                        })
+                             Resources.BackToDashboard,
+                             "Index",
+                             "Dashboard",
+                             null,
+                             new
+                             {
+                                 @class =
+                                     "btn btn-primary btn-sm "
+                             })
                 }
 
 
@@ -165,10 +161,6 @@ ViewBag.LanguageReturnUrl != null
                 }
 
             </div>
-        }
-        else
-        {
-            <div class="header-actions"></div>
         }
 
     </div>
@@ -217,14 +209,23 @@ ViewBag.LanguageReturnUrl != null
             const overlay = document.getElementById("deleteOverlay");
             const cancelBtn = document.getElementById("cancelDeleteBtn");
             const confirmBtn = document.getElementById("confirmDeleteBtn");
-            let activeForm = null;
-            document.addEventListener("click", function (event) {
-                if (event.target.classList.contains("open-delete-popup")) {
-                    activeForm = event.target.closest("form");
-                    overlay.style.display = "flex";
-                }
-            });
 
+            if (!overlay || !cancelBtn || !confirmBtn) {
+                return;
+            }
+
+            let activeForm = null;
+
+            document.addEventListener("click", function (event) {
+                const deleteButton = event.target.closest(".open-delete-popup");
+
+                if (!deleteButton) {
+                    return;
+                }
+
+                activeForm = deleteButton.closest("form");
+                overlay.style.display = "flex";
+            });
 
             cancelBtn.addEventListener("click", function () {
                 overlay.style.display = "none";

@@ -27,137 +27,142 @@
 
 
 <div class="panel panel-default management-panel">
-    @Html.ActionLink(
-        Resources.AddBranch,
-        "Create",
-        "Branch",
-        null,
-        new
-        {
-            @class = "btn btn-primary btn-xs add-button-custom"
-        })
+    <div class="management-toolbar">
+        @Html.ActionLink(
+                Resources.AddBranch,
+                "Create",
+                "Branch",
+                null,
+                new
+                {
+                    @class = "btn btn-primary btn-xs add-button-custom"
+                })
+    </div>
+
     <div class="panel-body">
 
 
-        <table class="table table-bordered table-striped management-table">
+        <div class="table-scroll" tabindex="0">
+            <table class="table table-bordered table-striped management-table branch-table">
 
-            <thead>
+                <thead>
 
-                <tr>
-
-                    <th class="name-cell">
-                        @Resources.EnglishName
-                    </th>
-
-                    <th class="name-cell">
-                        @Resources.ArabicName
-                    </th>
-
-                    <th class="column-status">
-                        @Resources.Active
-                    </th>
-
-                    <th class="column-related">
-                        @Resources.Counters
-                    </th>
-
-                    <th class="column-actions">
-
-                        @Resources.Actions
-
-                    </th>
-
-
-                </tr>
-
-            </thead>
-
-
-            <tbody>
-
-                @foreach (var branch in Model)
-                {
                     <tr>
 
-                        <td class="name-cell">
-                            @branch.BranchNameEN
-                        </td>
+                        <th class="name-cell">
+                            @Resources.EnglishName
+                        </th>
 
-                        <td class="name-cell arabic-name">
-                            @branch.BranchNameAR
-                        </td>
+                        <th class="name-cell">
+                            @Resources.ArabicName
+                        </th>
 
-                        <td>
-                            @(branch.BranchStatus
-                                ? Resources.Yes
-                                : Resources.No)
-                        </td>
-                        <td class="action-cell">
+                        <th class="column-status">
+                            @Resources.Active
+                        </th>
 
-                            @Html.ActionLink(
-                                Resources.ManageCounters,
-                                "Index",
-                                "Counter",
-                                new
-                                {
-                                    branchId = branch.BranchId
-                                },
-                                new
-                                {
-                                    @class = "btn btn-info btn-xs add-button"
-                                })
+                        <th class="column-related">
+                            @Resources.Counters
+                        </th>
 
-                        </td>
-                        <td class="action-cell">
+                        <th class="column-actions">
 
-                            <div class="action-buttons">
+                            @Resources.Actions
 
-                                @Html.ActionLink(
-                                    Resources.Edit,
-                                    "Edit",
-                                    "Branch",
-                                    new
-                                    {
-                                        id = branch.BranchId
-                                    },
-                                    new
-                                    {
-                                        @class = "btn btn-warning btn-xs"
-                                    })
-
-
-                                @using (Html.BeginForm(
-                                    "Delete",
-                                    "Branch",
-                                    new
-                                    {
-                                        id = branch.BranchId
-                                    },
-                                    FormMethod.Post,
-                                    new
-                                    {
-                                    }))
-                                {
-                                    @Html.AntiForgeryToken()
-
-                                    <button type="button" class="btn btn-danger btn-xs open-delete-popup">
-                                        @Resources.Delete
-                                    </button>
-                                }
-
-                            </div>
-
-                        </td>
-
-
+                        </th>
 
 
                     </tr>
-                }
 
-            </tbody>
+                </thead>
 
-        </table>
+
+                <tbody>
+
+                    @foreach (var branch in Model)
+                    {
+                        <tr>
+
+                            <td class="name-cell">
+                                @branch.BranchNameEN
+                            </td>
+
+                            <td class="name-cell arabic-name">
+                                @branch.BranchNameAR
+                            </td>
+
+                            <td>
+                                @(branch.BranchStatus
+                                ? Resources.Yes
+                                : Resources.No)
+                            </td>
+                            <td class="action-cell">
+
+                                @Html.ActionLink(
+                                         Resources.ManageCounters,
+                                         "Index",
+                                         "Counter",
+                                         new
+                                         {
+                                             branchId = branch.BranchId
+                                         },
+                                         new
+                                         {
+                                             @class = "btn btn-info btn-xs add-button"
+                                         })
+
+                            </td>
+                            <td class="action-cell">
+
+                                <div class="action-buttons">
+
+                                    @Html.ActionLink(
+                                             Resources.Edit,
+                                             "Edit",
+                                             "Branch",
+                                             new
+                                             {
+                                                 id = branch.BranchId
+                                             },
+                                             new
+                                             {
+                                                 @class = "btn btn-warning btn-xs"
+                                             })
+
+
+                                    @using (Html.BeginForm(
+                                        "Delete",
+                                        "Branch",
+                                        new
+                                        {
+                                            id = branch.BranchId
+                                        },
+                                        FormMethod.Post,
+                                        new
+                                        {
+                                        }))
+                                    {
+                                        @Html.AntiForgeryToken()
+
+                                        <button type="button" class="btn btn-danger btn-xs open-delete-popup">
+                                            @Resources.Delete
+                                        </button>
+                                    }
+
+                                </div>
+
+                            </td>
+
+
+
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+        </div>
 
 
         @if (totalPages > 1)
@@ -167,54 +172,54 @@
                 @if (currentPage > 1)
                 {
                     @Html.ActionLink(
-                        Resources.Previous,
-                        "Index",
-                        "Branch",
-                        new
-                        {
-                            page = currentPage - 1
-                        },
-                        new
-                        {
-                            @class = "btn btn-default btn-sm"
-                        })
+                             Resources.Previous,
+                             "Index",
+                             "Branch",
+                             new
+                             {
+                                 page = currentPage - 1
+                             },
+                             new
+                             {
+                                 @class = "btn btn-default btn-sm"
+                             })
                 }
 
 
                 @for (int i = 1; i <= totalPages; i++)
                 {
                     @Html.ActionLink(
-                        i.ToString(),
-                        "Index",
-                        "Branch",
-                        new
-                        {
-                            page = i
-                        },
-                        new
-                        {
-                            @class =
-                                i == currentPage
-                                    ? "btn btn-primary btn-sm"
-                                    : "btn btn-default btn-sm"
-                        })
+                             i.ToString(),
+                             "Index",
+                             "Branch",
+                             new
+                             {
+                                 page = i
+                             },
+                             new
+                             {
+                                 @class =
+                                     i == currentPage
+                                         ? "btn btn-primary btn-sm"
+                                         : "btn btn-default btn-sm"
+                             })
                 }
 
 
                 @if (currentPage < totalPages)
                 {
                     @Html.ActionLink(
-                        Resources.Next,
-                        "Index",
-                        "Branch",
-                        new
-                        {
-                            page = currentPage + 1
-                        },
-                        new
-                        {
-                            @class = "btn btn-default btn-sm"
-                        })
+                             Resources.Next,
+                             "Index",
+                             "Branch",
+                             new
+                             {
+                                 page = currentPage + 1
+                             },
+                             new
+                             {
+                                 @class = "btn btn-default btn-sm"
+                             })
                 }
 
             </div>

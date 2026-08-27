@@ -27,132 +27,137 @@
 
 
 <div class="panel panel-default management-panel">
-    @Html.ActionLink(
-    Resources.AddService,
-    "Create",
-    "Service",
-    null,
-    new
-    {
-        @class = "btn btn-primary btn-xs add-button-custom"
-    })
+    <div class="management-toolbar">
+        @Html.ActionLink(
+            Resources.AddService,
+            "Create",
+            "Service",
+            null,
+            new
+            {
+                @class = "btn btn-primary btn-xs add-button-custom"
+            })
+    </div>
+
     <div class="panel-body">
 
-        <table class="table table-bordered table-striped management-table">
+        <div class="table-scroll" tabindex="0">
+            <table class="table table-bordered table-striped management-table service-table">
 
-            <thead>
+                <thead>
 
-                <tr>
-
-                    <th class="name-cell">
-                        @Resources.EnglishName
-                    </th>
-
-                    <th class="name-cell">
-                        @Resources.ArabicName
-                    </th>
-
-                    <th class="column-ticket-limit">
-                        @Resources.MaxTicketsPerDay
-                    </th>
-                    <th>
-                        @Resources.MinimumServiceTime
-                    </th>
-                    <th>
-                        @Resources.MaximumServiceTime
-                    </th>
-                    <th class="column-status">
-                        @Resources.Active
-                    </th>
-
-                    <th class="column-actions">
-
-                        @Resources.Actions
-
-                    </th>
-
-                </tr>
-
-            </thead>
-
-
-            <tbody>
-
-                @foreach (var service in Model)
-                {
                     <tr>
 
-                        <td class="name-cell">
-                            @service.ServiceNameEN
-                        </td>
+                        <th class="name-cell">
+                            @Resources.EnglishName
+                        </th>
 
-                        <td class="name-cell arabic-name">
-                            @service.ServiceNameAR
-                        </td>
+                        <th class="name-cell">
+                            @Resources.ArabicName
+                        </th>
 
-                        <td>
-                            @service.MaxTicketsPerDay
-                        </td>
-                        <td>
-                            @service.MinimumServiceTime
-                        </td>
-                        <td>
-                            @service.MaximumServiceTime
-                        </td>
-                        <td>
-                            @(service.ServiceStatus
-                                ? Resources.Yes
-                                : Resources.No)
-                        </td>
+                        <th class="column-ticket-limit">
+                            @Resources.MaxTicketsPerDay
+                        </th>
+                        <th class="column-service-time">
+                            @Resources.MinimumServiceTime
+                        </th>
+                        <th class="column-service-time">
+                            @Resources.MaximumServiceTime
+                        </th>
+                        <th class="column-status">
+                            @Resources.Active
+                        </th>
 
-                        <td class="action-cell">
+                        <th class="column-actions">
 
-                            <div class="action-buttons">
+                            @Resources.Actions
 
-                                @Html.ActionLink(
-                                    Resources.Edit,
-                                    "Edit",
-                                    "Service",
-                                    new
-                                    {
-                                        id = service.ServiceId
-                                    },
-                                    new
-                                    {
-                                        @class = "btn btn-warning btn-xs"
-                                    })
-
-
-                                @using (Html.BeginForm(
-                                    "Delete",
-                                    "Service",
-                                    new
-                                    {
-                                        id = service.ServiceId
-                                    },
-                                    FormMethod.Post,
-                                    new
-                                    {
-
-                                    }))
-                                {
-                                    @Html.AntiForgeryToken()
-
-                                    <button type="button" class="btn btn-danger btn-xs open-delete-popup">
-                                        @Resources.Delete
-                                    </button>
-                                }
-
-                            </div>
-
-                        </td>
+                        </th>
 
                     </tr>
-                }
 
-            </tbody>
+                </thead>
 
-        </table>
+
+                <tbody>
+
+                    @foreach (var service in Model)
+                    {
+                        <tr>
+
+                            <td class="name-cell">
+                                @service.ServiceNameEN
+                            </td>
+
+                            <td class="name-cell arabic-name">
+                                @service.ServiceNameAR
+                            </td>
+
+                            <td>
+                                @service.MaxTicketsPerDay
+                            </td>
+                            <td>
+                                @service.MinimumServiceTime
+                            </td>
+                            <td>
+                                @service.MaximumServiceTime
+                            </td>
+                            <td>
+                                @(service.ServiceStatus
+                                ? Resources.Yes
+                                : Resources.No)
+                            </td>
+
+                            <td class="action-cell">
+
+                                <div class="action-buttons">
+
+                                    @Html.ActionLink(
+                                             Resources.Edit,
+                                             "Edit",
+                                             "Service",
+                                             new
+                                             {
+                                                 id = service.ServiceId
+                                             },
+                                             new
+                                             {
+                                                 @class = "btn btn-warning btn-xs"
+                                             })
+
+
+                                    @using (Html.BeginForm(
+                                        "Delete",
+                                        "Service",
+                                        new
+                                        {
+                                            id = service.ServiceId
+                                        },
+                                        FormMethod.Post,
+                                        new
+                                        {
+
+                                        }))
+                                    {
+                                        @Html.AntiForgeryToken()
+
+                                        <button type="button" class="btn btn-danger btn-xs open-delete-popup">
+                                            @Resources.Delete
+                                        </button>
+                                    }
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+        </div>
 
 
         @if (totalPages > 1)
@@ -162,54 +167,54 @@
                 @if (currentPage > 1)
                 {
                     @Html.ActionLink(
-                        Resources.Previous,
-                        "Index",
-                        "Service",
-                        new
-                        {
-                            page = currentPage - 1
-                        },
-                        new
-                        {
-                            @class = "btn btn-default btn-sm"
-                        })
+                             Resources.Previous,
+                             "Index",
+                             "Service",
+                             new
+                             {
+                                 page = currentPage - 1
+                             },
+                             new
+                             {
+                                 @class = "btn btn-default btn-sm"
+                             })
                 }
 
 
                 @for (int i = 1; i <= totalPages; i++)
                 {
                     @Html.ActionLink(
-                        i.ToString(),
-                        "Index",
-                        "Service",
-                        new
-                        {
-                            page = i
-                        },
-                        new
-                        {
-                            @class =
-                                i == currentPage
-                                    ? "btn btn-primary btn-sm"
-                                    : "btn btn-default btn-sm"
-                        })
+                             i.ToString(),
+                             "Index",
+                             "Service",
+                             new
+                             {
+                                 page = i
+                             },
+                             new
+                             {
+                                 @class =
+                                     i == currentPage
+                                         ? "btn btn-primary btn-sm"
+                                         : "btn btn-default btn-sm"
+                             })
                 }
 
 
                 @if (currentPage < totalPages)
                 {
                     @Html.ActionLink(
-                        Resources.Next,
-                        "Index",
-                        "Service",
-                        new
-                        {
-                            page = currentPage + 1
-                        },
-                        new
-                        {
-                            @class = "btn btn-default btn-sm"
-                        })
+                             Resources.Next,
+                             "Index",
+                             "Service",
+                             new
+                             {
+                                 page = currentPage + 1
+                             },
+                             new
+                             {
+                                 @class = "btn btn-default btn-sm"
+                             })
                 }
 
             </div>

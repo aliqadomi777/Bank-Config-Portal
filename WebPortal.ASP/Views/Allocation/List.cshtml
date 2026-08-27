@@ -49,91 +49,94 @@
 
 
 <div class="panel panel-default management-panel">
-    @Html.ActionLink(
-    Resources.AddAllocation,
-    "Create",
-    "Allocation",
-    new
-    {
-        counterId = counterId
-    },
-    new
-    {
-        @class = "btn btn-primary btn-xs add-button-custom"
-    })
-
+    <div class="management-toolbar">
+        @Html.ActionLink(
+            Resources.AddAllocation,
+            "Create",
+            "Allocation",
+            new
+            {
+                counterId = counterId
+            },
+            new
+            {
+                @class = "btn btn-primary btn-xs add-button-custom"
+            })
+    </div>
 
     <div class="panel-body">
 
-        <table class="table table-bordered table-striped management-table">
+        <div class="table-scroll" tabindex="0">
+            <table class="table table-bordered table-striped management-table allocation-table">
 
-            <thead>
+                <thead>
 
-                <tr>
-
-                    <th class="name-cell">
-                        @Resources.EnglishName
-                    </th>
-
-                    <th class="name-cell">
-                        @Resources.ArabicName
-                    </th>
-
-                    <th class="column-actions">
-
-                        @Resources.Actions
-                    </th>
-
-                </tr>
-
-            </thead>
-
-
-            <tbody>
-
-                @foreach (var allocation in Model)
-                {
                     <tr>
 
-                        <td class="name-cell">
-                            @allocation.ServiceNameEN
-                        </td>
+                        <th class="name-cell">
+                            @Resources.EnglishName
+                        </th>
 
-                        <td class="name-cell arabic-name">
-                            @allocation.ServiceNameAR
-                        </td>
+                        <th class="name-cell">
+                            @Resources.ArabicName
+                        </th>
 
-                        <td class="action-cell">
+                        <th class="column-actions">
 
-                            @using (Html.BeginForm(
-                                "Delete",
-                                "Allocation",
-                                new
-                                {
-                                    id = allocation.AllocationId,
-                                    counterId = counterId
-                                },
-                                FormMethod.Post,
-                                new
-                                {
-                                    style = "margin: 0;"
-                                }))
-                            {
-                                @Html.AntiForgeryToken()
-
-                                <button type="button" class="btn btn-danger btn-xs open-delete-popup">
-                                    @Resources.Delete
-                                </button>
-                            }
-
-                        </td>
+                            @Resources.Actions
+                        </th>
 
                     </tr>
-                }
 
-            </tbody>
+                </thead>
 
-        </table>
+
+                <tbody>
+
+                    @foreach (var allocation in Model)
+                    {
+                        <tr>
+
+                            <td class="name-cell">
+                                @allocation.ServiceNameEN
+                            </td>
+
+                            <td class="name-cell arabic-name">
+                                @allocation.ServiceNameAR
+                            </td>
+
+                            <td class="action-cell">
+
+                                @using (Html.BeginForm(
+                                    "Delete",
+                                    "Allocation",
+                                    new
+                                    {
+                                        id = allocation.AllocationId,
+                                        counterId = counterId
+                                    },
+                                    FormMethod.Post,
+                                    new
+                                    {
+                                        @class = "delete-form"
+                                    }))
+                                {
+                                    @Html.AntiForgeryToken()
+
+                                    <button type="button" class="btn btn-danger btn-xs open-delete-popup">
+                                        @Resources.Delete
+                                    </button>
+                                }
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+        </div>
 
 
         @if (totalPages > 1)
@@ -143,57 +146,57 @@
                 @if (currentPage > 1)
                 {
                     @Html.ActionLink(
-                        Resources.Previous,
-                        "Index",
-                        "Allocation",
-                        new
-                        {
-                            counterId = counterId,
-                            page = currentPage - 1
-                        },
-                        new
-                        {
-                            @class = "btn btn-default btn-sm"
-                        })
+                             Resources.Previous,
+                             "Index",
+                             "Allocation",
+                             new
+                             {
+                                 counterId = counterId,
+                                 page = currentPage - 1
+                             },
+                             new
+                             {
+                                 @class = "btn btn-default btn-sm"
+                             })
                 }
 
 
                 @for (int i = 1; i <= totalPages; i++)
                 {
                     @Html.ActionLink(
-                        i.ToString(),
-                        "Index",
-                        "Allocation",
-                        new
-                        {
-                            counterId = counterId,
-                            page = i
-                        },
-                        new
-                        {
-                            @class =
-                                i == currentPage
-                                    ? "btn btn-primary btn-sm"
-                                    : "btn btn-default btn-sm"
-                        })
+                             i.ToString(),
+                             "Index",
+                             "Allocation",
+                             new
+                             {
+                                 counterId = counterId,
+                                 page = i
+                             },
+                             new
+                             {
+                                 @class =
+                                     i == currentPage
+                                         ? "btn btn-primary btn-sm"
+                                         : "btn btn-default btn-sm"
+                             })
                 }
 
 
                 @if (currentPage < totalPages)
                 {
                     @Html.ActionLink(
-                        Resources.Next,
-                        "Index",
-                        "Allocation",
-                        new
-                        {
-                            counterId = counterId,
-                            page = currentPage + 1
-                        },
-                        new
-                        {
-                            @class = "btn btn-default btn-sm"
-                        })
+                             Resources.Next,
+                             "Index",
+                             "Allocation",
+                             new
+                             {
+                                 counterId = counterId,
+                                 page = currentPage + 1
+                             },
+                             new
+                             {
+                                 @class = "btn btn-default btn-sm"
+                             })
                 }
 
             </div>
@@ -203,17 +206,17 @@
         <div class="management-buttons">
 
             @Html.ActionLink(
-                Resources.BackToCounters,
-                "Index",
-                "Counter",
-                new
-                {
-                    branchId = branchId
-                },
-                new
-                {
-                    @class = "btn btn-primary btn-sm"
-                })
+                     Resources.BackToCounters,
+                     "Index",
+                     "Counter",
+                     new
+                     {
+                         branchId = branchId
+                     },
+                     new
+                     {
+                         @class = "btn btn-primary btn-sm"
+                     })
 
         </div>
 
