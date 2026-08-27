@@ -316,6 +316,11 @@ textarea.form-control {
     text-align: right;
 }
 
+.english-name {
+    direction: ltr;
+    text-align: left;
+}
+
 .column-status {
     text-align: center;
 }
@@ -560,6 +565,11 @@ textarea.form-control {
 }
 
 .arabic-input {
+    direction: rtl;
+    text-align: right;
+}
+
+.english-input {
     direction: rtl;
     text-align: right;
 }

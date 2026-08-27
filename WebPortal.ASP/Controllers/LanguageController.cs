@@ -40,7 +40,7 @@ namespace WebPortal.ASP.Controllers
 
             return RedirectToAction(
                 "Index",
-                "Login");
+                "Dashboard");
         }
     }
 }
