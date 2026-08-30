@@ -76,6 +76,29 @@ ViewBag.LanguageReturnUrl != null
 </head>
 
 <body>
+    <script >
+        (function () {
+            const isLogin = @(isLoginPage ? "true" : "false");
+            if (isLogin) return;
+            const currentTabId = window.name;
+
+            // Extract the server-side claim stored during login
+            const activeServerTab = "@(claimsPrincipal?.FindFirst(AuthenticationConstants.ActiveTabId)?.Value ?? "")";
+            const userIsAuthenticated = @(isAuthenticated ? "true" : "false");
+
+            // FIREWALL TRIGGER: If the browser window tab memory doesn't match the server ticket,
+            // or if the tab is opened cleanly but user authentication is missing -> REJECT
+            if (!userIsAuthenticated || (activeServerTab && activeServerTab !== currentTabId)) {
+                window.name = "";
+                // Hard reset back to login page
+                window.location.replace('@Url.Action("Index", "Login")');
+            } else {
+                // Authorized tab! Instantly drop the blinding CSS barrier
+                const styleEl = document.getElementById("firewallStyle");
+                if (styleEl) styleEl.remove();
+            }
+        })();
+    </script>
     <div class="header-container">
 
         <div class="language-container">
@@ -193,7 +216,7 @@ ViewBag.LanguageReturnUrl != null
 
     @RenderSection("scripts", required: false)
 
-    <script type="text/javascript">
+    <script >
         window.addEventListener('pageshow', function (event) {
             var isBackNavigation = event.persisted ||
                 (window.performance && window.performance.navigation.type === 2);
@@ -239,6 +262,38 @@ ViewBag.LanguageReturnUrl != null
             });
         });
     </script>
+    <script>
+        //Maintain a clean, unique Tab ID hidden in window.name (Never shows up in URL)
+        if (!window.name || !window.name.startsWith("TabID-")) {
+            window.name = "TabID-" + Math.random().toString(36).substring(2, 15);
+        }
+        const currentTabId = window.name;
+
+        //Drop a transient gatekeeper cookie right before the tab navigates to a new URL
+        window.addEventListener("beforeunload", function () {
+            document.cookie = "X-Tab-Gatekeeper=" + currentTabId + "; path=/; SameSite=Strict";
+        });
+
+        //Handle forms and link clicks directly just in case beforeunload is skipped
+        document.addEventListener("submit", function () {
+            document.cookie = "X-Tab-Gatekeeper=" + currentTabId + "; path=/; SameSite=Strict";
+        });
+        document.addEventListener("click", function (e) {
+            if (e.target.closest("a")) {
+                document.cookie = "X-Tab-Gatekeeper=" + currentTabId + "; path=/; SameSite=Strict";
+            }
+        });
+
+        //Inject standard header specifically for AJAX request types
+        const originalFetch = window.fetch;
+        window.fetch = function (uri, options) {
+            options = options || {};
+            options.headers = options.headers || {};
+            options.headers['X-Tab-Id'] = currentTabId;
+            return originalFetch(uri, options);
+        };
+    </script>
+
 
 
 

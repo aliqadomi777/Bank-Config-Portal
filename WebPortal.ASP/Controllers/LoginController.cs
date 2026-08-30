@@ -41,14 +41,6 @@ namespace WebPortal.ASP.Controllers
             VaryByParam = "*")]
         public ActionResult Index()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                AuthenticationManager.SignOut(AuthenticationConstants.AuthenticationType);
-                return RedirectToAction(
-                    "Index",
-                    "Login");
-            }
-
 
             if (!string.IsNullOrEmpty(App_Start.ContainerConfig.DbErrorMessage))
             {
@@ -92,6 +84,8 @@ namespace WebPortal.ASP.Controllers
                     return RedirectToAction("Index");
                 }
 
+                var tabCookie = Request.Cookies["X-Tab-Gatekeeper"];
+                string tabId = tabCookie != null ? tabCookie.Value : "unknown";
 
                 var claims =
                     new List<Claim>
@@ -113,7 +107,9 @@ namespace WebPortal.ASP.Controllers
                             response.BankName),
 
                         new Claim(AuthenticationConstants.UserAgentClaimType,
-                            Request.UserAgent??"")
+                            Request.UserAgent??""),
+                        new Claim(AuthenticationConstants.ActiveTabId,
+                            tabId)
 
                     };
 

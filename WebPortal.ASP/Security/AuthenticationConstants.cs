@@ -10,5 +10,7 @@
 
         public const string UserAgentClaimType = "OriginalUserAgent";
 
+        public const string ActiveTabId = "CustomTabId";
+
     }
 }
