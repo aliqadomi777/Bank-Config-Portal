@@ -76,9 +76,14 @@
     <Compile Include="Repositories\CounterRepository.cs" />
     <Compile Include="Repositories\CounterTypeRepository.cs" />
     <Compile Include="Repositories\ServiceRepository.cs" />
+    <Compile Include="Repositories\TicketingScreenRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Ticketing-Screen-Designer-Application\App.Domain\App.Domain.csproj">
+      <Project>{6faf81b8-5ea0-42b8-8bfa-08aa297000ad}</Project>
+      <Name>App.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WebPortal.Domain\WebPortal.Domain.csproj">
       <Project>{7488025e-cc38-4b56-bc28-d3ace7eda35a}</Project>
       <Name>WebPortal.Domain</Name>

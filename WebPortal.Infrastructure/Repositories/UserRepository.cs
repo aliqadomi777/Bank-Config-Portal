@@ -10,7 +10,7 @@ namespace WebPortal.Infrastructure.Repositories
         public UserModel GetByName(string bankName, string userName)
         {
             string query = @"
-                SELECT b.BankName, b.BankID, u.Password, u.UserName
+                SELECT b.BankName, b.BankID, u.Password, u.UserName, u.UserID
                 FROM Users u 
                 INNER JOIN Banks b ON u.BankID = b.BankID
                 WHERE b.BankName=@BankName AND u.UserName=@UserName;";
@@ -32,6 +32,7 @@ namespace WebPortal.Infrastructure.Repositories
                     return new UserModel
                     {
                         BankId = reader.GetInt32(reader.GetOrdinal("BankID")),
+                        UserId = reader.GetInt32(reader.GetOrdinal("UserID")),
                         BankName = reader.GetString(reader.GetOrdinal("BankName")),
                         Password = reader.GetString(reader.GetOrdinal("Password")),
                         UserName = reader.GetString(reader.GetOrdinal("UserName")),

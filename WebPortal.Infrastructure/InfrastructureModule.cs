@@ -66,6 +66,11 @@ namespace WebPortal.Infrastructure
                    .AsSelf()
                    .As<IGetAllRepository<CounterTypeModel>>()
                    .InstancePerDependency();
+
+            builder.RegisterType<TicketingScreenRepository>()
+                   .WithParameter("connectionString", _connectionString)
+                   .As<ITicketingScreenRepository>()
+                   .InstancePerDependency();
         }
     }
 }

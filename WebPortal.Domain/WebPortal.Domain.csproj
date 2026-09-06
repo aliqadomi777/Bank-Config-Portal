@@ -71,6 +71,7 @@
     <Compile Include="Interfaces\IAllocationRepository.cs" />
     <Compile Include="Interfaces\IGenericRepository.cs" />
     <Compile Include="Interfaces\IUserRepository.cs" />
+    <Compile Include="Interfaces\ITicketingScreenRepository.cs" />
     <Compile Include="Model\Allocation.cs" />
     <Compile Include="Model\Bank.cs" />
     <Compile Include="Model\Branch.cs" />
@@ -82,6 +83,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Ticketing-Screen-Designer-Application\App.Domain\App.Domain.csproj">
+      <Project>{6faf81b8-5ea0-42b8-8bfa-08aa297000ad}</Project>
+      <Name>App.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

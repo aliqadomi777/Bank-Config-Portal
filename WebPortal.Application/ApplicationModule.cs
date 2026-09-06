@@ -29,6 +29,10 @@ namespace WebPortal.Infrastructure
             builder.RegisterType<BankAuthorizationService>()
                 .As<IBankAuthorizationService>()
                 .InstancePerDependency();
+
+            builder.RegisterType<TicketingScreenService>()
+               .As<ITicketingScreenService>()
+               .InstancePerDependency();
         }
     }
 }

@@ -204,7 +204,6 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\ContainerConfig.cs" />
-    <Compile Include="App_Start\DatabaseConnectionValidator.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="Controllers\AllocationController.cs" />
     <Compile Include="Controllers\CounterController.cs" />
@@ -216,8 +215,6 @@
     <Compile Include="Models\ServiceOptionViewModel.cs" />
     <Compile Include="Security\AuthenticationConstants.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Utils\InvariantExpressionTemplate.cs" />
-    <Compile Include="App_Start\LoggerConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BranchController.cs" />
@@ -299,6 +296,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Utils\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

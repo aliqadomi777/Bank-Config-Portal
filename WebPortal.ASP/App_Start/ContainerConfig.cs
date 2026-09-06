@@ -1,10 +1,10 @@
-﻿using Autofac;
+﻿using App.Shared;
+using Autofac;
 using Autofac.Integration.Mvc;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using System.Web.Mvc;
 using WebPortal.Infrastructure;
-
 namespace WebPortal.ASP.App_Start
 {
     public class ContainerConfig
@@ -17,7 +17,7 @@ namespace WebPortal.ASP.App_Start
             string connectionString;
             string dbErrorMessage;
 
-            var serilogLogger = LoggerConfig.CreateLogger();
+            var serilogLogger = LoggerConfig.CreateLogger("Bank Configuration Portal", "BankPortalLog");
             var loggerFactory = new LoggerFactory();
             loggerFactory.AddSerilog(serilogLogger);
 
